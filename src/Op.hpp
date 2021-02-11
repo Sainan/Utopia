@@ -10,7 +10,7 @@ namespace Utopia
 	class Op
 	{
 	public:
-		virtual size_t getNumArgs() const = 0;
+		[[nodiscard]] virtual size_t getNumArgs() const = 0;
 		virtual void execute(const Program& p, std::vector<uint8_t>&& args) const = 0;
 	};
 }
