@@ -37,13 +37,15 @@ This will create an executable binary file that is native to your system with th
 
 ## Conclusion
 
-This works surprisingly better better than expected. Clang is such a chad, I think it pretty much optimized the interpreter away from the lazy "compiling the interpreter to get a compiled binary" approach. These are the file sizes I saw on Linux:
+This works surprisingly better than expected. Clang is such a chad, I think it pretty much optimized the interpreter away from the lazy "compiling the interpreter to get a compiled binary" approach. These are the file sizes I saw on Linux:
 
 ```
 Interpreter          34,8 KB
 Compiler             30,8 KB
 Compiled hello.ul    22,8 KB
 ```
+
+And as the interpreter and compiler increase in size, the "compiled hello.ul" stays identical!
 
 In theory, this now only needs devised a syntax that is somehow consistent, explicit, and minimal all at the same time, be implemented along with thousands of built-in APIs, and finally be used in the real world.
 
