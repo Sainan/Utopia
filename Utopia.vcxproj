@@ -175,8 +175,11 @@
     <ClInclude Include="src\Program.hpp" />
     <ClInclude Include="src\replace_all.hpp" />
     <ClInclude Include="src\Token.hpp" />
+    <ClInclude Include="src\TokenDivide.hpp" />
     <ClInclude Include="src\TokenInt.hpp" />
     <ClInclude Include="src\TokenLiteral.hpp" />
+    <ClInclude Include="src\TokenMinus.hpp" />
+    <ClInclude Include="src\TokenMultiply.hpp" />
     <ClInclude Include="src\TokenPlus.hpp" />
     <ClInclude Include="src\TokenString.hpp" />
   </ItemGroup>
@@ -190,8 +193,11 @@
     <ClCompile Include="src\Program.cpp" />
     <ClCompile Include="src\replace_all.cpp" />
     <ClCompile Include="src\Token.cpp" />
+    <ClCompile Include="src\TokenDivide.cpp" />
     <ClCompile Include="src\TokenInt.cpp" />
     <ClCompile Include="src\TokenLiteral.cpp" />
+    <ClCompile Include="src\TokenMinus.cpp" />
+    <ClCompile Include="src\TokenMultiply.cpp" />
     <ClCompile Include="src\TokenPlus.cpp" />
     <ClCompile Include="src\TokenString.cpp" />
   </ItemGroup>

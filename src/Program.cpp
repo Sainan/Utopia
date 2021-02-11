@@ -13,8 +13,11 @@
 #include "ParseError.hpp"
 #include "OpCode.hpp"
 #include "OpEcho.hpp"
+#include "TokenDivide.hpp"
 #include "TokenInt.hpp"
 #include "TokenLiteral.hpp"
+#include "TokenMinus.hpp"
+#include "TokenMultiply.hpp"
 #include "TokenPlus.hpp"
 #include "TokenString.hpp"
 
@@ -58,6 +61,18 @@ namespace Utopia
 			else if (word == "+")
 			{
 				tokens.emplace_back(std::make_unique<TokenPlus>(line_num));
+			}
+			else if (word == "-")
+			{
+				tokens.emplace_back(std::make_unique<TokenMinus>(line_num));
+			}
+			else if (word == "*")
+			{
+				tokens.emplace_back(std::make_unique<TokenMultiply>(line_num));
+			}
+			else if (word == "/")
+			{
+				tokens.emplace_back(std::make_unique<TokenDivide>(line_num));
 			}
 			else
 			{
@@ -148,7 +163,58 @@ namespace Utopia
 		printTokens("Tokens from source", tokens);
 #endif
 
-		// Squash
+		// Squash Round 1
+		{
+			size_t pre_squash_size;
+			do
+			{
+				pre_squash_size = tokens.size();
+				Token* prev_token = nullptr;
+				for (size_t i = 0; i < tokens.size(); i++)
+				{
+					Token* const token = tokens.at(i).get();
+					switch (token->type)
+					{
+					case TOKEN_MULTIPLY:
+						if (prev_token == nullptr || i + 1 == tokens.size())
+						{
+							token->throwUnexpected();
+						}
+						prev_token->expectType(TOKEN_INT);
+						{
+							Token* const next_token = tokens.at(i + 1).get();
+							next_token->expectType(TOKEN_INT);
+							((TokenInt*)prev_token)->value *= ((TokenInt*)next_token)->value;
+						}
+						tokens.erase(tokens.cbegin() + i, tokens.cbegin() + (i + 2));
+						break;
+
+					case TOKEN_DIVIDE:
+						if (prev_token == nullptr || i + 1 == tokens.size())
+						{
+							token->throwUnexpected();
+						}
+						prev_token->expectType(TOKEN_INT);
+						{
+							Token* const next_token = tokens.at(i + 1).get();
+							next_token->expectType(TOKEN_INT);
+							((TokenInt*)prev_token)->value /= ((TokenInt*)next_token)->value;
+						}
+						tokens.erase(tokens.cbegin() + i, tokens.cbegin() + (i + 2));
+						break;
+					}
+					prev_token = token;
+				}
+
+#if DEBUG_TOKENS
+				if (tokens.size() != pre_squash_size)
+				{
+					printTokens("Tokens after squashing round 1", tokens);
+				}
+#endif
+			} while (tokens.size() != pre_squash_size);
+		}
+		// Squash Round 2
 		{
 			size_t pre_squash_size;
 			do
@@ -169,9 +235,23 @@ namespace Utopia
 						{
 							Token* const next_token = tokens.at(i + 1).get();
 							next_token->expectType(TOKEN_INT);
-							((TokenInt*)next_token)->value += ((TokenInt*)prev_token)->value;
+							((TokenInt*)prev_token)->value += ((TokenInt*)next_token)->value;
 						}
-						tokens.erase(tokens.cbegin() + (i - 1), tokens.cbegin() + (i + 1));
+						tokens.erase(tokens.cbegin() + i, tokens.cbegin() + (i + 2));
+						break;
+
+					case TOKEN_MINUS:
+						if (prev_token == nullptr || i + 1 == tokens.size())
+						{
+							token->throwUnexpected();
+						}
+						prev_token->expectType(TOKEN_INT);
+						{
+							Token* const next_token = tokens.at(i + 1).get();
+							next_token->expectType(TOKEN_INT);
+							((TokenInt*)prev_token)->value -= ((TokenInt*)next_token)->value;
+						}
+						tokens.erase(tokens.cbegin() + i, tokens.cbegin() + (i + 2));
 						break;
 					}
 					prev_token = token;
@@ -180,7 +260,7 @@ namespace Utopia
 #if DEBUG_TOKENS
 				if (tokens.size() != pre_squash_size)
 				{
-					printTokens("Tokens after squashing", tokens);
+					printTokens("Tokens after squashing round 2", tokens);
 				}
 #endif
 			} while (tokens.size() != pre_squash_size);
@@ -194,6 +274,10 @@ namespace Utopia
 				Token* const token = tokens.at(i).get();
 				switch (token->type)
 				{
+				default:
+					token->throwUnexpected();
+					break;
+
 				case TOKEN_LITERAL:
 				{
 					auto& literal = ((TokenLiteral*)token)->literal;
@@ -205,22 +289,18 @@ namespace Utopia
 						{
 							token->throwUnexpected();
 						}
-						Token* const next_token = tokens.at(i + 1).get();
+						Token* const next_token = tokens.at(++i).get();
 						if (next_token->type == TOKEN_INT)
 						{
 							p.data.emplace_back(std::make_unique<DataString>(std::to_string(((TokenInt*)next_token)->value)));
 						}
 						else
 						{
-							tokens.at(i + 1)->expectType(TOKEN_STRING);
+							p.data.emplace_back(std::make_unique<DataString>(std::move(((TokenString*)token)->value)));
 						}
 					}
 				}
 				break;
-
-				case TOKEN_STRING:
-					p.data.emplace_back(std::make_unique<DataString>(std::move(((TokenString*)token)->value)));
-					break;
 				}
 			}
 		}

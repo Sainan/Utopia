@@ -49,6 +49,15 @@
     <ClInclude Include="src\ParseError.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\TokenMultiply.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TokenDivide.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TokenMinus.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DataString.cpp">
@@ -89,6 +98,15 @@
     </ClCompile>
     <ClCompile Include="src\escape_string.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TokenMultiply.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TokenDivide.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TokenMinus.cpp">
+      <Filter>src\tokens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
