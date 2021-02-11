@@ -4,12 +4,10 @@
 
 namespace Utopia
 {
-	class TokenString : public Token
+	class TokenPlus : public Token
 	{
 	public:
-		std::string value;
-
-		explicit TokenString(size_t line_num, std::string&& value);
+		explicit TokenPlus(size_t line_num);
 
 		[[nodiscard]] std::string getName() const final;
 	};

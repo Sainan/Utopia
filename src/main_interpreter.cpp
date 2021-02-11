@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "ParseError.hpp"
 #include "Program.hpp"
 
 using namespace Utopia;
@@ -15,8 +16,17 @@ int main(int num_args, const char** args)
 		return 1;
 	}
 
-	Program p = Program::fromFile(args[1]);
-	p.execute();
+	try
+	{
+		Program p = Program::fromFile(args[1]);
+		p.execute();
+	}
+	catch (const ParseError& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return 1;
+	}
+
 	return 0;
 }
 

@@ -37,6 +37,18 @@
     <ClInclude Include="src\main.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\TokenPlus.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TokenInt.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\escape_string.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParseError.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DataString.cpp">
@@ -66,6 +78,18 @@
     <ClCompile Include="src\replace_all.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Token.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TokenPlus.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TokenInt.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\escape_string.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -80,5 +104,16 @@
     <Filter Include="src\tokens">
       <UniqueIdentifier>{28fd4a90-6be0-4a3c-b6fd-53341b174455}</UniqueIdentifier>
     </Filter>
+    <Filter Include="examples">
+      <UniqueIdentifier>{fe3a0bba-c51c-4055-99a4-b02c1dfc1924}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="examples\hello.ul">
+      <Filter>examples</Filter>
+    </None>
+    <None Include="examples\calc.ul">
+      <Filter>examples</Filter>
+    </None>
   </ItemGroup>
 </Project>

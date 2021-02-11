@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 
 namespace Utopia
 {
@@ -8,17 +9,23 @@ namespace Utopia
 	{
 		TOKEN_LITERAL,
 		TOKEN_STRING,
+		TOKEN_INT,
+		TOKEN_PLUS,
 	};
 
 	class Token
 	{
 	public:
 		const TokenType type;
+		const size_t line_num;
 
 	protected:
-		explicit Token(const TokenType type)
-			: type(type)
-		{
-		}
+		explicit Token(TokenType type, size_t line_num);
+
+	public:
+		[[nodiscard]] virtual std::string getName() const = 0;
+
+		void throwUnexpected() const;
+		void expectType(TokenType expected_type) const;
 	};
 }

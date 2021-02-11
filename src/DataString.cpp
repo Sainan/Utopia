@@ -1,6 +1,6 @@
 #include "DataString.hpp"
 
-#include "replace_all.hpp"
+#include "escape_string.hpp"
 
 namespace Utopia
 {
@@ -16,9 +16,6 @@ namespace Utopia
 
 	std::string DataString::toCPP() const
 	{
-		std::string value(this->value);
-		replace_all(value, "\\", "\\\\");
-		replace_all(value, "\"", "\\\"");
-		return std::string("std::make_unique<DataString>(\"").append(value).append("\")");
+		return std::string("std::make_unique<DataString>(\"").append(escape_string(value)).append("\")");
 	}
 }

@@ -2,8 +2,6 @@
 
 #include "Token.hpp"
 
-#include <string>
-
 namespace Utopia
 {
 	class TokenLiteral : public Token
@@ -11,6 +9,8 @@ namespace Utopia
 	public:
 		std::string literal;
 
-		TokenLiteral(std::string&& literal);
+		explicit TokenLiteral(size_t line_num, std::string&& literal);
+
+		[[nodiscard]] std::string getName() const final;
 	};
 }

@@ -161,27 +161,39 @@
   <ItemGroup>
     <ClInclude Include="src\Data.hpp" />
     <ClInclude Include="src\DataString.hpp" />
+    <ClInclude Include="src\escape_string.hpp" />
     <ClInclude Include="src\fwddecl.hpp" />
     <ClInclude Include="src\main.hpp" />
     <ClInclude Include="src\Op.hpp" />
     <ClInclude Include="src\OpCode.hpp" />
     <ClInclude Include="src\OpEcho.hpp" />
+    <ClInclude Include="src\ParseError.hpp" />
     <ClInclude Include="src\Program.hpp" />
     <ClInclude Include="src\replace_all.hpp" />
     <ClInclude Include="src\Token.hpp" />
+    <ClInclude Include="src\TokenInt.hpp" />
     <ClInclude Include="src\TokenLiteral.hpp" />
+    <ClInclude Include="src\TokenPlus.hpp" />
     <ClInclude Include="src\TokenString.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Data.cpp" />
     <ClCompile Include="src\DataString.cpp" />
+    <ClCompile Include="src\escape_string.cpp" />
     <ClCompile Include="src\main_compiler.cpp" />
     <ClCompile Include="src\main_interpreter.cpp" />
     <ClCompile Include="src\OpEcho.cpp" />
     <ClCompile Include="src\Program.cpp" />
     <ClCompile Include="src\replace_all.cpp" />
+    <ClCompile Include="src\Token.cpp" />
+    <ClCompile Include="src\TokenInt.cpp" />
     <ClCompile Include="src\TokenLiteral.cpp" />
+    <ClCompile Include="src\TokenPlus.cpp" />
     <ClCompile Include="src\TokenString.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="examples\calc.ul" />
+    <None Include="examples\hello.ul" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
