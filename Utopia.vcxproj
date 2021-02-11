@@ -162,6 +162,7 @@
     <ClInclude Include="src\Data.hpp" />
     <ClInclude Include="src\DataString.hpp" />
     <ClInclude Include="src\fwddecl.hpp" />
+    <ClInclude Include="src\main.hpp" />
     <ClInclude Include="src\Op.hpp" />
     <ClInclude Include="src\OpCode.hpp" />
     <ClInclude Include="src\OpEcho.hpp" />
@@ -174,7 +175,6 @@
   <ItemGroup>
     <ClCompile Include="src\Data.cpp" />
     <ClCompile Include="src\DataString.cpp" />
-    <ClCompile Include="src\main_compiled.cpp" />
     <ClCompile Include="src\main_compiler.cpp" />
     <ClCompile Include="src\main_interpreter.cpp" />
     <ClCompile Include="src\OpEcho.cpp" />

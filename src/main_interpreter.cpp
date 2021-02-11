@@ -1,3 +1,6 @@
+#include "main.hpp"
+#if defined(__clang__) || UTO_MODE == UTO_INTERPRETER
+
 #include <iostream>
 
 #include "Program.hpp"
@@ -16,3 +19,5 @@ int main(int num_args, const char** args)
 	p.execute();
 	return 0;
 }
+
+#endif

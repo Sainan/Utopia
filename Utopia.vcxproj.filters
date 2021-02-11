@@ -34,6 +34,9 @@
     <ClInclude Include="src\replace_all.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\main.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DataString.cpp">
@@ -53,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="src\TokenString.cpp">
       <Filter>src\tokens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main_compiled.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\main_compiler.cpp">
       <Filter>src</Filter>

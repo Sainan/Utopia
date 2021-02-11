@@ -1,3 +1,6 @@
+#include "main.hpp"
+#if defined(__clang__) || UTO_MODE == UTO_COMPILER
+
 #include <fstream>
 #include <iostream>
 
@@ -44,3 +47,4 @@ int main()
 
 	file << "p.execute();}";
 }
+#endif
