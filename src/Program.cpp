@@ -120,6 +120,8 @@ namespace Utopia
 	}
 #endif
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wswitch"
 	Program Program::fromString(const std::string& code)
 	{
 		std::vector<std::unique_ptr<Token>> tokens{};
@@ -216,6 +218,7 @@ namespace Utopia
 		}
 		return p;
 	}
+#pragma clang diagnostic pop
 
 	Program Program::fromFile(const std::string& path)
 	{

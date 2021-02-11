@@ -23,6 +23,8 @@ namespace Utopia
 		explicit Token(TokenType type, size_t line_num);
 
 	public:
+		virtual ~Token();
+
 		[[nodiscard]] virtual std::string getName() const = 0;
 
 		void throwUnexpected() const;
