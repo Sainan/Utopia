@@ -9,7 +9,7 @@ namespace Utopia
 	public:
 		long long value;
 
-		explicit TokenInt(size_t line_num, long long value);
+		explicit TokenInt(const SourceLocation& loc, long long value);
 
 		[[nodiscard]] std::string getName() const final;
 	};

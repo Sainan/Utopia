@@ -7,7 +7,7 @@ namespace Utopia
 	class TokenMultiply : public Token
 	{
 	public:
-		explicit TokenMultiply(size_t line_num);
+		explicit TokenMultiply(const SourceLocation& loc);
 
 		[[nodiscard]] std::string getName() const final;
 	};

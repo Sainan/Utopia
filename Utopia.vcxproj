@@ -174,6 +174,8 @@
     <ClInclude Include="src\ParseError.hpp" />
     <ClInclude Include="src\Program.hpp" />
     <ClInclude Include="src\replace_all.hpp" />
+    <ClInclude Include="src\Shared.hpp" />
+    <ClInclude Include="src\SourceLocation.hpp" />
     <ClInclude Include="src\Token.hpp" />
     <ClInclude Include="src\TokenDivide.hpp" />
     <ClInclude Include="src\TokenInt.hpp" />
@@ -192,6 +194,7 @@
     <ClCompile Include="src\OpEcho.cpp" />
     <ClCompile Include="src\Program.cpp" />
     <ClCompile Include="src\replace_all.cpp" />
+    <ClCompile Include="src\SourceLocation.cpp" />
     <ClCompile Include="src\Token.cpp" />
     <ClCompile Include="src\TokenDivide.cpp" />
     <ClCompile Include="src\TokenInt.cpp" />
@@ -202,7 +205,6 @@
     <ClCompile Include="src\TokenString.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="examples\calc.ul" />
     <None Include="examples\hello.ul" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

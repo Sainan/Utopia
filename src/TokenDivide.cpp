@@ -2,8 +2,8 @@
 
 namespace Utopia
 {
-	TokenDivide::TokenDivide(size_t line_num)
-		: Token(TOKEN_DIVIDE, line_num)
+	TokenDivide::TokenDivide(const SourceLocation& loc)
+		: Token(TOKEN_DIVIDE, loc)
 	{
 	}
 

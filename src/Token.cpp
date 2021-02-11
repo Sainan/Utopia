@@ -4,14 +4,14 @@
 
 namespace Utopia
 {
-	Token::Token(TokenType type, size_t line_num)
-		: type(type), line_num(line_num)
+	Token::Token(TokenType type, const SourceLocation& loc)
+		: type(type), loc(loc)
 	{
 	}
 
 	void Token::throwUnexpected() const
 	{
-		throw ParseError(std::string("Unexpected ").append(getName()).append(" on line ").append(std::to_string(line_num)));
+		throw ParseError(std::string("Unexpected ").append(getName()).append(" in ").append(loc.toString()));
 	}
 
 	Token::~Token()

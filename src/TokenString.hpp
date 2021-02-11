@@ -9,7 +9,7 @@ namespace Utopia
 	public:
 		std::string value;
 
-		explicit TokenString(size_t line_num, std::string&& value);
+		explicit TokenString(const SourceLocation& loc, std::string&& value);
 
 		[[nodiscard]] std::string getName() const final;
 	};

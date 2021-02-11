@@ -58,6 +58,12 @@
     <ClInclude Include="src\TokenMinus.hpp">
       <Filter>src\tokens</Filter>
     </ClInclude>
+    <ClInclude Include="src\SourceLocation.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shared.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DataString.cpp">
@@ -108,6 +114,9 @@
     <ClCompile Include="src\TokenMinus.cpp">
       <Filter>src\tokens</Filter>
     </ClCompile>
+    <ClCompile Include="src\SourceLocation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -128,9 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="examples\hello.ul">
-      <Filter>examples</Filter>
-    </None>
-    <None Include="examples\calc.ul">
       <Filter>examples</Filter>
     </None>
   </ItemGroup>

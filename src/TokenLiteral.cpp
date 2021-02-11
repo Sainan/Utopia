@@ -2,8 +2,8 @@
 
 namespace Utopia
 {
-	TokenLiteral::TokenLiteral(size_t line_num, std::string&& literal)
-		: Token(TOKEN_LITERAL, line_num), literal(std::move(literal))
+	TokenLiteral::TokenLiteral(const SourceLocation& loc, std::string&& literal)
+		: Token(TOKEN_LITERAL, loc), literal(std::move(literal))
 	{
 	}
 

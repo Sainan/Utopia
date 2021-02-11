@@ -7,7 +7,7 @@ namespace Utopia
 	class TokenPlus : public Token
 	{
 	public:
-		explicit TokenPlus(size_t line_num);
+		explicit TokenPlus(const SourceLocation& loc);
 
 		[[nodiscard]] std::string getName() const final;
 	};

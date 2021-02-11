@@ -1,4 +1,6 @@
 *
+!*/
+.idea/
 
 !.gitignore
 !LICENSE
@@ -10,7 +12,5 @@
 !*.vcxproj.filters
 !*.vcxproj.user
 
-!examples/
-!examples/*
-!src/
+!examples/*.ul
 !src/*

@@ -1,1 +1,2 @@
-echo "Hello, world!"
+echo "Hello, world! 65 + 2 * 2 = "
+echo 65 + 2 * 2

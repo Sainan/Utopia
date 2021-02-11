@@ -2,8 +2,8 @@
 
 namespace Utopia
 {
-	TokenMultiply::TokenMultiply(size_t line_num)
-		: Token(TOKEN_MULTIPLY, line_num)
+	TokenMultiply::TokenMultiply(const SourceLocation& loc)
+		: Token(TOKEN_MULTIPLY, loc)
 	{
 	}
 

@@ -8,6 +8,7 @@
 
 #include "Data.hpp"
 #include "Op.hpp"
+#include "Shared.hpp"
 
 namespace Utopia
 {
@@ -17,8 +18,9 @@ namespace Utopia
 		std::vector<std::unique_ptr<Data>> data;
 		std::vector<uint8_t> ops;
 
-		[[nodiscard]] static Program fromString(const std::string& code);
-		[[nodiscard]] static Program fromFile(const std::string& path);
+	public:
+		[[nodiscard]] static Program fromString(std::string&& name, const std::string& code);
+		[[nodiscard]] static Program fromFile(std::string&& path);
 
 		void execute() const;
 	};

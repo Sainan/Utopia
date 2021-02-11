@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <string>
 
+#include "SourceLocation.hpp"
+
 namespace Utopia
 {
 	enum TokenType : uint8_t
@@ -20,10 +22,10 @@ namespace Utopia
 	{
 	public:
 		const TokenType type;
-		const size_t line_num;
+		const SourceLocation loc;
 
 	protected:
-		explicit Token(TokenType type, size_t line_num);
+		explicit Token(TokenType type, const SourceLocation& loc);
 
 	public:
 		virtual ~Token();

@@ -2,8 +2,8 @@
 
 namespace Utopia
 {
-	TokenMinus::TokenMinus(size_t line_num)
-		: Token(TOKEN_MINUS, line_num)
+	TokenMinus::TokenMinus(const SourceLocation& loc)
+		: Token(TOKEN_MINUS, loc)
 	{
 	}
 
