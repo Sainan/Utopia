@@ -40,18 +40,18 @@ populateFiles("src/");
 
 $start = microtime(true);
 
-echo "Compiling...\n";
+echo "Compiling...".PHP_EOL;
 foreach($files as $file)
 {
 	if(!$main_only || substr($file, 0, 5) == "main_")
 	{
-		echo $file."\n";
+		echo $file.PHP_EOL;
 		passthru("$clang -c src/$file.cpp -o obj/$file.o");
 	}
 	array_push($objects, escapeshellarg("obj/$file.o"));
 }
 
-echo "Linking...\n";
+echo "Linking...".PHP_EOL;
 $link = "$clang -fuse-ld=";
 if(defined("PHP_WINDOWS_VERSION_MAJOR")) 
 {
@@ -67,7 +67,7 @@ else
 }
 passthru("$link -o $out ".join(" ", $objects));
 
-echo "Got binary in ".(microtime(true) - $start)." seconds.\n";
+echo "Got binary in ".(microtime(true) - $start)." seconds.".PHP_EOL;
 
-echo "Stripping...\n";
+echo "Stripping...".PHP_EOL;
 passthru("strip -s $out");
