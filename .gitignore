@@ -5,11 +5,12 @@
 !README.md
 
 !*.php
-!*.ul
 !*.sln
 !*.vcxproj
 !*.vcxproj.filters
 !*.vcxproj.user
 
+!examples/
+!examples/*
 !src/
 !src/*

@@ -23,7 +23,7 @@ And then use it to interpret any ul-file:
 - Windows: `utopia-interpreter.exe <ul-file>`
 - Linux: `./utopia-interpreter <ul-file>`
 
-You may provide `hello.ul` in place of `<ul-file>`.
+You may provide `examples/hello.ul` in place of `<ul-file>`.
 
 ### Compiler
 
@@ -31,7 +31,7 @@ If you have PHP-CLI and clang installed, you can compile a ul-file like so:
 
 > `php compile-ul.php <ul-file>`
 
-You may provide `hello.ul` in place of `<ul-file>`.
+You may provide `examples/hello.ul` in place of `<ul-file>`.
 
 This will create an executable binary file that is native to your system with the same name as the ul-file.
 
