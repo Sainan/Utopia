@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="src\Data.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DataString.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Op.hpp">
+      <Filter>src\opcodes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpCode.hpp">
+      <Filter>src\opcodes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpEcho.hpp">
+      <Filter>src\opcodes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Token.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TokenLiteral.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fwddecl.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Program.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TokenString.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\replace_all.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DataString.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpEcho.cpp">
+      <Filter>src\opcodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Program.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Data.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TokenLiteral.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TokenString.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main_compiled.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main_compiler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main_interpreter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\replace_all.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{746d6072-50a1-4295-b27d-0c6df64058fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\data">
+      <UniqueIdentifier>{2ba0a3eb-f162-40bc-a8d7-9511d5637e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\opcodes">
+      <UniqueIdentifier>{5e4d9b29-2816-4c3d-bec1-6568fa6e26b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\tokens">
+      <UniqueIdentifier>{28fd4a90-6be0-4a3c-b6fd-53341b174455}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,4 @@
+namespace Utopia
+{
+	class Program;
+}
