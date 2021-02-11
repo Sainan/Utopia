@@ -150,33 +150,41 @@ namespace Utopia
 
 		// Squash
 		{
-			Token* prev_token = nullptr;
-			for (size_t i = 0; i < tokens.size(); i++)
+			size_t pre_squash_size;
+			do
 			{
-				Token* const token = tokens.at(i).get();
-				switch (token->type)
+				pre_squash_size = tokens.size();
+				Token* prev_token = nullptr;
+				for (size_t i = 0; i < tokens.size(); i++)
 				{
-				case TOKEN_PLUS:
-					if (prev_token == nullptr || i + 1 == tokens.size())
+					Token* const token = tokens.at(i).get();
+					switch (token->type)
 					{
-						token->throwUnexpected();
+					case TOKEN_PLUS:
+						if (prev_token == nullptr || i + 1 == tokens.size())
+						{
+							token->throwUnexpected();
+						}
+						prev_token->expectType(TOKEN_INT);
+						{
+							Token* const next_token = tokens.at(i + 1).get();
+							next_token->expectType(TOKEN_INT);
+							((TokenInt*)next_token)->value += ((TokenInt*)prev_token)->value;
+						}
+						tokens.erase(tokens.cbegin() + (i - 1), tokens.cbegin() + (i + 1));
+						break;
 					}
-					prev_token->expectType(TOKEN_INT);
-					{
-						Token* const next_token = tokens.at(i + 1).get();
-						next_token->expectType(TOKEN_INT);
-						((TokenInt*)next_token)->value += ((TokenInt*)prev_token)->value;
-					}
-					tokens.erase(tokens.cbegin() + (i - 1), tokens.cbegin() + (i + 1));
-					break;
+					prev_token = token;
 				}
-				prev_token = token;
-			}
-		}
 
 #if DEBUG_TOKENS
-		printTokens("Tokens after squashing", tokens);
+				if (tokens.size() != pre_squash_size)
+				{
+					printTokens("Tokens after squashing", tokens);
+				}
 #endif
+			} while (tokens.size() != pre_squash_size);
+		}
 
 		// Assemble
 		Program p{};
