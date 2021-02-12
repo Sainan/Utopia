@@ -10,9 +10,6 @@
     <ClInclude Include="replace_all.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="main.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="escape_string.hpp">
       <Filter>src</Filter>
     </ClInclude>
@@ -63,6 +60,12 @@
     </ClInclude>
     <ClInclude Include="TokenString.hpp">
       <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="config.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="libutopia.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="TokenString.cpp">
       <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="main_lib.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

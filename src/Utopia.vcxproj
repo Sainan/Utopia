@@ -167,7 +167,8 @@
     <ClInclude Include="DataString.hpp" />
     <ClInclude Include="escape_string.hpp" />
     <ClInclude Include="fwddecl.hpp" />
-    <ClInclude Include="main.hpp" />
+    <ClInclude Include="libutopia.h" />
+    <ClInclude Include="config.hpp" />
     <ClInclude Include="Op.hpp" />
     <ClInclude Include="OpCode.hpp" />
     <ClInclude Include="OpEcho.hpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="escape_string.cpp" />
     <ClCompile Include="main_compiler.cpp" />
     <ClCompile Include="main_interpreter.cpp" />
+    <ClCompile Include="main_lib.cpp" />
     <ClCompile Include="OpEcho.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="replace_all.cpp" />

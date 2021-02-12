@@ -1,4 +1,6 @@
 <?php
+// Syntax: php compile-utopia.php [interpreter|compiler|lib]
+
 $clang = "clang -std=c++17 -fno-rtti -flto -Ofast";
 
 $mode = $argv[1] ?? "interpreter";
@@ -11,9 +13,28 @@ if(!is_dir("obj"))
 }
 $objects = [];
 
-if(defined("PHP_WINDOWS_VERSION_MAJOR")) 
+if($mode == "lib")
 {
-	$out .= ".exe";
+	if(defined("PHP_WINDOWS_VERSION_MAJOR")) 
+	{
+		$out .= ".dll";
+	}
+	else
+	{
+		$clang .= " -fPIC";
+		if($out == "utopia-lib")
+		{
+			$out = "libutopia";
+		}
+		$out .= ".so";
+	}
+}
+else
+{
+	if(defined("PHP_WINDOWS_VERSION_MAJOR")) 
+	{
+		$out .= ".exe";
+	}
 }
 
 $files = [];
@@ -53,7 +74,7 @@ foreach($files as $file)
 
 echo "Linking...".PHP_EOL;
 $link = "$clang -fuse-ld=";
-if(defined("PHP_WINDOWS_VERSION_MAJOR")) 
+if(defined("PHP_WINDOWS_VERSION_MAJOR"))
 {
 	$link .= "lld-link";
 }
@@ -65,9 +86,20 @@ else
 	}
 	$link .= "ld -lstdc++";
 }
+if($mode == "lib")
+{
+	$link .= " -shared";
+}
 passthru("$link -o $out ".join(" ", $objects));
 
 echo "Got binary in ".(microtime(true) - $start)." seconds.".PHP_EOL;
 
 echo "Stripping...".PHP_EOL;
-passthru("strip -s $out");
+if($mode == "lib" && !defined("PHP_WINDOWS_VERSION_MAJOR"))
+{
+	passthru("strip -s -K Utopia_execute_file -K Utopia_execute_string $out");
+}
+else
+{
+	passthru("strip -s $out");
+}

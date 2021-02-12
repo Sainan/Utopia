@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "config.hpp"
 #if defined(__clang__) || UTO_MODE == UTO_INTERPRETER
 
 #include <iostream>

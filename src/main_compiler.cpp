@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "config.hpp"
 #if defined(__clang__) || UTO_MODE == UTO_COMPILER
 
 #include <fstream>
@@ -58,4 +58,5 @@ int main()
 
 	return 0;
 }
+
 #endif
