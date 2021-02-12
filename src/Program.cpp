@@ -275,6 +275,44 @@ namespace Utopia
 #endif
 			} while (tokens.size() != pre_squash_size);
 		}
+		// Squash Round 3
+		{
+			size_t pre_squash_size;
+			do
+			{
+				pre_squash_size = tokens.size();
+				for (size_t i = 0; i < tokens.size(); i++)
+				{
+					Token* const token = tokens.at(i).get();
+					switch (token->type)
+					{
+					case TOKEN_STRING:
+						if (i + 1 != tokens.size())
+						{
+							Token* const next_token = tokens.at(i + 1).get();
+							if (next_token->type == TOKEN_INT)
+							{
+								((TokenString*)token)->value.append(std::to_string(((TokenInt*)next_token)->value));
+								tokens.erase(tokens.cbegin() + (i + 1));
+							}
+							else if (next_token->type == TOKEN_STRING)
+							{
+								((TokenString*)token)->value.append(((TokenString*)next_token)->value);
+								tokens.erase(tokens.cbegin() + (i + 1));
+							}
+						}
+						break;
+					}
+				}
+
+#if DEBUG_TOKENS
+				if (tokens.size() != pre_squash_size)
+				{
+					printTokens("Tokens after squashing round 3", tokens);
+				}
+#endif
+			} while (tokens.size() != pre_squash_size);
+		}
 
 		// Assemble
 		Program p{};
