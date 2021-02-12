@@ -7,10 +7,12 @@
 !README.md
 
 !*.php
-!*.sln
-!*.vcxproj
-!*.vcxproj.filters
-!*.vcxproj.user
 
+!.github/*
 !examples/*.ul
-!src/*
+!src/*.sln
+!src/*.vcxproj
+!src/*.vcxproj.filters
+!src/*.cpp
+!src/*.hpp
+!src/*.h
