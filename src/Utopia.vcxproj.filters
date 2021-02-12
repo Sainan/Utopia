@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="fwddecl.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Program.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="replace_all.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="main.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="escape_string.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ParseError.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceLocation.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="DataString.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Op.hpp">
+      <Filter>src\opcodes</Filter>
+    </ClInclude>
+    <ClInclude Include="OpCode.hpp">
+      <Filter>src\opcodes</Filter>
+    </ClInclude>
+    <ClInclude Include="OpEcho.hpp">
+      <Filter>src\opcodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Token.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenDivide.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenInt.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenLiteral.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenMinus.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenMultiply.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenPlus.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenString.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Program.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="main_compiler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="main_interpreter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="replace_all.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="escape_string.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceLocation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="DataString.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="OpEcho.cpp">
+      <Filter>src\opcodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Token.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenDivide.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenInt.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenLiteral.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenMinus.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenMultiply.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenPlus.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenString.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{746d6072-50a1-4295-b27d-0c6df64058fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="examples">
+      <UniqueIdentifier>{fe3a0bba-c51c-4055-99a4-b02c1dfc1924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\data">
+      <UniqueIdentifier>{2ba0a3eb-f162-40bc-a8d7-9511d5637e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\tokens">
+      <UniqueIdentifier>{28fd4a90-6be0-4a3c-b6fd-53341b174455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\opcodes">
+      <UniqueIdentifier>{5e4d9b29-2816-4c3d-bec1-6568fa6e26b1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\examples\hello.ul">
+      <Filter>examples</Filter>
+    </None>
+  </ItemGroup>
+</Project>
