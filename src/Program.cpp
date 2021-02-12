@@ -23,110 +23,33 @@
 
 namespace Utopia
 {
-	static void processWord(std::vector<std::unique_ptr<Token>>& tokens, SourceLocation& loc, std::optional<std::unique_ptr<TokenString>>& str, std::string&& word)
+	struct LiteralBuffer
 	{
-		if(str.has_value())
+		SourceLocation loc;
+		std::string data;
+		
+		LiteralBuffer(const SourceLocation& loc, char c)
+			: loc(loc), data(1, c)
 		{
-			str.value()->value.append(1, ' ');
-			if (!word.empty())
-			{
-				if (word.at(word.length() - 1) == '\"')
-				{
-					word.pop_back();
-					str.value()->value.append(std::move(word));
-					tokens.emplace_back(std::move(str.value()));
-					str = std::nullopt;
-				}
-				else
-				{
-					str.value()->value.append(std::move(word));
-				}
-			}
 		}
-		else if (!word.empty())
-		{
-			if (word.at(0) == '\"')
-			{
-				word.erase(0, 1);
-				if (!word.empty() && word.at(word.length() - 1) == '\"')
-				{
-					word.pop_back();
-					tokens.emplace_back(std::make_unique<TokenString>(loc, std::move(word)));
-				}
-				else
-				{
-					str = std::make_unique<TokenString>(loc, std::move(word));
-				}
-			}
-			else if (word == "+")
-			{
-				tokens.emplace_back(std::make_unique<TokenPlus>(loc));
-			}
-			else if (word == "-")
-			{
-				tokens.emplace_back(std::make_unique<TokenMinus>(loc));
-			}
-			else if (word == "*")
-			{
-				tokens.emplace_back(std::make_unique<TokenMultiply>(loc));
-			}
-			else if (word == "/")
-			{
-				tokens.emplace_back(std::make_unique<TokenDivide>(loc));
-			}
-			else
-			{
-				try
-				{
-					long long value = std::stoll(word);
-					tokens.emplace_back(std::make_unique<TokenInt>(loc, value));
-				}
-				catch (...)
-				{
-					tokens.emplace_back(std::make_unique<TokenLiteral>(loc, std::move(word)));
-				}
-			}
-		}
-	}
+	};
 
-	static void processLine(std::vector<std::unique_ptr<Token>>& tokens, SourceLocation& loc, std::optional<std::unique_ptr<TokenString>>& str, std::string&& line)
+	static void finishLiteralToken(std::vector<std::unique_ptr<Token>>& tokens, std::optional<LiteralBuffer>& literal_buffer)
 	{
-		loc.line++;
-		if (line.empty())
+		if (!literal_buffer.has_value())
 		{
 			return;
 		}
-		if (line.at(line.length() - 1) == '\r')
+		try
 		{
-			line.pop_back();
+			long long value = std::stoll(literal_buffer.value().data);
+			tokens.emplace_back(std::make_unique<TokenInt>(literal_buffer.value().loc, value));
 		}
-		loc.colon = 1;
-		size_t start = 0;
-		while (true)
+		catch (...)
 		{
-			size_t delim = line.find(" ", start);
-			if (delim == std::string::npos)
-			{
-				break;
-			}
-			processWord(tokens, loc, str, line.substr(start, delim - start));
-			start = delim + 1;
-			loc.colon = delim + 2;
+			tokens.emplace_back(std::make_unique<TokenLiteral>(literal_buffer.value().loc, std::move(literal_buffer.value().data)));
 		}
-		{
-			auto remainder = line.substr(start);
-			if (!remainder.empty())
-			{
-				size_t remainder_size = remainder.size();
-				processWord(tokens, loc, str, std::move(remainder));
-				loc.colon += remainder_size;
-			}
-		}
-
-		if (str.has_value())
-		{
-			throw ParseError(std::string("Unterminated string in ").append(loc.toString()));
-		}
+		literal_buffer.reset();
 	}
 
 #if DEBUG_TOKENS
@@ -153,20 +76,84 @@ namespace Utopia
 
 		// Tokenize
 		{
-			std::optional<std::unique_ptr<TokenString>> str = std::nullopt;
 			SourceLocation loc(std::move(name));
-			size_t start = 0;
-			while (true)
+			std::optional<std::unique_ptr<TokenString>> string_buffer = std::nullopt;
+			std::optional<LiteralBuffer> literal_buffer = std::nullopt;
+			for(auto c : code)
 			{
-				size_t delim = code.find("\n", start);
-				if (delim == std::string::npos)
+				loc.colon++;
+				if (c == '\r')
 				{
+					continue;
+				}
+				if (c == '\n')
+				{
+					if (string_buffer.has_value())
+					{
+						throw ParseError(std::string("Unexpected new line while reading string in ").append(loc));
+					}
+					finishLiteralToken(tokens, literal_buffer);
+					loc.line++;
+					loc.colon = 0;
+					continue;
+				}
+				if (string_buffer.has_value())
+				{
+					if (c == '"')
+					{
+						tokens.emplace_back(std::move(string_buffer.value()));
+						string_buffer.reset();
+					}
+					else
+					{
+						string_buffer.value()->value.append(1, c);
+					}
+				}
+				else switch(c)
+				{
+				default:
+					if (literal_buffer.has_value())
+					{
+						literal_buffer.value().data.append(1, c);
+					}
+					else
+					{
+						literal_buffer.emplace(loc, c);
+					}
+					break;
+
+				case ' ':
+				case ';':
+				case '.':
+					finishLiteralToken(tokens, literal_buffer);
+					break;
+
+				case '"':
+					finishLiteralToken(tokens, literal_buffer);
+					string_buffer = std::make_unique<TokenString>(loc);
+					break;
+
+				case '+':
+					finishLiteralToken(tokens, literal_buffer);
+					tokens.emplace_back(std::make_unique<TokenPlus>(loc));
+					break;
+
+				case '-':
+					finishLiteralToken(tokens, literal_buffer);
+					tokens.emplace_back(std::make_unique<TokenMinus>(loc));
+					break;
+
+				case '*':
+					finishLiteralToken(tokens, literal_buffer);
+					tokens.emplace_back(std::make_unique<TokenMultiply>(loc));
+					break;
+
+				case '/':
+					finishLiteralToken(tokens, literal_buffer);
+					tokens.emplace_back(std::make_unique<TokenDivide>(loc));
 					break;
 				}
-				processLine(tokens, loc, str, code.substr(start, delim - start));
-				start = delim + 1;
 			}
-			processLine(tokens, loc, str, code.substr(start));
 		}
 
 #if DEBUG_TOKENS

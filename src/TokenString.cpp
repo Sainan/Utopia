@@ -4,8 +4,8 @@
 
 namespace Utopia
 {
-	TokenString::TokenString(const SourceLocation& loc, std::string&& value)
-		: Token(TOKEN_STRING, loc), value(std::move(value))
+	TokenString::TokenString(const SourceLocation& loc)
+		: Token(TOKEN_STRING, loc)
 	{
 	}
 

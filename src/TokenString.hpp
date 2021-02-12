@@ -7,9 +7,9 @@ namespace Utopia
 	class TokenString : public Token
 	{
 	public:
-		std::string value;
+		std::string value{};
 
-		explicit TokenString(const SourceLocation& loc, std::string&& value);
+		explicit TokenString(const SourceLocation& loc);
 
 		[[nodiscard]] std::string getName() const final;
 	};

@@ -11,7 +11,7 @@ namespace Utopia
 
 	void Token::throwUnexpected() const
 	{
-		throw ParseError(std::string("Unexpected ").append(getName()).append(" in ").append(loc.toString()));
+		throw ParseError(std::string("Unexpected ").append(getName()).append(" in ").append(loc));
 	}
 
 	Token::~Token()
