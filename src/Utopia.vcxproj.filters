@@ -145,5 +145,8 @@
     <None Include="..\examples\hello.ul">
       <Filter>examples</Filter>
     </None>
+    <None Include="..\examples\calc.ul">
+      <Filter>examples</Filter>
+    </None>
   </ItemGroup>
 </Project>

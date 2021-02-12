@@ -34,6 +34,10 @@ namespace Utopia
 		}
 	};
 
+	struct InternalExceptionEndParsing
+	{
+	};
+
 	static void finishLiteralToken(std::vector<std::unique_ptr<Token>>& tokens, std::optional<LiteralBuffer>& literal_buffer)
 	{
 		if (!literal_buffer.has_value())
@@ -45,8 +49,12 @@ namespace Utopia
 			long long value = std::stoll(literal_buffer.value().data);
 			tokens.emplace_back(std::make_unique<TokenInt>(literal_buffer.value().loc, value));
 		}
-		catch (...)
+		catch (const std::exception&)
 		{
+			if (literal_buffer.value().data == "_end_parsing")
+			{
+				throw InternalExceptionEndParsing();
+			}
 			tokens.emplace_back(std::make_unique<TokenLiteral>(literal_buffer.value().loc, std::move(literal_buffer.value().data)));
 		}
 		literal_buffer.reset();
@@ -79,80 +87,86 @@ namespace Utopia
 			SourceLocation loc(std::move(name));
 			std::optional<std::unique_ptr<TokenString>> string_buffer = std::nullopt;
 			std::optional<LiteralBuffer> literal_buffer = std::nullopt;
-			for(auto c : code)
+			try
 			{
-				loc.colon++;
-				if (c == '\r')
+				for (auto c : code)
 				{
-					continue;
-				}
-				if (c == '\n')
-				{
+					loc.colon++;
+					if (c == '\r')
+					{
+						continue;
+					}
+					if (c == '\n')
+					{
+						if (string_buffer.has_value())
+						{
+							throw ParseError(std::string("Unexpected new line while reading string in ").append(loc));
+						}
+						finishLiteralToken(tokens, literal_buffer);
+						loc.line++;
+						loc.colon = 0;
+						continue;
+					}
 					if (string_buffer.has_value())
 					{
-						throw ParseError(std::string("Unexpected new line while reading string in ").append(loc));
+						if (c == '"')
+						{
+							tokens.emplace_back(std::move(string_buffer.value()));
+							string_buffer.reset();
+						}
+						else
+						{
+							string_buffer.value()->value.append(1, c);
+						}
 					}
-					finishLiteralToken(tokens, literal_buffer);
-					loc.line++;
-					loc.colon = 0;
-					continue;
+					else switch (c)
+					{
+					default:
+						if (literal_buffer.has_value())
+						{
+							literal_buffer.value().data.append(1, c);
+						}
+						else
+						{
+							literal_buffer.emplace(loc, c);
+						}
+						break;
+
+					case ' ':
+					case ';':
+					case '.':
+						finishLiteralToken(tokens, literal_buffer);
+						break;
+
+					case '"':
+						finishLiteralToken(tokens, literal_buffer);
+						string_buffer = std::make_unique<TokenString>(loc);
+						break;
+
+					case '+':
+						finishLiteralToken(tokens, literal_buffer);
+						tokens.emplace_back(std::make_unique<TokenPlus>(loc));
+						break;
+
+					case '-':
+						finishLiteralToken(tokens, literal_buffer);
+						tokens.emplace_back(std::make_unique<TokenMinus>(loc));
+						break;
+
+					case '*':
+						finishLiteralToken(tokens, literal_buffer);
+						tokens.emplace_back(std::make_unique<TokenMultiply>(loc));
+						break;
+
+					case '/':
+						finishLiteralToken(tokens, literal_buffer);
+						tokens.emplace_back(std::make_unique<TokenDivide>(loc));
+						break;
+					}
 				}
-				if (string_buffer.has_value())
-				{
-					if (c == '"')
-					{
-						tokens.emplace_back(std::move(string_buffer.value()));
-						string_buffer.reset();
-					}
-					else
-					{
-						string_buffer.value()->value.append(1, c);
-					}
-				}
-				else switch(c)
-				{
-				default:
-					if (literal_buffer.has_value())
-					{
-						literal_buffer.value().data.append(1, c);
-					}
-					else
-					{
-						literal_buffer.emplace(loc, c);
-					}
-					break;
-
-				case ' ':
-				case ';':
-				case '.':
-					finishLiteralToken(tokens, literal_buffer);
-					break;
-
-				case '"':
-					finishLiteralToken(tokens, literal_buffer);
-					string_buffer = std::make_unique<TokenString>(loc);
-					break;
-
-				case '+':
-					finishLiteralToken(tokens, literal_buffer);
-					tokens.emplace_back(std::make_unique<TokenPlus>(loc));
-					break;
-
-				case '-':
-					finishLiteralToken(tokens, literal_buffer);
-					tokens.emplace_back(std::make_unique<TokenMinus>(loc));
-					break;
-
-				case '*':
-					finishLiteralToken(tokens, literal_buffer);
-					tokens.emplace_back(std::make_unique<TokenMultiply>(loc));
-					break;
-
-				case '/':
-					finishLiteralToken(tokens, literal_buffer);
-					tokens.emplace_back(std::make_unique<TokenDivide>(loc));
-					break;
-				}
+			}
+			catch (const InternalExceptionEndParsing&)
+			{
 			}
 		}
 

@@ -1,0 +1,8 @@
+echo "65 + 2 * 2 = " 65 + 2 * 2
+
+_end_parsing
+
+A potentially cooler way of doing this:
+
+expr = "69 + 2 * 2";
+echo expr " = " eval(expr);
