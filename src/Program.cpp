@@ -100,7 +100,7 @@ namespace Utopia
 		// Tokenize
 		{
 			SourceLocation loc(std::move(name));
-			std::optional<std::unique_ptr<TokenString>> string_buffer = std::nullopt;
+			std::unique_ptr<TokenString> string_buffer{};
 			std::optional<LiteralBuffer> literal_buffer = std::nullopt;
 			try
 			{
@@ -113,7 +113,7 @@ namespace Utopia
 					}
 					if (c == '\n')
 					{
-						if (string_buffer.has_value())
+						if (string_buffer)
 						{
 							loc.throwHere("Unexpected new line while reading string");
 						}
@@ -122,16 +122,16 @@ namespace Utopia
 						loc.colon = 0;
 						continue;
 					}
-					if (string_buffer.has_value())
+					if (string_buffer)
 					{
 						if (c == '"')
 						{
-							tokens.emplace_back(std::move(string_buffer.value()));
+							tokens.emplace_back(std::move(string_buffer));
 							string_buffer.reset();
 						}
 						else
 						{
-							string_buffer.value()->value.append(1, c);
+							string_buffer->value.append(1, c);
 						}
 					}
 					else switch (c)
