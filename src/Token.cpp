@@ -9,13 +9,13 @@ namespace Utopia
 	{
 	}
 
-	void Token::throwUnexpected() const
-	{
-		throw ParseError(std::string("Unexpected ").append(getName()).append(" in ").append(loc));
-	}
-
 	Token::~Token()
 	{
+	}
+
+	void Token::throwUnexpected() const
+	{
+		loc.throwHere(std::move(std::string("Unexpected ").append(getName())));
 	}
 
 	void Token::expectType(TokenType expected_type) const

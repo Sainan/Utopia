@@ -15,7 +15,7 @@ namespace Utopia
 	class Program
 	{
 	public:
-		std::vector<std::unique_ptr<Data>> data;
+		std::vector<std::unique_ptr<Data>> variables;
 		std::vector<uint8_t> ops;
 
 	public:

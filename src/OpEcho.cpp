@@ -13,6 +13,6 @@ namespace Utopia
 
 	void OpEcho::execute(const Program& p, std::vector<uint8_t>&& args) const
 	{
-		std::cout << p.data.at(args.at(0))->toString();
+		std::cout << p.variables.at(args.at(0))->toString();
 	}
 }

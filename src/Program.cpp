@@ -8,11 +8,13 @@
 #endif
 #include <optional>
 #include <string>
+#include <unordered_map>
 
 #include "DataString.hpp"
 #include "ParseError.hpp"
 #include "OpCode.hpp"
 #include "OpEcho.hpp"
+#include "TokenAssignment.hpp"
 #include "TokenDivide.hpp"
 #include "TokenInt.hpp"
 #include "TokenLiteral.hpp"
@@ -76,6 +78,19 @@ namespace Utopia
 	}
 #endif
 
+	static std::unique_ptr<DataString> tokenToData(Token* token)
+	{
+		if (token->type == TOKEN_INT)
+		{
+			return std::make_unique<DataString>(std::to_string(((TokenInt*)token)->value));
+		}
+		else
+		{
+			token->expectType(TOKEN_STRING);
+			return std::make_unique<DataString>(std::move(((TokenString*)token)->value));
+		}
+	}
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wswitch"
 	Program Program::fromString(std::string&& name, const std::string& code)
@@ -100,7 +115,7 @@ namespace Utopia
 					{
 						if (string_buffer.has_value())
 						{
-							throw ParseError(std::string("Unexpected new line while reading string in ").append(loc));
+							loc.throwHere("Unexpected new line while reading string");
 						}
 						finishLiteralToken(tokens, literal_buffer);
 						loc.line++;
@@ -161,6 +176,11 @@ namespace Utopia
 					case '/':
 						finishLiteralToken(tokens, literal_buffer);
 						tokens.emplace_back(std::make_unique<TokenDivide>(loc));
+						break;
+
+					case '=':
+						finishLiteralToken(tokens, literal_buffer);
+						tokens.emplace_back(std::make_unique<TokenAssignment>(loc));
 						break;
 					}
 				}
@@ -317,42 +337,77 @@ namespace Utopia
 
 		// Assemble
 		Program p{};
+		std::unordered_map<std::string, size_t> variable_map{};
+
+		// Assemble Round 1: Variables
 		{
-			for (size_t i = 0; i < tokens.size(); i++)
+			Token* prev_token = nullptr;
+			for (auto i = tokens.cbegin(); i != tokens.cend(); i++)
 			{
-				Token* const token = tokens.at(i).get();
+				Token* const token = i->get();
 				switch (token->type)
 				{
-				default:
-					token->throwUnexpected();
-					break;
-
-				case TOKEN_LITERAL:
-				{
-					auto& literal = ((TokenLiteral*)token)->literal;
-					if (literal == "echo")
+				case TOKEN_ASSIGNMENT:
+					if (prev_token == nullptr || i + 1 == tokens.cend())
 					{
-						p.ops.emplace_back(OP_ECHO);
-						p.ops.emplace_back(p.data.size());
-						if (i + 1 == tokens.size())
+						token->throwUnexpected();
+					}
+					prev_token->expectType(TOKEN_LITERAL);
+					{
+						auto& var_name = ((TokenLiteral*)prev_token)->literal;
+						auto var_map_entry = variable_map.find(var_name);
+						if (var_map_entry == variable_map.end())
 						{
-							token->throwUnexpected();
-						}
-						Token* const next_token = tokens.at(++i).get();
-						if (next_token->type == TOKEN_INT)
-						{
-							p.data.emplace_back(std::make_unique<DataString>(std::to_string(((TokenInt*)next_token)->value)));
+							variable_map.emplace(std::move(var_name), p.variables.size());
+							p.variables.emplace_back(tokenToData((++i)->get()));
 						}
 						else
 						{
-							p.data.emplace_back(std::make_unique<DataString>(std::move(((TokenString*)next_token)->value)));
+							p.variables.at(var_map_entry->second) = tokenToData((++i)->get());
 						}
+					}
+					break;
+				}
+				prev_token = token;
+			}
+		}
+		// Assemble Round 2: Echo
+		for (auto i = tokens.cbegin(); i != tokens.cend(); i++)
+		{
+			Token* const token = i->get();
+			switch (token->type)
+			{
+			case TOKEN_LITERAL:
+			{
+				auto& literal = ((TokenLiteral*)token)->literal;
+				if (literal == "echo")
+				{
+					if (i + 1 == tokens.cend())
+					{
+						token->throwUnexpected();
+					}
+					Token* const next_token = (++i)->get();
+					p.ops.emplace_back(OP_ECHO);
+					if (next_token->type == TOKEN_LITERAL)
+					{
+						auto var_map_entry = variable_map.find(((TokenLiteral*)next_token)->literal);
+						if (var_map_entry == variable_map.end())
+						{
+							next_token->loc.throwHere(std::move(std::string("Unknown variable '").append(((TokenLiteral*)next_token)->literal).append(1, '\'')));
+						}
+						p.ops.emplace_back(var_map_entry->second);
+					}
+					else
+					{
+						p.ops.emplace_back(p.variables.size());
+						p.variables.emplace_back(tokenToData(next_token));
 					}
 				}
 				break;
-				}
+			}
 			}
 		}
+
 		return p;
 	}
 #pragma clang diagnostic pop

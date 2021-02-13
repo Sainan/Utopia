@@ -100,6 +100,8 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4068;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SupportJustMyCode>false</SupportJustMyCode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +138,8 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4068;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SupportJustMyCode>false</SupportJustMyCode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -178,6 +182,7 @@
     <ClInclude Include="Shared.hpp" />
     <ClInclude Include="SourceLocation.hpp" />
     <ClInclude Include="Token.hpp" />
+    <ClInclude Include="TokenAssignment.hpp" />
     <ClInclude Include="TokenDivide.hpp" />
     <ClInclude Include="TokenInt.hpp" />
     <ClInclude Include="TokenLiteral.hpp" />
@@ -198,6 +203,7 @@
     <ClCompile Include="replace_all.cpp" />
     <ClCompile Include="SourceLocation.cpp" />
     <ClCompile Include="Token.cpp" />
+    <ClCompile Include="TokenAssignment.cpp" />
     <ClCompile Include="TokenDivide.cpp" />
     <ClCompile Include="TokenInt.cpp" />
     <ClCompile Include="TokenLiteral.cpp" />

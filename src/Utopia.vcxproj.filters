@@ -13,9 +13,6 @@
     <ClInclude Include="escape_string.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="ParseError.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="SourceLocation.hpp">
       <Filter>src</Filter>
     </ClInclude>
@@ -66,6 +63,12 @@
     </ClInclude>
     <ClInclude Include="libutopia.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ParseError.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenAssignment.hpp">
+      <Filter>src\tokens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="main_lib.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenAssignment.cpp">
+      <Filter>src\tokens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

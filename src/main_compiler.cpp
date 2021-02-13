@@ -32,9 +32,9 @@ int main()
 	Program p{};
 )EOC";
 
-		for (const auto& data : p.data)
+		for (const auto& variable : p.variables)
 		{
-			file << "p.data.emplace_back(" << data->toCPP() << ");";
+			file << "p.variables.emplace_back(" << variable->toCPP() << ");";
 		}
 
 		file << "p.ops = {";

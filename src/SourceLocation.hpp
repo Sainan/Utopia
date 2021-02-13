@@ -14,6 +14,6 @@ namespace Utopia
 		
 		explicit SourceLocation(std::string&& name);
 
-		[[nodiscard]] operator std::string () const;
+		void throwHere(std::string&& error) const;
 	};
 }

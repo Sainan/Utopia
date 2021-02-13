@@ -16,6 +16,7 @@ namespace Utopia
 		TOKEN_MINUS,
 		TOKEN_MULTIPLY,
 		TOKEN_DIVIDE,
+		TOKEN_ASSIGNMENT,
 	};
 
 	class Token
