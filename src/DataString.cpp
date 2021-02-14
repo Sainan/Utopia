@@ -5,7 +5,12 @@
 namespace Utopia
 {
 	DataString::DataString(std::string&& value)
-		: value(std::move(value))
+		: Data(DATA_STRING), value(std::move(value))
+	{
+	}
+
+	DataString::DataString(const std::string& value)
+		: Data(DATA_STRING), value(value)
 	{
 	}
 
@@ -17,5 +22,10 @@ namespace Utopia
 	std::string DataString::toCPP() const
 	{
 		return std::string("std::make_unique<DataString>(\"").append(escape_string(value)).append("\")");
+	}
+
+	std::unique_ptr<Data> DataString::copy() const
+	{
+		return std::make_unique<DataString>(value);
 	}
 }

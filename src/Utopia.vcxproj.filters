@@ -25,15 +25,6 @@
     <ClInclude Include="DataString.hpp">
       <Filter>src\data</Filter>
     </ClInclude>
-    <ClInclude Include="Op.hpp">
-      <Filter>src\opcodes</Filter>
-    </ClInclude>
-    <ClInclude Include="OpCode.hpp">
-      <Filter>src\opcodes</Filter>
-    </ClInclude>
-    <ClInclude Include="OpEcho.hpp">
-      <Filter>src\opcodes</Filter>
-    </ClInclude>
     <ClInclude Include="Token.hpp">
       <Filter>src\tokens</Filter>
     </ClInclude>
@@ -64,10 +55,40 @@
     <ClInclude Include="libutopia.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="ParseError.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="TokenAssignment.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenContainer.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenConcat.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="DataEmpty.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="ParseError.hpp">
+      <Filter>src\error</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.hpp">
+      <Filter>src\error</Filter>
+    </ClInclude>
+    <ClInclude Include="VmError.hpp">
+      <Filter>src\error</Filter>
+    </ClInclude>
+    <ClInclude Include="DataInt.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeError.hpp">
+      <Filter>src\error</Filter>
+    </ClInclude>
+    <ClInclude Include="opcodes.hpp">
+      <Filter>src\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="arithmetic.hpp">
+      <Filter>src\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenArithmetic.hpp">
       <Filter>src\tokens</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,9 +116,6 @@
     </ClCompile>
     <ClCompile Include="DataString.cpp">
       <Filter>src\data</Filter>
-    </ClCompile>
-    <ClCompile Include="OpEcho.cpp">
-      <Filter>src\opcodes</Filter>
     </ClCompile>
     <ClCompile Include="Token.cpp">
       <Filter>src\tokens</Filter>
@@ -129,6 +147,27 @@
     <ClCompile Include="TokenAssignment.cpp">
       <Filter>src\tokens</Filter>
     </ClCompile>
+    <ClCompile Include="TokenConcat.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="DataEmpty.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenContainer.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="DataInt.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="opcodes.cpp">
+      <Filter>src\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="arithmetic.cpp">
+      <Filter>src\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenArithmetic.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -143,8 +182,11 @@
     <Filter Include="src\tokens">
       <UniqueIdentifier>{28fd4a90-6be0-4a3c-b6fd-53341b174455}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\opcodes">
-      <UniqueIdentifier>{5e4d9b29-2816-4c3d-bec1-6568fa6e26b1}</UniqueIdentifier>
+    <Filter Include="src\error">
+      <UniqueIdentifier>{b15350cd-b62b-4094-b197-9e829b371947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ops">
+      <UniqueIdentifier>{4dd59f0b-1195-45cb-a40e-8c07019bb113}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

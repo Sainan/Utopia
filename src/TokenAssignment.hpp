@@ -1,14 +1,12 @@
 #pragma once
 
-#include "Token.hpp"
+#include "TokenContainer.hpp"
 
 namespace Utopia
 {
-	class TokenAssignment : public Token
+	class TokenAssignment : public TokenContainer
 	{
 	public:
 		explicit TokenAssignment(const SourceLocation& loc);
-
-		[[nodiscard]] std::string getName() const final;
 	};
 }

@@ -1,7 +1,7 @@
 <?php
 // Syntax: php compile-utopia.php [interpreter|compiler|lib]
 
-$clang = "clang -std=c++17 -fno-rtti -flto -Ofast";
+$clang = "clang -std=c++17 -fno-rtti -fdeclspec -flto -Ofast";
 
 $mode = $argv[1] ?? "interpreter";
 $out = $argv[2] ?? "utopia-{$mode}";

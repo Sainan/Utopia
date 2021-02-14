@@ -7,11 +7,17 @@
 #define UTO_COMPILER 1
 #define UTO_LIB 2
 
-// Automatically switch to library mode based on visual studio's "configuration type"
+// That's it!
 
+// Automatically switch to library mode based on visual studio's "configuration type"
 #if defined(_WINDLL) || defined(_WINLIB)
 #pragma warning(push)
 #pragma warning(disable: 4005)
 #define UTO_MODE UTO_LIB
 #pragma warning(pop)
 #endif
+
+// Debug flags
+
+#define DEBUG_TOKENS false
+#define DEBUG_VM false

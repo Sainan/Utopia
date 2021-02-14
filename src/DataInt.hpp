@@ -4,13 +4,12 @@
 
 namespace Utopia
 {
-	class DataString : public Data
+	class DataInt : public Data
 	{
 	public:
-		std::string value;
+		long long value;
 
-		explicit DataString(std::string&& value = {});
-		explicit DataString(const std::string& value);
+		explicit DataInt(long long value = 0);
 
 		[[nodiscard]] std::string toString() const final;
 		[[nodiscard]] std::string toCPP() const final;

@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "ParseError.hpp"
+#include "Error.hpp"
 #include "Program.hpp"
 
 using namespace Utopia;
@@ -21,7 +21,7 @@ int main(int num_args, const char** args)
 		Program p = Program::fromFile(args[1]);
 		p.execute();
 	}
-	catch (const ParseError& e)
+	catch (const Error& e)
 	{
 		std::cerr << e.what() << std::endl;
 		return 1;

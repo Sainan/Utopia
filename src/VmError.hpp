@@ -4,7 +4,7 @@
 
 namespace Utopia
 {
-	class ParseError : public Error
+	class VmError : public Error
 	{
 	public:
 		using Error::Error;

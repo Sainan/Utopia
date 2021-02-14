@@ -1,14 +1,12 @@
 #pragma once
 
-#include "Token.hpp"
+#include "TokenArithmetic.hpp"
 
 namespace Utopia
 {
-	class TokenPlus : public Token
+	class TokenPlus : public TokenArithmetic
 	{
 	public:
 		explicit TokenPlus(const SourceLocation& loc);
-
-		[[nodiscard]] std::string getName() const final;
 	};
 }

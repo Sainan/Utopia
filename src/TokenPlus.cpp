@@ -1,14 +1,12 @@
 #include "TokenPlus.hpp"
 
+#include "DataInt.hpp"
+#include "TokenInt.hpp"
+
 namespace Utopia
 {
 	TokenPlus::TokenPlus(const SourceLocation& loc)
-		: Token(TOKEN_PLUS, loc)
+		: TokenArithmetic(TOKEN_PLUS, loc, &arithmetic_plus)
 	{
-	}
-
-	std::string TokenPlus::getName() const
-	{
-		return "plus";
 	}
 }

@@ -2,5 +2,6 @@
 
 namespace Utopia
 {
+	class Data;
 	class Program;
 }

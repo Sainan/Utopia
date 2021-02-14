@@ -4,8 +4,8 @@
 
 !.gitignore
 !LICENSE
-!README.md
 
+!*.md
 !*.php
 
 !.github/*

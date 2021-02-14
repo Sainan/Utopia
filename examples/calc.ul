@@ -1,4 +1,6 @@
-echo "65 + 2 * 2 = " 65 + 2 * 2
+two = 2
+res = 65 + two * 2
+echo "65 + 2 * 2 = " + res + " and 2 = " + two
 
 _end_parsing
 

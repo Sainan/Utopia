@@ -167,21 +167,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="arithmetic.hpp" />
     <ClInclude Include="Data.hpp" />
+    <ClInclude Include="DataEmpty.hpp" />
+    <ClInclude Include="DataInt.hpp" />
     <ClInclude Include="DataString.hpp" />
+    <ClInclude Include="Error.hpp" />
     <ClInclude Include="escape_string.hpp" />
     <ClInclude Include="fwddecl.hpp" />
     <ClInclude Include="libutopia.h" />
     <ClInclude Include="config.hpp" />
-    <ClInclude Include="Op.hpp" />
-    <ClInclude Include="OpCode.hpp" />
-    <ClInclude Include="OpEcho.hpp" />
+    <ClInclude Include="opcodes.hpp" />
     <ClInclude Include="ParseError.hpp" />
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="replace_all.hpp" />
     <ClInclude Include="Shared.hpp" />
     <ClInclude Include="SourceLocation.hpp" />
     <ClInclude Include="Token.hpp" />
+    <ClInclude Include="TokenArithmetic.hpp" />
+    <ClInclude Include="TokenConcat.hpp" />
+    <ClInclude Include="TokenContainer.hpp" />
     <ClInclude Include="TokenAssignment.hpp" />
     <ClInclude Include="TokenDivide.hpp" />
     <ClInclude Include="TokenInt.hpp" />
@@ -190,20 +195,28 @@
     <ClInclude Include="TokenMultiply.hpp" />
     <ClInclude Include="TokenPlus.hpp" />
     <ClInclude Include="TokenString.hpp" />
+    <ClInclude Include="TypeError.hpp" />
+    <ClInclude Include="VmError.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="arithmetic.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="DataEmpty.cpp" />
+    <ClCompile Include="DataInt.cpp" />
     <ClCompile Include="DataString.cpp" />
     <ClCompile Include="escape_string.cpp" />
     <ClCompile Include="main_compiler.cpp" />
     <ClCompile Include="main_interpreter.cpp" />
     <ClCompile Include="main_lib.cpp" />
-    <ClCompile Include="OpEcho.cpp" />
+    <ClCompile Include="opcodes.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="replace_all.cpp" />
     <ClCompile Include="SourceLocation.cpp" />
     <ClCompile Include="Token.cpp" />
+    <ClCompile Include="TokenArithmetic.cpp" />
     <ClCompile Include="TokenAssignment.cpp" />
+    <ClCompile Include="TokenConcat.cpp" />
+    <ClCompile Include="TokenContainer.cpp" />
     <ClCompile Include="TokenDivide.cpp" />
     <ClCompile Include="TokenInt.cpp" />
     <ClCompile Include="TokenLiteral.cpp" />

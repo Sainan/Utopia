@@ -14,6 +14,12 @@ namespace Utopia
 		
 		explicit SourceLocation(std::string&& name);
 
-		void throwHere(std::string&& error) const;
+		[[nodiscard]] std::string getSuffix() const;
+
+		template <typename E>
+		__declspec(noreturn) void throwHere(std::string&& error) const
+		{
+			throw E(error.append(getSuffix()));
+		}
 	};
 }

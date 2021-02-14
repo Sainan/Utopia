@@ -4,13 +4,10 @@
 
 namespace Utopia
 {
-	class DataString : public Data
+	class DataEmpty : public Data
 	{
 	public:
-		std::string value;
-
-		explicit DataString(std::string&& value = {});
-		explicit DataString(const std::string& value);
+		explicit DataEmpty();
 
 		[[nodiscard]] std::string toString() const final;
 		[[nodiscard]] std::string toCPP() const final;

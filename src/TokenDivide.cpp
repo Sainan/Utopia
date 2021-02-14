@@ -3,12 +3,7 @@
 namespace Utopia
 {
 	TokenDivide::TokenDivide(const SourceLocation& loc)
-		: Token(TOKEN_DIVIDE, loc)
+		: TokenArithmetic(TOKEN_DIVIDE, loc, &arithmetic_divide)
 	{
-	}
-
-	std::string TokenDivide::getName() const
-	{
-		return "divide";
 	}
 }

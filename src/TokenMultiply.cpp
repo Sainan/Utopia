@@ -3,12 +3,7 @@
 namespace Utopia
 {
 	TokenMultiply::TokenMultiply(const SourceLocation& loc)
-		: Token(TOKEN_MULTIPLY, loc)
+		: TokenArithmetic(TOKEN_MULTIPLY, loc, &arithmetic_multiply)
 	{
-	}
-
-	std::string TokenMultiply::getName() const
-	{
-		return "multiply";
 	}
 }
