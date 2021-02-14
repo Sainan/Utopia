@@ -9,11 +9,10 @@
 
 Currently supported:
 
-- `echo <value|variable>`
+- `echo|print <value|variable>`
 
 Future considerations:
 
-- `print` alias
 - `echo("{}", <value|variable>)`
 
 ## Variable declaration

@@ -504,7 +504,7 @@ namespace Utopia
 				case TOKEN_LITERAL:
 					{
 						auto& literal = ((TokenLiteral*)token)->literal;
-						if (literal == "echo")
+						if (literal == "echo" || literal == "print")
 						{
 							if (++i == tokens.cend())
 							{
