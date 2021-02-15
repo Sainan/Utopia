@@ -1,7 +1,7 @@
 <?php
-if(empty($argv[1]) || substr($argv[1], -3) != ".ul")
+if(empty($argv[1]) || substr($argv[1], -4) != ".uto")
 {
-	die("Syntax: php compile-ul.php <ul-file>".PHP_EOL);
+	die("Syntax: php compile-uto.php <uto-file>".PHP_EOL);
 }
 
 passthru("php compile-utopia.php compiler");

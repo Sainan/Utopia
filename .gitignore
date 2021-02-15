@@ -9,7 +9,7 @@
 !*.php
 
 !.github/*
-!examples/*.ul
+!examples/*.uto
 !src/*.sln
 !src/*.vcxproj
 !src/*.vcxproj.filters

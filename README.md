@@ -16,31 +16,31 @@ If you have PHP-CLI and clang installed, you can compile the interpreter with:
 
 > `php compile-utopia.php interpreter`
 
-And then use it to interpret any ul-file:
+And then use it to interpret any uto-file:
 
-- Windows: `utopia-interpreter.exe <ul-file>`
-- Linux: `./utopia-interpreter <ul-file>`
+- Windows: `utopia-interpreter.exe <uto-file>`
+- Linux: `./utopia-interpreter <uto-file>`
 
-You may provide `examples/hello.ul` in place of `<ul-file>`.
+You may provide `examples/hello.uto` in place of `<uto-file>`.
 
 ### Compiler
 
-If you have PHP-CLI and clang installed, you can compile a ul-file like so:
+If you have PHP-CLI and clang installed, you can compile a uto-file like so:
 
-> `php compile-ul.php <ul-file>`
+> `php compile-uto.php <uto-file>`
 
-You may provide `examples/hello.ul` in place of `<ul-file>`.
+You may provide `examples/hello.uto` in place of `<uto-file>`.
 
-This will create an executable binary file that is native to your system with the same name as the ul-file.
+This will create an executable binary file that is native to your system with the same name as the uto-file.
 
 ## Conclusion
 
 At first glance, this works surprisingly better than expected; these are the file sizes I saw on Linux with the initial version:
 
 ```
-Interpreter          34,8 KB
-Compiler             30,8 KB
-Compiled hello.ul    22,8 KB
+Interpreter           34,8 KB
+Compiler              30,8 KB
+Compiled hello.uto    22,8 KB
 ```
 
 Clang could optimize away a lot of redundant code, but unforunately, the interpreter is still present in the binary, and as more opcodes are added, even if they are unused, "compiled binaries" get bigger. However, it might still be possible to help clang understand which opcodes are (un)used at a later time.

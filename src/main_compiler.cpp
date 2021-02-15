@@ -13,7 +13,7 @@ int main(int num_args, const char** args)
 {
 	if (num_args != 2)
 	{
-		std::cout << "Syntax: " << args[0] << " <ul-file>" << std::endl;
+		std::cout << "Syntax: " << args[0] << " <uto-file>" << std::endl;
 		return 1;
 	}
 

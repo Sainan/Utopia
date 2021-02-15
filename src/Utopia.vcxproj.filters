@@ -190,10 +190,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\examples\hello.ul">
+    <None Include="..\examples\calc.uto">
       <Filter>examples</Filter>
     </None>
-    <None Include="..\examples\calc.ul">
+    <None Include="..\examples\hello.uto">
       <Filter>examples</Filter>
     </None>
   </ItemGroup>

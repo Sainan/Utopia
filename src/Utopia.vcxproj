@@ -226,8 +226,8 @@
     <ClCompile Include="TokenString.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\examples\calc.ul" />
-    <None Include="..\examples\hello.ul" />
+    <None Include="..\examples\calc.uto" />
+    <None Include="..\examples\hello.uto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
