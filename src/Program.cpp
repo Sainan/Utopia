@@ -409,47 +409,50 @@ namespace Utopia
 		// Squash Round 3
 		profilingStartSection("Squash Round 3");
 		{
-#if DEBUG_TOKENS
-			auto pre_squash_size = tokens.size();
-#endif
-			auto i = tokens.begin();
-			while (i != tokens.end())
+			size_t pre_squash_size;
+			do
 			{
-				Token* const token = i->get();
-				switch (token->type)
+				pre_squash_size = tokens.size();
+				auto i = tokens.begin();
+				while (i != tokens.end())
 				{
-				case TOKEN_STRING:
-					if (i == tokens.begin())
+					Token* const token = i->get();
+					switch (token->type)
 					{
-						token->throwUnexpected();
-					}
-					if (i + 1 != tokens.end())
-					{
-						if ((*(i + 1))->isRValue())
+					case TOKEN_STRING:
+					case TOKEN_CONCAT:
+						if (i == tokens.begin())
 						{
-							auto concat = std::make_unique<TokenConcat>(token->loc);
-							concat->left = std::move(*i);
-							i++;
-							concat->right = std::move(*i);
-							i = tokens.erase(i);
-							i--;
-							*i = std::move(concat);
-							i++;
-							break;
+							token->throwUnexpected();
 						}
+						if (i + 1 != tokens.end())
+						{
+							if ((*(i + 1))->isRValue())
+							{
+								auto concat = std::make_unique<TokenConcat>(token->loc);
+								concat->left = std::move(*i);
+								i++;
+								concat->right = std::move(*i);
+								i = tokens.erase(i);
+								i--;
+								*i = std::move(concat);
+								i++;
+								break;
+							}
+						}
+						[[fallthrough]];
+					default:
+						i++;
+						break;
 					}
-					[[fallthrough]];
-				default:
-					i++;
-					break;
 				}
-			}
 #if DEBUG_TOKENS
-			if (tokens.size() != pre_squash_size)
-			{
-				printTokens("Tokens after squashing round 3", tokens);
-			}
+				if (tokens.size() != pre_squash_size)
+				{
+					printTokens("Tokens after squashing round 3", tokens);
+				}
 #endif
+			} while (tokens.size() != pre_squash_size);
 		}
 		profilingEndSection("Squash Round 3");
 		// Squash Round 4
