@@ -257,7 +257,7 @@ namespace Utopia
 			{
 				for (auto c : code)
 				{
-					loc.colon++;
+					loc.character++;
 					if (c == '\r')
 					{
 						continue;
@@ -270,7 +270,7 @@ namespace Utopia
 						}
 						finishLiteralToken(tokens, literal_buffer);
 						loc.line++;
-						loc.colon = 0;
+						loc.character = 0;
 						continue;
 					}
 					if (string_buffer)

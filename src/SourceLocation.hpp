@@ -10,7 +10,7 @@ namespace Utopia
 	{
 		Shared<std::string> name;
 		size_t line = 1;
-		size_t colon = 0;
+		size_t character = 0;
 		
 		explicit SourceLocation(std::string&& name);
 
