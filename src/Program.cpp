@@ -251,42 +251,19 @@ namespace Utopia
 		profilingStartSection("Tokenization");
 		{
 			SourceLocation loc(std::move(name));
-			std::unique_ptr<TokenString> string_buffer{};
 			std::optional<LiteralBuffer> literal_buffer = std::nullopt;
 			try
 			{
-				for (auto c : code)
+				auto i = code.begin();
+				while (i != code.end())
 				{
 					loc.character++;
-					if (c == '\r')
+					char c = *i++;
+					switch (c)
 					{
-						continue;
-					}
-					if (c == '\n')
-					{
-						if (string_buffer)
-						{
-							loc.throwHere<ParseError>("Unexpected new line while reading string");
-						}
-						finishLiteralToken(tokens, literal_buffer);
-						loc.line++;
-						loc.character = 0;
-						continue;
-					}
-					if (string_buffer)
-					{
-						if (c == '"')
-						{
-							tokens.emplace_back(std::move(string_buffer));
-							string_buffer.reset();
-						}
-						else
-						{
-							string_buffer->value.append(1, c);
-						}
-					}
-					else switch (c)
-					{
+					case '\r':
+						break;
+
 					default:
 						if (literal_buffer.has_value())
 						{
@@ -298,6 +275,12 @@ namespace Utopia
 						}
 						break;
 
+					case '\n':
+						finishLiteralToken(tokens, literal_buffer);
+						loc.line++;
+						loc.character = 0;
+						break;
+
 					case ' ':
 					case ';':
 					case '.':
@@ -306,7 +289,24 @@ namespace Utopia
 
 					case '"':
 						finishLiteralToken(tokens, literal_buffer);
-						string_buffer = std::make_unique<TokenString>(loc);
+						{
+							auto str = std::make_unique<TokenString>(loc);
+							while (i != code.end())
+							{
+								loc.character++;
+								char c = *i++;
+								if (c == '\n')
+								{
+									loc.throwHere<ParseError>("Unexpected new line while reading string");
+								}
+								if (c == '"')
+								{
+									tokens.emplace_back(std::move(str));
+									break;
+								}
+								str->value.append(1, c);
+							}
+						}
 						break;
 
 					case '+':
