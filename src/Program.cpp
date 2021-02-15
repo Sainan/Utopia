@@ -257,11 +257,11 @@ namespace Utopia
 				auto i = code.begin();
 				while (i != code.end())
 				{
-					loc.character++;
 					char c = *i++;
 					switch (c)
 					{
 					case '\r':
+						loc.character++;
 						break;
 
 					default:
@@ -273,18 +273,19 @@ namespace Utopia
 						{
 							literal_buffer.emplace(loc, c);
 						}
+						loc.character++;
 						break;
 
 					case '\n':
 						finishLiteralToken(tokens, literal_buffer);
-						loc.line++;
-						loc.character = 0;
+						loc.newline();
 						break;
 
 					case ' ':
 					case ';':
 					case '.':
 						finishLiteralToken(tokens, literal_buffer);
+						loc.character++;
 						break;
 
 					case '"':
@@ -294,7 +295,7 @@ namespace Utopia
 							while (i != code.end())
 							{
 								loc.character++;
-								char c = *i++;
+								c = *i++;
 								if (c == '\n')
 								{
 									loc.throwHere<ParseError>("Unexpected new line while reading string");
@@ -307,31 +308,75 @@ namespace Utopia
 								str->value.append(1, c);
 							}
 						}
+						loc.character++;
 						break;
 
 					case '+':
 						finishLiteralToken(tokens, literal_buffer);
 						tokens.emplace_back(std::make_unique<TokenPlus>(loc));
+						loc.character++;
 						break;
 
 					case '-':
 						finishLiteralToken(tokens, literal_buffer);
 						tokens.emplace_back(std::make_unique<TokenMinus>(loc));
+						loc.character++;
 						break;
 
 					case '*':
 						finishLiteralToken(tokens, literal_buffer);
 						tokens.emplace_back(std::make_unique<TokenMultiply>(loc));
+						loc.character++;
 						break;
 
 					case '/':
-						finishLiteralToken(tokens, literal_buffer);
-						tokens.emplace_back(std::make_unique<TokenDivide>(loc));
+						switch (*i)
+						{
+						case '/':
+							i++;
+							while (i != code.end() && *i++ != '\n');
+							loc.newline();
+							break;
+
+						case '*':
+							i++;
+							loc.character += 2;
+							{
+								bool star = true;
+								while (i != code.end())
+								{
+									loc.character++;
+									c = *i++;
+									if (c == '*')
+									{
+										star = true;
+										continue;
+									}
+									if (star && c == '/')
+									{
+										break;
+									}
+									star = false;
+									if (c == '\n')
+									{
+										loc.newline();
+										continue;
+									}
+								}
+							}
+							break;
+
+						default:
+							finishLiteralToken(tokens, literal_buffer);
+							tokens.emplace_back(std::make_unique<TokenDivide>(loc));
+							loc.character++;
+						}
 						break;
 
 					case '=':
 						finishLiteralToken(tokens, literal_buffer);
 						tokens.emplace_back(std::make_unique<TokenAssignment>(loc));
+						loc.character++;
 						break;
 					}
 				}

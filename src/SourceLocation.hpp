@@ -10,9 +10,11 @@ namespace Utopia
 	{
 		Shared<std::string> name;
 		size_t line = 1;
-		size_t character = 0;
+		size_t character = 1;
 		
 		explicit SourceLocation(std::string&& name);
+
+		void newline();
 
 		[[nodiscard]] std::string getSuffix() const;
 
