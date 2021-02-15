@@ -330,7 +330,7 @@ namespace Utopia
 						break;
 
 					case '/':
-						switch (*i)
+						switch (i == code.end() ? 0 : *i)
 						{
 						case '/':
 							i++;
