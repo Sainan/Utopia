@@ -14,6 +14,7 @@
 #include "DataInt.hpp"
 #include "DataString.hpp"
 
+#include "IoError.hpp"
 #include "ParseError.hpp"
 #include "VmError.hpp"
 #include "TypeError.hpp"
@@ -536,6 +537,10 @@ namespace Utopia
 		std::ifstream file(path);
 		file.seekg(0, std::ios::end);
 		auto size = (size_t)file.tellg();
+		if (size == std::string::npos)
+		{
+			throw IoError(path.insert(0, "Failed to open "));
+		}
 		std::string buffer(size, ' ');
 		file.seekg(0);
 		file.read(&buffer[0], size);

@@ -91,6 +91,9 @@
     <ClInclude Include="TokenArithmetic.hpp">
       <Filter>src\tokens</Filter>
     </ClInclude>
+    <ClInclude Include="IoError.hpp">
+      <Filter>src\error</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">

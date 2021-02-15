@@ -175,6 +175,7 @@
     <ClInclude Include="Error.hpp" />
     <ClInclude Include="escape_string.hpp" />
     <ClInclude Include="fwddecl.hpp" />
+    <ClInclude Include="IoError.hpp" />
     <ClInclude Include="libutopia.h" />
     <ClInclude Include="config.hpp" />
     <ClInclude Include="opcodes.hpp" />
