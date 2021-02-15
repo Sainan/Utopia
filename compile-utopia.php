@@ -1,5 +1,5 @@
 <?php
-// Syntax: php compile-utopia.php [interpreter|compiler|lib]
+// Syntax: php compile-utopia.php [interpreter|compiler|lib|benchmark]
 
 $clang = "clang -std=c++17 -fno-rtti -fdeclspec -flto -Ofast";
 
