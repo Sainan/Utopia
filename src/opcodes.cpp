@@ -62,7 +62,6 @@ namespace Utopia
 	OpCodeData opcodes[] = {
 		// OP_ECHO
 		{
-			1,
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
 				std::cout << p.variables.at(*i++)->toString();
@@ -70,7 +69,6 @@ namespace Utopia
 		},
 		// OP_PLUS
 		{
-			3,
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
 				if (p.variables.at(*(i + 1))->type == DATA_STRING || p.variables.at(*(i + 2))->type == DATA_STRING)
@@ -85,7 +83,6 @@ namespace Utopia
 		},
 		// OP_MINUS
 		{
-			3,
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
 				arithmetic_op(p, i, &arithmetic_minus);
@@ -93,7 +90,6 @@ namespace Utopia
 		},
 		// OP_MULTIPLY
 		{
-			3,
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
 				arithmetic_op(p, i, &arithmetic_multiply);
@@ -101,7 +97,6 @@ namespace Utopia
 		},
 		// OP_DIVIDE
 		{
-			3,
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
 				arithmetic_op(p, i, &arithmetic_divide);
@@ -109,7 +104,6 @@ namespace Utopia
 		},
 		// OP_ASSIGNMENT
 		{
-			2,
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
 				std::unique_ptr<Data>* left = &p.variables.at(*i++);
@@ -118,7 +112,6 @@ namespace Utopia
 		},
 		// OP_CONCAT
 		{
-			3,
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
 				concat(p, i);

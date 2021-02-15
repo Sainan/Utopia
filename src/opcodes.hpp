@@ -25,7 +25,6 @@ namespace Utopia
 
 	struct OpCodeData
 	{
-		uint8_t num_args;
 		op_execute_t execute;
 	};
 
