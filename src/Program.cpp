@@ -2,7 +2,9 @@
 
 #include "config.hpp"
 
-#include <fstream>
+#if PERF_PROFILING
+#include <chrono>
+#endif
 #if DEBUG_TOKENS || DEBUG_VM
 #include <iostream>
 #endif
@@ -14,7 +16,6 @@
 #include "DataInt.hpp"
 #include "DataString.hpp"
 
-#include "IoError.hpp"
 #include "ParseError.hpp"
 #include "VmError.hpp"
 #include "TypeError.hpp"
@@ -29,10 +30,28 @@
 #include "TokenPlus.hpp"
 #include "TokenString.hpp"
 
+#if PERF_PROFILING
+#include "Profiling.hpp"
+#endif
+#include "read_file.hpp"
 #include "opcodes.hpp"
 
 namespace Utopia
 {
+	static void profilingStartSection(const char* section)
+	{
+#if PERF_PROFILING
+		Profiling::startSection(section);
+#endif
+	}
+
+	static void profilingEndSection(const char* section)
+	{
+#if PERF_PROFILING
+		Profiling::endSection(section);
+#endif
+	}
+
 	struct LiteralBuffer
 	{
 		SourceLocation loc;
@@ -229,6 +248,7 @@ namespace Utopia
 		std::vector<std::unique_ptr<Token>> tokens{};
 
 		// Tokenize
+		profilingStartSection("Tokenization");
 		{
 			SourceLocation loc(std::move(name));
 			std::unique_ptr<TokenString> string_buffer{};
@@ -320,12 +340,14 @@ namespace Utopia
 			{
 			}
 		}
+		profilingEndSection("Tokenization");
 
 #if DEBUG_TOKENS
 		printTokens("Tokens from source", tokens);
 #endif
 
 		// Squash Round 1
+		profilingStartSection("Squash Round 1");
 		{
 #if DEBUG_TOKENS
 			auto pre_squash_size = tokens.size();
@@ -353,7 +375,9 @@ namespace Utopia
 			}
 #endif
 		}
+		profilingEndSection("Squash Round 1");
 		// Squash Round 2
+		profilingStartSection("Squash Round 2");
 		{
 #if DEBUG_TOKENS
 			auto pre_squash_size = tokens.size();
@@ -381,7 +405,9 @@ namespace Utopia
 			}
 #endif
 		}
+		profilingEndSection("Squash Round 2");
 		// Squash Round 3
+		profilingStartSection("Squash Round 3");
 		{
 #if DEBUG_TOKENS
 			auto pre_squash_size = tokens.size();
@@ -425,7 +451,9 @@ namespace Utopia
 			}
 #endif
 		}
+		profilingEndSection("Squash Round 3");
 		// Squash Round 4
+		profilingStartSection("Squash Round 4");
 		{
 #if DEBUG_TOKENS
 			auto pre_squash_size = tokens.size();
@@ -452,8 +480,10 @@ namespace Utopia
 			}
 #endif
 		}
+		profilingEndSection("Squash Round 4");
 
 		// Assemble Round 1: Variables
+		profilingStartSection("Assemble Round 1");
 		for (const auto& i : tokens)
 		{
 			Token* const token = i.get();
@@ -494,7 +524,9 @@ namespace Utopia
 				break;
 			}
 		}
+		profilingEndSection("Assemble Round 1");
 		// Assemble Round 2: Echo
+		profilingStartSection("Assemble Round 2");
 		{
 			auto i = tokens.cbegin();
 			while (i != tokens.cend())
@@ -527,6 +559,7 @@ namespace Utopia
 				}
 			}
 		}
+		profilingEndSection("Assemble Round 2");
 
 		return p;
 	}
@@ -534,17 +567,7 @@ namespace Utopia
 
 	Program Program::fromFile(std::string&& path)
 	{
-		std::ifstream file(path);
-		file.seekg(0, std::ios::end);
-		auto size = (size_t)file.tellg();
-		if (size == std::string::npos)
-		{
-			throw IoError(path.insert(0, "Failed to open "));
-		}
-		std::string buffer(size, ' ');
-		file.seekg(0);
-		file.read(&buffer[0], size);
-
+		std::string buffer = read_file(path);
 		return Program::fromString(std::move(path), buffer);
 	}
 

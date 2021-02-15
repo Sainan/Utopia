@@ -180,7 +180,9 @@
     <ClInclude Include="config.hpp" />
     <ClInclude Include="opcodes.hpp" />
     <ClInclude Include="ParseError.hpp" />
+    <ClInclude Include="Profiling.hpp" />
     <ClInclude Include="Program.hpp" />
+    <ClInclude Include="read_file.hpp" />
     <ClInclude Include="replace_all.hpp" />
     <ClInclude Include="Shared.hpp" />
     <ClInclude Include="SourceLocation.hpp" />
@@ -206,11 +208,14 @@
     <ClCompile Include="DataInt.cpp" />
     <ClCompile Include="DataString.cpp" />
     <ClCompile Include="escape_string.cpp" />
+    <ClCompile Include="main_benchmark.cpp" />
     <ClCompile Include="main_compiler.cpp" />
     <ClCompile Include="main_interpreter.cpp" />
     <ClCompile Include="main_lib.cpp" />
     <ClCompile Include="opcodes.cpp" />
+    <ClCompile Include="Profiling.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="read_file.cpp" />
     <ClCompile Include="replace_all.cpp" />
     <ClCompile Include="SourceLocation.cpp" />
     <ClCompile Include="Token.cpp" />

@@ -94,6 +94,12 @@
     <ClInclude Include="IoError.hpp">
       <Filter>src\error</Filter>
     </ClInclude>
+    <ClInclude Include="read_file.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiling.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -170,6 +176,15 @@
     </ClCompile>
     <ClCompile Include="TokenArithmetic.cpp">
       <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="main_benchmark.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="read_file.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiling.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

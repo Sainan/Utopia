@@ -6,6 +6,7 @@
 #define UTO_INTERPRETER 0
 #define UTO_COMPILER 1
 #define UTO_LIB 2
+#define UTO_BENCHMARK 3
 
 // That's it!
 
@@ -17,7 +18,8 @@
 #pragma warning(pop)
 #endif
 
-// Debug flags
+// Development flags
 
+#define PERF_PROFILING false
 #define DEBUG_TOKENS false
 #define DEBUG_VM false
