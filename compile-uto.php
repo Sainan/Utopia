@@ -15,6 +15,6 @@ else
 	passthru("./utopia-compiler ".escapeshellarg($argv[1]));
 }
 
-passthru("php compile-utopia.php compiled ".escapeshellarg(substr($argv[1], 0, -3)));
+passthru("php compile-utopia.php compiled ".escapeshellarg(substr($argv[1], 0, -4)));
 
 unlink("src/main_compiled.cpp");
