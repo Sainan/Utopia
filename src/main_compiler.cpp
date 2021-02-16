@@ -22,7 +22,9 @@ int main(int num_args, const char** args)
 		Program p = Program::fromFile(args[1]);
 
 		std::ofstream file("src/main_compiled.cpp");
-		file << R"EOC(#include "DataString.hpp"
+		file << R"EOC(#include "DataEmpty.hpp"
+#include "DataInt.hpp"
+#include "DataString.hpp"
 #include "Program.hpp"
 
 using namespace Utopia;
