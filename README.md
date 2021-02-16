@@ -33,6 +33,11 @@ You may provide `examples/hello.uto` in place of `<uto-file>`.
 
 This will create an executable binary file that is native to your system with the same name as the uto-file.
 
+As for binaries for different systems (cross-compiling), I thought Clang had this sorted, but I wasted like an entire day on that shit, and figured the best solution is just setting up servers to native-compile for you:
+
+- https://winserv.utopia.sh/www-compiler.php
+- https://debserv.utopia.sh/www-compiler.php
+
 ## Conclusion
 
 At first glance, this works surprisingly better than expected; these are the file sizes I saw on Linux with the initial version:

@@ -3,6 +3,11 @@
 
 $clang = "clang -std=c++17 -fno-rtti -fdeclspec -flto -Ofast";
 
+if(empty($argv))
+{
+	die("CLI only!");
+}
+
 $mode = $argv[1] ?? "interpreter";
 $out = $argv[2] ?? "utopia-{$mode}";
 $main_only = isset($argv[2]);

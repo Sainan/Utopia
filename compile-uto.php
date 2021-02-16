@@ -1,4 +1,9 @@
 <?php
+if(empty($argv))
+{
+	die("CLI only!");
+}
+
 if(empty($argv[1]) || substr($argv[1], -4) != ".uto")
 {
 	die("Syntax: php compile-uto.php <uto-file>".PHP_EOL);
@@ -6,7 +11,7 @@ if(empty($argv[1]) || substr($argv[1], -4) != ".uto")
 
 passthru("php compile-utopia.php compiler");
 
-if(defined("PHP_WINDOWS_VERSION_MAJOR")) 
+if(defined("PHP_WINDOWS_VERSION_MAJOR"))
 {
 	passthru("utopia-compiler.exe ".escapeshellarg($argv[1]));
 }
