@@ -95,11 +95,11 @@ passthru("$link -o $out ".join(" ", $objects));
 echo "Got binary in ".(microtime(true) - $start)." seconds.".PHP_EOL;
 
 echo "Stripping...".PHP_EOL;
-if($mode == "lib" && !defined("PHP_WINDOWS_VERSION_MAJOR"))
+if(defined("PHP_WINDOWS_VERSION_MAJOR"))
 {
-	passthru("strip -s -K Utopia_execute_file -K Utopia_execute_string $out");
+	passthru("llvm-strip -s $out");
 }
 else
 {
-	passthru("strip -s $out");
+	passthru("strip -s -K Utopia_execute_file -K Utopia_execute_string $out");
 }
