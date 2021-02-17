@@ -382,6 +382,7 @@ namespace Utopia
 						break;
 					}
 				}
+				finishLiteralToken(tokens, literal_buffer);
 			}
 			catch (const InternalExceptionEndParsing&)
 			{
