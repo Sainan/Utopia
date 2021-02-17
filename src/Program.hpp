@@ -27,8 +27,8 @@ namespace Utopia
 		echo_func_t echo_func = &echo_impl_stdout;
 
 	public:
-		[[nodiscard]] void fromString(std::string&& name, const std::string& code);
-		[[nodiscard]] void fromFile(std::string&& path);
+		void fromString(std::string&& name, const std::string& code);
+		void fromFile(std::string&& path);
 
 		void execute();
 	};
