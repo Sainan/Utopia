@@ -178,6 +178,7 @@
     <ClInclude Include="IoError.hpp" />
     <ClInclude Include="libutopia.h" />
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="libutopia.hpp" />
     <ClInclude Include="opcodes.hpp" />
     <ClInclude Include="ParseError.hpp" />
     <ClInclude Include="Profiling.hpp" />

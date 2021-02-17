@@ -1,4 +1,4 @@
-// To consume the library, #include <libutopia.h>
+// To consume the library, include <libutopia.h> or <libutopia.hpp>
 
 #include "config.hpp"
 #if defined(__clang__) || UTO_MODE == UTO_LIB
