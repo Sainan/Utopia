@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Compile
+name: Compile Interpreter
 
 on:
   push:
@@ -9,18 +7,34 @@ on:
     branches: [ senpai ]
 
 jobs:
-  build:
+  ubuntu:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Compile
-        run: php compile-utopia.php
+      - name: Compile Interpreter
+        run: php compile-utopia.php interpreter
 
-      - name: Upload a Build Artifact
+      - name: Upload Interpreter
         uses: actions/upload-artifact@v2.2.2
         with:
-          name: Interpreter
+          name: utopia-interpreter
           path: utopia-interpreter
+          retention-days: 0
+
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile Interpreter
+        run: php compile-utopia.php interpreter
+
+      - name: Upload Interpreter
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          name: utopia-interpreter.exe
+          path: utopia-interpreter.exe
           retention-days: 0
