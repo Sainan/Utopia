@@ -28,8 +28,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Add clang to path
+        shell: bash
+        run: echo "PATH=$PATH:C:\msys64\mingw64\bin" >> $GITHUB_ENV
 
       - name: Compile Interpreter
+        shell: bash
         run: php compile-utopia.php interpreter
 
       - name: Upload Interpreter
