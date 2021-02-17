@@ -1,0 +1,20 @@
+name: Test
+
+on:
+  push:
+    branches: [ senpai ]
+  pull_request:
+    branches: [ senpai ]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile Tests
+        run: php compile-utopia.php test
+
+      - name: Run Tests
+        run: ./utopia-test

@@ -9,6 +9,7 @@
 !*.php
 
 !.github/*
+!.github/workflows/*
 !examples/*.uto
 !src/*.sln
 !src/*.vcxproj
