@@ -305,10 +305,12 @@ namespace Utopia
 								if (c == '"')
 								{
 									tokens.emplace_back(std::move(str));
-									break;
+									goto _finish_string;
 								}
 								str->value.append(1, c);
 							}
+							loc.throwHere<ParseError>("Unexpected end of code while reading string");
+						_finish_string:;
 						}
 						loc.character++;
 						break;
