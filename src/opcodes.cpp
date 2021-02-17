@@ -54,7 +54,7 @@ namespace Utopia
 	static void concat(Program& p, std::vector<uint8_t>::iterator& i)
 	{
 		auto* out = getString(p, i);
-		*out = std::move(std::string(*getString(p, i)).append(getStringValue(p, i)));
+		*out = std::move(std::string(getStringValue(p, i)).append(getStringValue(p, i)));
 	}
 
 	OpCodeData opcodes[] = {
