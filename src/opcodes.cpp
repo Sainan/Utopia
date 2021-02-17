@@ -1,7 +1,5 @@
 #include "opcodes.hpp"
 
-#include <iostream>
-
 #include "DataInt.hpp"
 #include "DataString.hpp"
 
@@ -64,7 +62,8 @@ namespace Utopia
 		{
 			[](Program& p, std::vector<uint8_t>::iterator& i)
 			{
-				std::cout << p.variables.at(*i++)->toString();
+				auto str = p.variables.at(*i++)->toString();
+				p.echo_func(str.c_str());
 			}
 		},
 		// OP_PLUS

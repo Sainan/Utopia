@@ -18,13 +18,14 @@ int main()
 		"examples/hello.uto",
 		"examples/calc.uto",
 	};
+	Program p{};
 	for (const auto& file : files)
 	{
 		std::string code = read_file(file);
 		Profiling::startSection(file);
 		for (int i = 0; i < 100000; i++)
 		{
-			auto p = Program::fromString("", code);
+			p.fromString("", code);
 		}
 		Profiling::endSection(file);
 	}

@@ -18,7 +18,8 @@ int main(int num_args, const char** args)
 
 	try
 	{
-		Program p = Program::fromFile(args[1]);
+		Program p{};
+		p.fromFile(args[1]);
 		p.execute();
 	}
 	catch (const Error& e)

@@ -5,9 +5,7 @@
 #if PERF_PROFILING
 #include <chrono>
 #endif
-#if DEBUG_TOKENS || DEBUG_VM
 #include <iostream>
-#endif
 #include <optional>
 #include <unordered_map>
 #include <string>
@@ -38,6 +36,11 @@
 
 namespace Utopia
 {
+	void Program::echo_impl_stdout(const char* str)
+	{
+		std::cout << str;
+	}
+
 	static void profilingStartSection(const char* section)
 	{
 #if PERF_PROFILING
@@ -135,7 +138,7 @@ namespace Utopia
 		}
 	}
 #endif
-	
+
 	struct VariableData
 	{
 		size_t index;
@@ -240,9 +243,8 @@ namespace Utopia
 		token->throwUnexpected();
 	}
 
-	Program Program::fromString(std::string&& name, const std::string& code)
+	void Program::fromString(std::string&& name, const std::string& code)
 	{
-		Program p{};
 		std::unordered_map<std::string, size_t> var_map{};
 
 		std::vector<std::unique_ptr<Token>> tokens{};
@@ -541,7 +543,7 @@ namespace Utopia
 				{
 					((TokenAssignment*)token)->left->expectType(TOKEN_LITERAL);
 					std::string& var_name = ((TokenLiteral*)((TokenAssignment*)token)->left.get())->literal;
-					auto r_val = expandVariable(p, var_map, ((TokenAssignment*)token)->right.get());
+					auto r_val = expandVariable(*this, var_map, ((TokenAssignment*)token)->right.get());
 					if (((TokenAssignment*)token)->right->isRValue())
 					{
 						auto var_map_entry = var_map.find(var_name);
@@ -554,19 +556,19 @@ namespace Utopia
 					}
 					else
 					{
-						emplaceOp(p, OP_ASSIGNMENT, token);
+						emplaceOp(*this, OP_ASSIGNMENT, token);
 						auto var_map_entry = var_map.find(var_name);
 						if (var_map_entry == var_map.end())
 						{
-							var_map.emplace(std::move(var_name), p.variables.size());
-							emplaceOp(p, p.variables.size(), ((TokenAssignment*)token)->left.get());
-							p.variables.emplace_back(std::make_unique<DataEmpty>());
+							var_map.emplace(std::move(var_name), variables.size());
+							emplaceOp(*this, variables.size(), ((TokenAssignment*)token)->left.get());
+							variables.emplace_back(std::make_unique<DataEmpty>());
 						}
 						else
 						{
-							emplaceOp(p, var_map_entry->second, ((TokenAssignment*)token)->left.get());
+							emplaceOp(*this, var_map_entry->second, ((TokenAssignment*)token)->left.get());
 						}
-						emplaceOp(p, r_val);
+						emplaceOp(*this, r_val);
 					}
 				}
 				break;
@@ -591,9 +593,9 @@ namespace Utopia
 							{
 								token->throwUnexpected();
 							}
-							auto arg_var = expandVariable(p, var_map, i->get());
-							emplaceOp(p, OP_ECHO, token);
-							emplaceOp(p, arg_var);
+							auto arg_var = expandVariable(*this, var_map, i->get());
+							emplaceOp(*this, OP_ECHO, token);
+							emplaceOp(*this, arg_var);
 						}
 						else
 						{
@@ -608,15 +610,14 @@ namespace Utopia
 			}
 		}
 		profilingEndSection("Assemble Round 2");
-
-		return p;
 	}
+
 #pragma clang diagnostic pop
 
-	Program Program::fromFile(std::string&& path)
+	void Program::fromFile(std::string&& path)
 	{
 		std::string buffer = read_file(path);
-		return Program::fromString(std::move(path), buffer);
+		return fromString(std::move(path), buffer);
 	}
 
 	static void vm_debug_printArguments(std::vector<uint8_t>::iterator& opcode_i, std::vector<uint8_t>::iterator& i)

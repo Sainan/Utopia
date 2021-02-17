@@ -19,7 +19,8 @@ int main(int num_args, const char** args)
 
 	try
 	{
-		Program p = Program::fromFile(args[1]);
+		Program p{};
+		p.fromFile(args[1]);
 
 		std::ofstream file("src/main_compiled.cpp");
 		file << R"EOC(#include "DataEmpty.hpp"

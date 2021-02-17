@@ -13,14 +13,33 @@ using namespace Utopia;
 #define EXPORT extern "C"
 #endif
 
-EXPORT void Utopia_execute_file(const char* path)
+EXPORT void* Utopia_Program_fromFile(const char* path)
 {
-	Program::fromFile(path).execute();
+	auto p = new Program();
+	p->fromFile(path);
+	return p;
 }
 
-EXPORT void Utopia_execute_string(const char* name, const char* code)
+EXPORT void* Utopia_Program_fromString(const char* name, const char* code)
 {
-	Program::fromString(name, code).execute();
+	auto p = new Program();
+	p->fromString(name, code);
+	return p;
+}
+
+EXPORT void Utopia_Program_redirectOutput(void* p, void echo_func(const char*))
+{
+	((Program*)p)->echo_func = echo_func;
+}
+
+EXPORT void Utopia_Program_execute(void* p)
+{
+	return ((Program*)p)->execute();
+}
+
+EXPORT void Utopia_Program_free(void* p)
+{
+	delete p;
 }
 
 #endif
