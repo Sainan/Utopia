@@ -68,6 +68,7 @@ int main()
 	total_tests = 0;
 	successful_tests = 0;
 	
+	assertOutput("_end_parsing", R"(echo "Hello, world!"; _end_parsing; echo "oh no")", "Hello, world!");
 	assertOutput("Order of Operations", R"(echo 65 + 2 * 2)", "69");
 	assertOutput("Named Variable", R"(hello = "Hello, world!"; echo hello)", "Hello, world!");
 	assertOutput("By-Value", R"(two = 2; res = 65 + two * 2; echo res + " " + two)", "69 2");
