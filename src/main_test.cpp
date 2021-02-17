@@ -73,6 +73,10 @@ int main()
 	assertOutput("By-Value", R"(two = 2; res = 65 + two * 2; echo res + " " + two)", "69 2");
 	assertOutput("Variable Override", R"(res = 40; res = res + 2; echo res)", "42");
 
+	assertOutput("Comment", R"(hello = "Hello, world!" // hello = "Oh no"
+echo hello)", "Hello, world!");
+	assertOutput("Multi-Line Comment", R"(echo /* print the message */ "Hello, world!")", "Hello, world!");
+
 	std::cout << "Compile-time concat: ";
 	initProgramTest(R"(echo "A" "B")", [](Program& p)
 	{
