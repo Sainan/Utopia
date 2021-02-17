@@ -75,6 +75,8 @@ int main()
 
 	assertOutput("Comment", R"(hello = "Hello, world!" // hello = "Oh no"
 echo hello)", "Hello, world!");
+	assertOutput("Bash-Style Comment", R"(hello = "Hello, world!" # hello = "Oh no"
+echo hello)", "Hello, world!");
 	assertOutput("Multi-Line Comment", R"(echo /* print the message */ "Hello, world!")", "Hello, world!");
 
 	std::cout << "Compile-time concat: ";

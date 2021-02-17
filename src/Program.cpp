@@ -382,6 +382,11 @@ namespace Utopia
 						tokens.emplace_back(std::make_unique<TokenAssignment>(loc));
 						loc.character++;
 						break;
+
+					case '#':
+						while (i != code.end() && *i++ != '\n');
+						loc.newline();
+						break;
 					}
 				}
 				finishLiteralToken(tokens, literal_buffer);
