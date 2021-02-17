@@ -6,7 +6,8 @@
 #define UTO_INTERPRETER 0
 #define UTO_COMPILER 1
 #define UTO_LIB 2
-#define UTO_BENCHMARK 3
+#define UTO_TEST 3
+#define UTO_BENCHMARK 4
 
 // That's it!
 

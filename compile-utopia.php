@@ -1,5 +1,5 @@
 <?php
-// Syntax: php compile-utopia.php [interpreter|compiler|lib|benchmark]
+// Syntax: php compile-utopia.php [interpreter|compiler|lib|test|benchmark]
 
 $clang = "clang -std=c++17 -fno-rtti -fdeclspec -flto -Ofast";
 
@@ -11,6 +11,11 @@ if(empty($argv))
 $mode = $argv[1] ?? "interpreter";
 $out = $argv[2] ?? "utopia-{$mode}";
 $main_only = isset($argv[2]);
+
+if(!is_file("src/main_{$mode}.cpp"))
+{
+	die("Invalid mode: {$mode}".PHP_EOL);
+}
 
 if(!is_dir("obj"))
 {

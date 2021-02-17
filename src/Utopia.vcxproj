@@ -213,6 +213,7 @@
     <ClCompile Include="main_compiler.cpp" />
     <ClCompile Include="main_interpreter.cpp" />
     <ClCompile Include="main_lib.cpp" />
+    <ClCompile Include="main_test.cpp" />
     <ClCompile Include="opcodes.cpp" />
     <ClCompile Include="Profiling.cpp" />
     <ClCompile Include="Program.cpp" />
