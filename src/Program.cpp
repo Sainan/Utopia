@@ -304,13 +304,11 @@ namespace Utopia
 								}
 								if (c == '"')
 								{
-									tokens.emplace_back(std::move(str));
-									goto _finish_string;
+									break;
 								}
 								str->value.append(1, c);
 							}
-							loc.throwHere<ParseError>("Unexpected end of code while reading string");
-						_finish_string:;
+							tokens.emplace_back(std::move(str));
 						}
 						loc.character++;
 						break;
