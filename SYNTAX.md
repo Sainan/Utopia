@@ -21,6 +21,21 @@
            */
 ```
 
+## Strings
+
+```
+"Hello, world!"
+
+CRLF|Hello,
+    |world!
+
+LF|Hello,
+  |world!
+
+CR|Hello,
+  |world!
+```
+
 ## Output
 
 Currently supported:

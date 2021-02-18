@@ -300,7 +300,7 @@ namespace Utopia
 								c = *i++;
 								if (c == '\n')
 								{
-									loc.throwHere<ParseError>("Unexpected new line while reading string");
+									loc.throwHere<ParseError>("Unexpected new line while reading double-quoted string");
 								}
 								if (c == '"')
 								{
@@ -384,6 +384,80 @@ namespace Utopia
 					case '#':
 						while (i != code.end() && *i++ != '\n');
 						loc.newline();
+						break;
+
+					case '|':
+						finishLiteralToken(tokens, literal_buffer);
+						if (tokens.empty())
+						{
+						_unexpected_pipe:
+							loc.throwHere<ParseError>("Unexpected |");
+						}
+						{
+							auto prev_token_i = tokens.end() - 1;
+							Token* const prev_token = prev_token_i->get();
+							if (prev_token->type != TOKEN_LITERAL)
+							{
+								goto _unexpected_pipe;
+							}
+							const char* line_ending = nullptr;
+							if (((TokenLiteral*)prev_token)->literal == "CRLF")
+							{
+								line_ending = "\r\n";
+							}
+							else if (((TokenLiteral*)prev_token)->literal == "LF")
+							{
+								line_ending = "\n";
+							}
+							else if (((TokenLiteral*)prev_token)->literal == "CR")
+							{
+								line_ending = "\r";
+							}
+							if (line_ending == nullptr)
+							{
+								goto _unexpected_pipe;
+							}
+							auto str = std::make_unique<TokenString>(loc);
+							while (i != code.end())
+							{
+								loc.character++;
+								c = *i++;
+								if (c == '\r')
+								{
+									continue;
+								}
+								if (c == '\n')
+								{
+									loc.newline();
+									auto j = i;
+									while (j != code.end())
+									{
+										loc.character++;
+										c = *j++;
+										if (c == '|')
+										{
+											i = j;
+											str->value.append(line_ending);
+											break;
+										}
+										switch (c)
+										{
+										case ' ':
+										case '\t':
+											break;
+
+										default:
+											loc.character = 0;
+											goto _pipe_string_ends;
+										}
+									}
+									continue;
+								}
+								str->value.append(1, c);
+							}
+						_pipe_string_ends:
+							*prev_token_i = std::move(str);
+						}
 						break;
 					}
 				}
