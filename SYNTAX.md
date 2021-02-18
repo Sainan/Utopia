@@ -5,6 +5,22 @@
 - `<required>`
 - `[optional]`
 
+---
+
+## Comments
+
+```
+// I'm a comment
+
+# I'm a comment
+
+/*
+   I'm a
+  very big
+   comment
+           */
+```
+
 ## Output
 
 Currently supported:
