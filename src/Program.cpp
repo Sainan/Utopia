@@ -447,7 +447,7 @@ namespace Utopia
 											break;
 
 										default:
-											loc.character = 0;
+											loc.character = 1;
 											goto _pipe_string_ends;
 										}
 									}
