@@ -1,7 +1,7 @@
 <?php
 // Syntax: php compile-utopia.php [interpreter|compiler|lib|test|benchmark]
 
-$clang = "clang -std=c++17 -fno-rtti -fdeclspec -flto -Ofast";
+$clang = "clang -std=c++17 -fdeclspec -flto -Ofast";
 
 if(empty($argv))
 {
@@ -15,6 +15,15 @@ $main_only = isset($argv[2]);
 if(!is_file("src/main_{$mode}.cpp"))
 {
 	die("Invalid mode: {$mode}".PHP_EOL);
+}
+
+if($mode == "test" && defined("PHP_WINDOWS_VERSION_MAJOR"))
+{
+	$clang .= " -frtti"; // Microsoft should be ashamed for using typeid
+}
+else
+{
+	$clang .= " -fno-rtti";
 }
 
 if(!is_dir("obj"))
