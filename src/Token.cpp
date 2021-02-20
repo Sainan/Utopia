@@ -36,6 +36,12 @@ namespace Utopia
 		case TOKEN_LITERAL:
 			return "literal";
 
+		case TOKEN_BLOCK:
+			return "block";
+
+		case TOKEN_FUNC:
+			return "function";
+
 		case TOKEN_PLUS:
 			return "addition";
 

@@ -20,9 +20,9 @@ namespace Utopia
 	{
 		std::string ns_str = std::to_string(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now() - section_starts.at(section)).count());
 		std::string section_str(section);
-		if (section_str.length() < 20)
+		if (section_str.length() < 32)
 		{
-			section_str.append(20 - section_str.length(), ' ');
+			section_str.append(32 - section_str.length(), ' ');
 		}
 		if (ns_str.length() < 12)
 		{

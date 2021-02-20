@@ -1,5 +1,6 @@
 #include "Data.hpp"
 
+#include "SourceLocation.hpp"
 #include "TypeError.hpp"
 
 namespace Utopia
@@ -25,15 +26,31 @@ namespace Utopia
 			
 		case DATA_INT:
 			return "integer";
+
+		case DATA_FUNC:
+			return "function";
 		}
 		return nullptr;
+	}
+
+	std::string Data::getTypeErrorMessage(const DataType expected_type) const
+	{
+		return std::string("Expected ").append(getTypeName(expected_type)).append(", found ").append(getTypeName(this->type));
 	}
 
 	void Data::expectType(const DataType expected_type) const
 	{
 		if (this->type != expected_type)
 		{
-			throw TypeError(std::string("Expected ").append(getTypeName(expected_type)).append(", found ").append(getTypeName(this->type)));
+			throw TypeError(getTypeErrorMessage(expected_type));
+		}
+	}
+
+	void Data::expectType(const DataType expected_type, const SourceLocation& loc) const
+	{
+		if (this->type != expected_type)
+		{
+			loc.throwHere<TypeError>(getTypeErrorMessage(expected_type));
 		}
 	}
 }

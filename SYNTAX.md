@@ -88,3 +88,13 @@ Future considerations:
 - Power: `<int> ^^ <int>`
 - Power: `<int> pow <int>`
 - `sqrt <int>`
+
+## Functions
+
+Currently supported:
+
+- `<name> = fn { ... }`
+
+Future considerations:
+
+- `fn <name> { ... }`

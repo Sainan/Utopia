@@ -1,0 +1,6 @@
+i = 0
+inc = fn {
+	i = i + 1
+}
+inc;
+echo i;

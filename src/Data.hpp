@@ -1,5 +1,7 @@
 #pragma once
 
+#include "fwddecl.hpp"
+
 #include <memory>
 #include <string>
 
@@ -10,6 +12,7 @@ namespace Utopia
 		DATA_EMPTY,
 		DATA_STRING,
 		DATA_INT,
+		DATA_FUNC,
 	};
 
 	class Data
@@ -24,7 +27,11 @@ namespace Utopia
 		virtual ~Data();
 
 		[[nodiscard]] static const char* getTypeName(const DataType type);
+	private:
+		[[nodiscard]] std::string getTypeErrorMessage(const DataType expected_type) const;
+	public:
 		void expectType(const DataType expected_type) const;
+		void expectType(const DataType expected_type, const SourceLocation& loc) const;
 
 		[[nodiscard]] virtual std::string toString() const = 0;
 		[[nodiscard]] virtual std::string toCPP() const = 0;

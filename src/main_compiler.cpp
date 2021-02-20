@@ -24,6 +24,7 @@ int main(int num_args, const char** args)
 
 		std::ofstream file("src/main_compiled.cpp");
 		file << R"EOC(#include "DataEmpty.hpp"
+#include "DataFunction.hpp"
 #include "DataInt.hpp"
 #include "DataString.hpp"
 #include "Program.hpp"

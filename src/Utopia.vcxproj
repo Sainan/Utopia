@@ -170,12 +170,15 @@
     <ClInclude Include="arithmetic.hpp" />
     <ClInclude Include="Data.hpp" />
     <ClInclude Include="DataEmpty.hpp" />
+    <ClInclude Include="DataFunction.hpp" />
     <ClInclude Include="DataInt.hpp" />
     <ClInclude Include="DataString.hpp" />
     <ClInclude Include="Error.hpp" />
+    <ClInclude Include="escape_block_string.hpp" />
     <ClInclude Include="escape_string.hpp" />
     <ClInclude Include="fwddecl.hpp" />
     <ClInclude Include="IoError.hpp" />
+    <ClInclude Include="is_whitespace.hpp" />
     <ClInclude Include="libutopia.h" />
     <ClInclude Include="config.hpp" />
     <ClInclude Include="libutopia.hpp" />
@@ -185,20 +188,24 @@
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="read_file.hpp" />
     <ClInclude Include="replace_all.hpp" />
+    <ClInclude Include="Scope.hpp" />
     <ClInclude Include="Shared.hpp" />
     <ClInclude Include="SourceLocation.hpp" />
     <ClInclude Include="Token.hpp" />
     <ClInclude Include="TokenArithmetic.hpp" />
+    <ClInclude Include="TokenBlock.hpp" />
     <ClInclude Include="TokenConcat.hpp" />
     <ClInclude Include="TokenContainer.hpp" />
     <ClInclude Include="TokenAssignment.hpp" />
     <ClInclude Include="TokenDivide.hpp" />
+    <ClInclude Include="TokenFunction.hpp" />
     <ClInclude Include="TokenInt.hpp" />
     <ClInclude Include="TokenLiteral.hpp" />
     <ClInclude Include="TokenMinus.hpp" />
     <ClInclude Include="TokenMultiply.hpp" />
     <ClInclude Include="TokenPlus.hpp" />
     <ClInclude Include="TokenString.hpp" />
+    <ClInclude Include="trim.hpp" />
     <ClInclude Include="TypeError.hpp" />
     <ClInclude Include="VmError.hpp" />
   </ItemGroup>
@@ -206,9 +213,12 @@
     <ClCompile Include="arithmetic.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataEmpty.cpp" />
+    <ClCompile Include="DataFunction.cpp" />
     <ClCompile Include="DataInt.cpp" />
     <ClCompile Include="DataString.cpp" />
+    <ClCompile Include="escape_block_string.cpp" />
     <ClCompile Include="escape_string.cpp" />
+    <ClCompile Include="is_whitespace.cpp" />
     <ClCompile Include="main_benchmark.cpp" />
     <ClCompile Include="main_compiler.cpp" />
     <ClCompile Include="main_interpreter.cpp" />
@@ -223,18 +233,22 @@
     <ClCompile Include="Token.cpp" />
     <ClCompile Include="TokenArithmetic.cpp" />
     <ClCompile Include="TokenAssignment.cpp" />
+    <ClCompile Include="TokenBlock.cpp" />
     <ClCompile Include="TokenConcat.cpp" />
     <ClCompile Include="TokenContainer.cpp" />
     <ClCompile Include="TokenDivide.cpp" />
+    <ClCompile Include="TokenFunction.cpp" />
     <ClCompile Include="TokenInt.cpp" />
     <ClCompile Include="TokenLiteral.cpp" />
     <ClCompile Include="TokenMinus.cpp" />
     <ClCompile Include="TokenMultiply.cpp" />
     <ClCompile Include="TokenPlus.cpp" />
     <ClCompile Include="TokenString.cpp" />
+    <ClCompile Include="trim.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\examples\calc.uto" />
+    <None Include="..\examples\func.uto" />
     <None Include="..\examples\hello.uto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

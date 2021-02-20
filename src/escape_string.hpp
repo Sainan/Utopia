@@ -4,5 +4,6 @@
 
 namespace Utopia
 {
-	[[nodiscard]] std::string escape_string(const std::string& in);
+	[[nodiscard]] extern std::string escape_string(const std::string& in);
+	extern void escape_string(std::string& str);
 }

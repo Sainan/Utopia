@@ -1,5 +1,7 @@
 #pragma once
 
+#include "fwddecl.hpp"
+
 #include <string>
 
 #include "Shared.hpp"

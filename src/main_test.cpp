@@ -95,6 +95,13 @@ echo hello)", "Hello, world!");
 echo hello)", "Hello, world!");
 	assertOutput("Multi-Line Comment", R"(echo /* print the message */ "Hello, world!")", "Hello, world!");
 
+	assertOutput("Function", R"(i = 0
+inc = fn {
+	i = i + 1
+}
+inc
+echo i)", "1");
+
 	std::cout << "Compile-time concat: ";
 	initProgramTest(R"(echo "A" "B")", [](Program& p)
 	{

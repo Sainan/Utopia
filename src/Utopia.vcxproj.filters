@@ -7,12 +7,6 @@
     <ClInclude Include="Program.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="replace_all.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="escape_string.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="SourceLocation.hpp">
       <Filter>src</Filter>
     </ClInclude>
@@ -94,14 +88,41 @@
     <ClInclude Include="IoError.hpp">
       <Filter>src\error</Filter>
     </ClInclude>
+    <ClInclude Include="libutopia.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenBlock.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="escape_string.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
     <ClInclude Include="read_file.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="replace_all.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="trim.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="is_whitespace.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenFunction.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="escape_block_string.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="DataFunction.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Scope.hpp">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="Profiling.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="libutopia.hpp">
-      <Filter>src</Filter>
+      <Filter>src\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,12 +133,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="main_interpreter.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="replace_all.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="escape_string.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="SourceLocation.cpp">
@@ -183,14 +198,38 @@
     <ClCompile Include="main_benchmark.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="read_file.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Profiling.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="main_test.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenBlock.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="escape_string.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="read_file.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="replace_all.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="trim.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="is_whitespace.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenFunction.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="escape_block_string.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="DataFunction.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiling.cpp">
+      <Filter>src\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,12 +251,18 @@
     <Filter Include="src\ops">
       <UniqueIdentifier>{4dd59f0b-1195-45cb-a40e-8c07019bb113}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{cc4443df-8f40-4e90-a89d-367797977158}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\examples\calc.uto">
       <Filter>examples</Filter>
     </None>
     <None Include="..\examples\hello.uto">
+      <Filter>examples</Filter>
+    </None>
+    <None Include="..\examples\func.uto">
       <Filter>examples</Filter>
     </None>
   </ItemGroup>

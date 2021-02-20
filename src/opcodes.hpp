@@ -17,11 +17,12 @@ namespace Utopia
 		OP_DIVIDE,
 		OP_ASSIGNMENT,
 		OP_CONCAT,
+		OP_CALL,
 
 		_OP_SIZE
 	};
 
-	using op_execute_t = void(*)(Program&, std::vector<uint8_t>::iterator&);
+	using op_execute_t = void(*)(Program&, std::vector<uint8_t>::const_iterator&);
 
 	struct OpCodeData
 	{
