@@ -39,7 +39,7 @@ EXPORT void Utopia_Program_execute(void* p)
 
 EXPORT void Utopia_Program_free(void* p)
 {
-	delete p;
+	delete (Program*)p;
 }
 
 #endif
