@@ -4,8 +4,8 @@
 
 namespace Utopia
 {
-	TokenFunction::TokenFunction(const SourceLocation& loc, std::string&& contents)
-		: Token(TOKEN_FUNC, loc), contents(std::move(contents))
+	TokenFunction::TokenFunction(const SourceLocation& loc, const SourceLocation& contents_start_loc, std::string&& contents)
+		: Token(TOKEN_FUNC, loc), contents_start_loc(contents_start_loc), contents(std::move(contents))
 	{
 	}
 

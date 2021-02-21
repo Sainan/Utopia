@@ -224,7 +224,7 @@ namespace Utopia
 		case TOKEN_FUNC:
 		{
 			Scope s{};
-			scopeFromString(p, s, token->loc, ((TokenBlock*)token)->contents, var_map); // TODO: Align loc with block contents start
+			scopeFromString(p, s, ((TokenFunction*)token)->contents_start_loc, ((TokenFunction*)token)->contents, var_map);
 			VariableData var{ p.variables.size(), token->loc };
 			p.variables.emplace_back(std::make_unique<DataFunction>(std::move(s)));
 			return var;
@@ -543,7 +543,8 @@ namespace Utopia
 					{
 						prev_token->throwUnexpected();
 					}
-					auto func = std::make_unique<TokenFunction>(prev_token->loc, std::move(((TokenBlock*)token)->contents));
+					auto func = std::make_unique<TokenFunction>(prev_token->loc, token->loc, std::move(((TokenBlock*)token)->contents));
+					func->contents_start_loc.character += 1;
 					i = tokens.erase(i);
 					*i = std::move(func);
 				}
