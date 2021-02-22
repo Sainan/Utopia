@@ -15,9 +15,14 @@ namespace Utopia
 	std::string DataFunction::toCPP() const
 	{
 		std::string str("std::make_unique<DataFunction>(Scope{{");
-		for (const auto& op : scope.ops)
+		
+		for (auto i = scope.ops.cbegin(); i != scope.ops.cend(); i++)
 		{
-			str.append(std::to_string(op)).append(",");
+			if (i != scope.ops.cbegin())
+			{
+				str.append(1, ',');
+			}
+			str.append(std::to_string(*i));
 		}
 		str.append("}})");
 		return str;
