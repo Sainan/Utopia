@@ -1,5 +1,7 @@
 #pragma once
 
+#include "fwddecl.hpp"
+
 #include <cstdint>
 #include <vector>
 
@@ -11,5 +13,7 @@ namespace Utopia
 	{
 		std::vector<uint8_t> ops = {};
 		std::vector<SourceLocation> op_locs = {}; // "debug information"
+
+		void execute(Program* p) const;
 	};
 }

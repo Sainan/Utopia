@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Shared.hpp"
+#include "TracableError.hpp"
 
 namespace Utopia
 {
@@ -20,10 +21,17 @@ namespace Utopia
 
 		[[nodiscard]] std::string getSuffix() const;
 
-		template <typename E>
+		template <class E>
 		__declspec(noreturn) void throwHere(std::string&& error) const
 		{
-			throw E(error.append(getSuffix()));
+			if constexpr (std::is_base_of_v<TracableError, E>)
+			{
+				throw E(error.append(getSuffix()), true);
+			}
+			else
+			{
+				throw E(error.append(getSuffix()));
+			}
 		}
 	};
 }

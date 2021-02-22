@@ -22,10 +22,11 @@ namespace Utopia
 		_OP_SIZE
 	};
 
-	using op_execute_t = void(*)(Program&, std::vector<uint8_t>::const_iterator&);
+	using op_execute_t = void(*)(Program*, std::vector<uint8_t>::const_iterator&);
 
 	struct OpCodeData
 	{
+		uint8_t num_args;
 		op_execute_t execute;
 	};
 

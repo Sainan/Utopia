@@ -1,13 +1,12 @@
 #pragma once
 
-#include "fwddecl.hpp"
+#include "Scope.hpp"
 
 #include <memory>
 #include <string>
 #include <vector>
 
 #include "Data.hpp"
-#include "Scope.hpp"
 
 namespace Utopia
 {
@@ -24,6 +23,8 @@ namespace Utopia
 		echo_func_t echo_func = &echo_impl_stdout;
 
 	public:
+		void printVariables();
+
 		void fromString(std::string&& name, const std::string& code);
 		void fromFile(std::string&& path);
 

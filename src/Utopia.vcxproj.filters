@@ -124,6 +124,9 @@
     <ClInclude Include="Profiling.hpp">
       <Filter>src\util</Filter>
     </ClInclude>
+    <ClInclude Include="TracableError.hpp">
+      <Filter>src\error</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -231,6 +234,13 @@
     <ClCompile Include="Profiling.cpp">
       <Filter>src\util</Filter>
     </ClCompile>
+    <ClCompile Include="TracableError.cpp">
+      <Filter>src\error</Filter>
+    </ClCompile>
+    <ClCompile Include="VmError.cpp">
+      <Filter>src\error</Filter>
+    </ClCompile>
+    <ClCompile Include="Scope.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

@@ -1,12 +1,30 @@
 #pragma once
 
-#include "Error.hpp"
+#include "TracableError.hpp"
+
+#include "SourceLocation.hpp"
 
 namespace Utopia
 {
-	class VmError : public Error
+	class VmError : public TracableError
 	{
 	public:
-		using Error::Error;
+		using TracableError::TracableError;
+
+	protected:
+		template <class E>
+		__declspec(noreturn) void impl_rethrow(const SourceLocation& loc) const
+		{
+			std::string reason(what());
+			if (got_loc)
+			{
+				reason.append(" while executing function");
+			}
+			reason.append(loc.getSuffix());
+			throw E(reason, true);
+		}
+
+	public:
+		__declspec(noreturn) virtual void rethrow(const SourceLocation& loc) const;
 	};
 }

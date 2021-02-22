@@ -15,10 +15,6 @@
 #include "DataInt.hpp"
 #include "DataString.hpp"
 
-#include "ParseError.hpp"
-#include "VmError.hpp"
-#include "TypeError.hpp"
-
 #include "TokenAssignment.hpp"
 #include "TokenBlock.hpp"
 #include "TokenConcat.hpp"
@@ -32,17 +28,29 @@
 #include "TokenString.hpp"
 
 #include "is_whitespace.hpp"
+#include "ParseError.hpp"
 #if PERF_PROFILING
 #include "Profiling.hpp"
 #endif
-#include "read_file.hpp"
 #include "opcodes.hpp"
+#include "read_file.hpp"
 
 namespace Utopia
 {
 	void Program::echo_impl_stdout(const char* str)
 	{
 		std::cout << str;
+	}
+
+	void Program::printVariables()
+	{
+		std::cout << "Variables:" << std::endl;
+		size_t i = 0;
+		for (const auto& var : variables)
+		{
+			std::cout << std::to_string(i++) << ": " << var->toCPP() << std::endl;
+		}
+		std::cout << std::endl;
 	}
 
 	static void profilingStartSection(const char* section)
@@ -257,16 +265,6 @@ namespace Utopia
 			return emplaceContainer(p, scope, var_map, token, OP_CONCAT);
 		}
 		token->throwUnexpected();
-	}
-
-	static void printVariables(const std::vector<std::unique_ptr<Data>>& variables)
-	{
-		std::cout << "Variables:" << std::endl;
-		for (const auto& var : variables)
-		{
-			std::cout << var->toCPP() << std::endl;
-		}
-		std::cout << std::endl;
 	}
 
 	static void scopeFromString(Program& p, Scope& scope, SourceLocation loc, const std::string& code, std::unordered_map<std::string, size_t> var_map)
@@ -806,58 +804,8 @@ namespace Utopia
 		}
 	}
 
-	static void vm_debug_printArguments(std::vector<uint8_t>::const_iterator& opcode_i, std::vector<uint8_t>::const_iterator& i)
-	{
-#if DEBUG_VM
-		while (++opcode_i != i)
-		{
-			std::cout << "op_arg: " << std::to_string(*opcode_i) << std::endl;
-		}
-#endif
-	}
-
-	template <typename E>
-	__declspec(noreturn) static void vm_catch(Program& p, std::vector<uint8_t>::const_iterator& opcode_i, std::vector<uint8_t>::const_iterator& i, const E& e)
-	{
-		vm_debug_printArguments(opcode_i, i);
-		if (p.op_locs.empty())
-		{
-			throw e;
-		}
-		p.op_locs.at(i - 1 - p.ops.cbegin()).throwHere<E>(e.what());
-	}
-
 	void Program::execute()
 	{
-#if DEBUG_VM
-		printVariables(variables);
-#endif
-
-		auto i = ops.cbegin();
-		while (i != ops.cend())
-		{
-			auto opcode_i = i++;
-			try
-			{
-				auto opcode = *opcode_i;
-#if DEBUG_VM
-				if (opcode >= _OP_SIZE)
-				{
-					throw VmError(std::string("Unknown opcode ").append(std::to_string(opcode)));
-				}
-				std::cout << "opcode: " << std::to_string(opcode) << std::endl;
-#endif
-				opcodes[opcode].execute(*this, i);
-				vm_debug_printArguments(opcode_i, i);
-			}
-			catch (const TypeError& e)
-			{
-				vm_catch<>(*this, opcode_i, i, e);
-			}
-			catch (const VmError& e)
-			{
-				vm_catch<>(*this, opcode_i, i, e);
-			}
-		}
+		return static_cast<Scope*>(this)->execute(this);
 	}
 }

@@ -205,6 +205,7 @@
     <ClInclude Include="TokenMultiply.hpp" />
     <ClInclude Include="TokenPlus.hpp" />
     <ClInclude Include="TokenString.hpp" />
+    <ClInclude Include="TracableError.hpp" />
     <ClInclude Include="trim.hpp" />
     <ClInclude Include="TypeError.hpp" />
     <ClInclude Include="VmError.hpp" />
@@ -225,6 +226,7 @@
     <ClCompile Include="main_lib.cpp" />
     <ClCompile Include="main_test.cpp" />
     <ClCompile Include="opcodes.cpp" />
+    <ClCompile Include="Scope.cpp" />
     <ClCompile Include="Profiling.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="read_file.cpp" />
@@ -244,7 +246,9 @@
     <ClCompile Include="TokenMultiply.cpp" />
     <ClCompile Include="TokenPlus.cpp" />
     <ClCompile Include="TokenString.cpp" />
+    <ClCompile Include="TracableError.cpp" />
     <ClCompile Include="trim.cpp" />
+    <ClCompile Include="VmError.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\examples\calc.uto" />
