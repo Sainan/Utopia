@@ -6,41 +6,9 @@ For me, the perfect language can be used to cross-compile programs written in it
 
 Well, that would be a lot of effort, to say the least. Let's go back to the real world.
 
-A good compromise between interpreted and compiled can be made by parsing source files into intermediary "opcodes", which can then either be interpreted or compiled... or, you could take the interpreter, hard-code your program's opcodes, and compile that. So, this is my proof-of-concept of exactly that.
+A good compromise between interpreted and compiled can be made by parsing source files into intermediary "opcodes", which can then either be interpreted or compiled... or, you could take the interpreter, hard-code your program's opcodes, and compile that.
 
-## Usage
-
-### Interpreter
-
-If you have PHP-CLI and clang installed, you can compile the interpreter with:
-
-> `php compile-utopia.php interpreter`
-
-And then use it to interpret any uto-file:
-
-- Windows: `utopia-interpreter.exe <uto-file>`
-- Linux: `./utopia-interpreter <uto-file>`
-
-You may provide `examples/hello.uto` in place of `<uto-file>`.
-
-### Compiler
-
-If you have PHP-CLI and clang installed, you can compile a uto-file like so:
-
-> `php compile-uto.php <uto-file>`
-
-You may provide `examples/hello.uto` in place of `<uto-file>`.
-
-This will create an executable binary file that is native to your system with the same name as the uto-file.
-
-As for binaries for different systems (cross-compiling), I thought Clang had this sorted, but I wasted like an entire day on that shit, and figured the best solution is just setting up servers to native-compile for you:
-
-- https://winserv.utopia.sh/www-compiler.php
-- https://debserv.utopia.sh/www-compiler.php
-
-## Conclusion
-
-At first glance, this works surprisingly better than expected; these are the file sizes I saw on Linux with the initial version:
+So, this is my proof-of-concept of exactly that, and at first glance, this works surprisingly better than expected; these are the file sizes I saw on Debian with the initial version:
 
 ```
 Interpreter           34,8 KB
