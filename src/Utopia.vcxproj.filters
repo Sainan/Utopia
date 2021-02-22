@@ -240,7 +240,9 @@
     <ClCompile Include="VmError.cpp">
       <Filter>src\error</Filter>
     </ClCompile>
-    <ClCompile Include="Scope.cpp" />
+    <ClCompile Include="Scope.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
