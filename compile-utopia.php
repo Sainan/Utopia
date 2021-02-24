@@ -1,7 +1,7 @@
 <?php
 // Syntax: php compile-utopia.php [interpreter|compiler|lib|test|benchmark]
 
-$clang = "clang -std=c++17 -fdeclspec -flto -Ofast";
+$clang = "clang -std=c++17 -fdeclspec -flto -Ofast -fvisibility=hidden";
 
 if(empty($argv))
 {
@@ -120,5 +120,5 @@ if(defined("PHP_WINDOWS_VERSION_MAJOR"))
 }
 else
 {
-	passthru("strip -s -K Utopia_execute_file -K Utopia_execute_string $out");
+	passthru("strip -s $out");
 }
