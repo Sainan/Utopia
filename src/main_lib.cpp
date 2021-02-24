@@ -44,7 +44,7 @@ EXPORT void* Utopia_Program_fromString(const char* name, const char* code)
 
 EXPORT void Utopia_Program_redirectOutput(void* p, void echo_func(void* p, void* arg, const char* str), void* arg)
 {
-	((Program*)p)->echo_func = echo_func;
+	((Program*)p)->echo_func = (echo_func_t)echo_func;
 	((Program*)p)->echo_func_arg = arg;
 }
 

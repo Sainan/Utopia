@@ -37,7 +37,7 @@
 
 namespace Utopia
 {
-	void Program::echo_impl_stdout(void* p, void* arg, const char* str)
+	void Program::echo_impl_stdout(Program* p, void* arg, const char* str)
 	{
 		std::cout << str;
 	}
