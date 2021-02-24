@@ -65,7 +65,7 @@ namespace Utopia
 			[](Program* p, std::vector<uint8_t>::const_iterator& i)
 			{
 				auto str = p->variables.at(*i++)->toString();
-				p->echo_func(str.c_str());
+				p->echo_func(p, p->echo_func_arg, str.c_str());
 			}
 		},
 		// OP_PLUS
