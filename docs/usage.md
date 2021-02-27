@@ -25,7 +25,8 @@ Additionally, clang will need you to have the Windows SDK and build tools so it 
 
 ### Usage
 
-> `utopia-interpreter <uto-file>`
+- Interpreting: `utopia-interpreter <uto-file>`
+- Linting: `utopia-interpreter --lint <uto-file>`
 
 ## Compiler
 
