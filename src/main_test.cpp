@@ -29,7 +29,7 @@ static void initProgramTest(const char* code, std::function<bool(Program&)>&& ca
 		std::cout << e.what() << std::endl;
 		return;
 	}
-	p.echo_func = [](Program* p, void* arg, const char* str)
+	p.echo_func = [](const char* str, void* arg)
 	{
 		out_buf.append(str);
 	};
