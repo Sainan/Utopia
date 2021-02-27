@@ -1,5 +1,11 @@
 #include "Scope.hpp"
 
+#include "config.hpp"
+
+#if DEBUG_VM
+#include <iostream>
+#endif
+
 #include "VmError.hpp"
 #include "TypeError.hpp"
 
