@@ -2,9 +2,6 @@
 
 #include "config.hpp"
 
-#if PERF_PROFILING
-#include <chrono>
-#endif
 #include <iostream>
 #include <optional>
 #include <unordered_map>
