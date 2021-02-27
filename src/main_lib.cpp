@@ -29,18 +29,19 @@ EXPORT void Utopia_string_free(void* str)
 	delete (std::string*)str;
 }
 
-EXPORT void* Utopia_Program_fromFile(const char* path)
+EXPORT void* Utopia_Program_alloc()
 {
-	auto p = new Program();
-	p->fromFile(path);
-	return p;
+	return new Program();
 }
 
-EXPORT void* Utopia_Program_fromString(const char* name, const char* code)
+EXPORT void Utopia_Program_fromFile(void* p, const char* path)
 {
-	auto p = new Program();
-	p->fromString(name, code);
-	return p;
+	return ((Program*)p)->fromFile(path);
+}
+
+EXPORT void Utopia_Program_fromString(void* p, const char* name, const char* code)
+{
+	return ((Program*)p)->fromString(name, code);
 }
 
 EXPORT void Utopia_Program_redirectOutput(void* p, void echo_func(const char* str, void* arg), void* arg)

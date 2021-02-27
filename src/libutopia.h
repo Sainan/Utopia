@@ -10,8 +10,9 @@ IMPORT void* Utopia_string_alloc(); // allocates a new std::string to be used as
 IMPORT const char* Utopia_string_read(void* str);
 IMPORT void Utopia_string_free(void* str);
 
-IMPORT void* Utopia_Program_fromFile(const char* path); // allocates a new Program to be used as `void* p` -- don't forget to free it!
-IMPORT void* Utopia_Program_fromString(const char* name, const char* code); // allocates a new Program to be used as `void* p` -- don't forget to free it!
+IMPORT void* Utopia_Program_alloc(); // allocates a new Program to be used as `void* p` -- don't forget to free it!
+IMPORT void Utopia_Program_fromFile(void* p, const char* path);
+IMPORT void Utopia_Program_fromString(void* p, const char* name, const char* code);
 IMPORT void Utopia_Program_redirectOutput(void* p, void echo_func(const char* str, void* arg), void* arg);
 IMPORT void Utopia_Program_redirectOutputToString(void* p, void* str);
 IMPORT void Utopia_Program_redirectWarnings(void* p, void warn_func(const void* warning, void* arg), void* arg);
