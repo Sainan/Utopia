@@ -713,10 +713,12 @@ namespace Utopia
 					}
 					else
 					{
-						auto warning = std::make_unique<Warning>(std::move(std::string("Reassignment of constant variable '").append(var_name).append(1, '\'')), token->getLeftmostSourceLocation());
-						p.warn_func(warning.get(), p.warn_func_arg);
-
-						var_map_entry->second = r_val.index; // not very elegant because the old value, including any opcodes needed to populate it, still exist.
+						{
+							auto warning = std::make_unique<Warning>(std::move(std::string("Reassignment of constant variable '").append(var_name).append(1, '\'')), token->getLeftmostSourceLocation());
+							p.warn_func(warning.get(), p.warn_func_arg);
+						}
+						p.variables.at(var_map_entry->second) = std::move(p.variables.at(r_val.index));
+						p.variables.erase(p.variables.cbegin() + r_val.index);
 					}
 				}
 				else
