@@ -209,6 +209,7 @@
     <ClInclude Include="trim.hpp" />
     <ClInclude Include="TypeError.hpp" />
     <ClInclude Include="VmError.hpp" />
+    <ClInclude Include="Warning.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="arithmetic.cpp" />
@@ -249,6 +250,7 @@
     <ClCompile Include="TracableError.cpp" />
     <ClCompile Include="trim.cpp" />
     <ClCompile Include="VmError.cpp" />
+    <ClCompile Include="Warning.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\examples\calc.uto" />

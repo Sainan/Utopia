@@ -19,6 +19,7 @@ namespace Utopia
 
 		void newline();
 
+		[[nodiscard]] std::string toString() const;
 		[[nodiscard]] std::string getSuffix() const;
 
 		template <class E>

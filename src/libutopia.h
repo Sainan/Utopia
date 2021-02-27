@@ -14,5 +14,16 @@ IMPORT void* Utopia_Program_fromFile(const char* path); // allocates a new Progr
 IMPORT void* Utopia_Program_fromString(const char* name, const char* code); // allocates a new Program to be used as `void* p` -- don't forget to free it!
 IMPORT void Utopia_Program_redirectOutput(void* p, void echo_func(void* p, void* arg, const char* str), void* arg);
 IMPORT void Utopia_Program_redirectOutputToString(void* p, void* str);
+IMPORT void Utopia_Program_redirectWarnings(void* p, void warn_func(void* p, void* arg, const void* warning), void* arg);
+IMPORT void Utopia_Program_redirectWarningsToString(void* p, void* str);
 IMPORT void Utopia_Program_execute(void* p);
 IMPORT void Utopia_Program_free(void* p);
+
+IMPORT void* Utopia_SourceLocation_toString(const void* loc); // allocates a new std::string to be used as `void* str` -- don't forget to free it!
+IMPORT const char* Utopia_SourceLocation_file(const void* loc);
+IMPORT size_t Utopia_SourceLocation_line(const void* loc);
+IMPORT size_t Utopia_SourceLocation_character(const void* loc);
+
+IMPORT void* Utopia_Warning_toString(const void* warning); // allocates a new std::string to be used as `void* str` -- don't forget to free it!
+IMPORT const char* Utopia_Warning_what(const void* warning);
+IMPORT const void* Utopia_Warning_where(const void* warning); // returns a SourceLocation pointer

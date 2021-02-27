@@ -127,6 +127,9 @@
     <ClInclude Include="TracableError.hpp">
       <Filter>src\error</Filter>
     </ClInclude>
+    <ClInclude Include="Warning.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -241,6 +244,9 @@
       <Filter>src\error</Filter>
     </ClCompile>
     <ClCompile Include="Scope.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Warning.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

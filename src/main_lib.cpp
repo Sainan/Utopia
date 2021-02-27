@@ -4,6 +4,7 @@
 #if defined(__clang__) || UTO_MODE == UTO_LIB
 
 #include "Program.hpp"
+#include "Warning.hpp"
 
 using namespace Utopia;
 
@@ -48,14 +49,30 @@ EXPORT void Utopia_Program_redirectOutput(void* p, void echo_func(void* p, void*
 	((Program*)p)->echo_func_arg = arg;
 }
 
-static void echo_impl_redirectOutputToString(void* p, void* arg, const char* str)
+static void impl_redirectOutputToString(void* p, void* arg, const char* str)
 {
 	((std::string*)arg)->append(str);
 }
 
 EXPORT void Utopia_Program_redirectOutputToString(void* p, void* str)
 {
-	return Utopia_Program_redirectOutput(p, &echo_impl_redirectOutputToString, str);
+	return Utopia_Program_redirectOutput(p, &impl_redirectOutputToString, str);
+}
+
+EXPORT void Utopia_Program_redirectWarnings(void* p, void warn_func(void* p, void* arg, const void* warning), void* arg)
+{
+	((Program*)p)->warn_func = (warn_func_t)warn_func;
+	((Program*)p)->warn_func_arg = arg;
+}
+
+static void impl_redirectWarningsToString(void* p, void* arg, const void* warning)
+{
+	((std::string*)arg)->append(((const Warning*)warning)->toString()).append(1, '\n');
+}
+
+EXPORT void Utopia_Program_redirectWarningsToString(void* p, void* str)
+{
+	return Utopia_Program_redirectWarnings(p, &impl_redirectWarningsToString, str);
 }
 
 EXPORT void Utopia_Program_execute(void* p)
@@ -66,6 +83,41 @@ EXPORT void Utopia_Program_execute(void* p)
 EXPORT void Utopia_Program_free(void* p)
 {
 	delete (Program*)p;
+}
+
+EXPORT void* Utopia_SourceLocation_toString(const void* loc)
+{
+	return new std::string(((const SourceLocation*)loc)->toString());
+}
+
+const char* Utopia_SourceLocation_file(const void* loc)
+{
+	return ((const SourceLocation*)loc)->name.operator std::string().c_str();
+}
+
+size_t Utopia_SourceLocation_line(const void* loc)
+{
+	return ((const SourceLocation*)loc)->line;
+}
+
+size_t Utopia_SourceLocation_character(const void* loc)
+{
+	return ((const SourceLocation*)loc)->character;
+}
+
+EXPORT void* Utopia_Warning_toString(const void* warning)
+{
+	return new std::string(((const Warning*)warning)->toString());
+}
+
+EXPORT const char* Utopia_Warning_what(const void* warning)
+{
+	return ((const Warning*)warning)->message.c_str();
+}
+
+EXPORT const void* Utopia_Warning_where(const void* warning)
+{
+	return &((const Warning*)warning)->loc;
 }
 
 #endif

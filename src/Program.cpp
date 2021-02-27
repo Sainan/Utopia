@@ -31,12 +31,18 @@
 #endif
 #include "opcodes.hpp"
 #include "read_file.hpp"
+#include "Warning.hpp"
 
 namespace Utopia
 {
 	void Program::echo_impl_stdout(Program* p, void* arg, const char* str)
 	{
 		std::cout << str;
+	}
+
+	void Program::warn_impl_stderr(Program* p, void* arg, const Warning* warning)
+	{
+		std::cerr << warning->toString();
 	}
 
 	void Program::printVariables()
@@ -701,12 +707,17 @@ namespace Utopia
 				if (((TokenAssignment*)token)->right->isRValue())
 				{
 					auto var_map_entry = var_map.find(var_name);
-					if (var_map_entry != var_map.end())
+					if (var_map_entry == var_map.end())
 					{
-						// TODO: Maybe just allow it and throw a warning instead?
-						throw ParseError(std::string("Reassignment of constant variable '").append(var_name).append(1, '\''));
+						var_map.emplace(std::move(var_name), r_val.index);
 					}
-					var_map.emplace(std::move(var_name), r_val.index);
+					else
+					{
+						auto warning = std::make_unique<Warning>(std::move(std::string("Reassignment of constant variable '").append(var_name).append(1, '\'')), token->getLeftmostSourceLocation());
+						p.warn_func(&p, p.warn_func_arg, warning.get());
+
+						var_map_entry->second = r_val.index; // not very elegant because the old value, including any opcodes needed to populate it, still exist.
+					}
 				}
 				else
 				{
