@@ -35,12 +35,12 @@
 
 namespace Utopia
 {
-	void Program::echo_impl_stdout(Program* p, void* arg, const char* str)
+	void Program::echo_impl_stdout(const char* str, void* arg)
 	{
 		std::cout << str;
 	}
 
-	void Program::warn_impl_stderr(Program* p, void* arg, const Warning* warning)
+	void Program::warn_impl_stderr(const Warning* warning, void* arg)
 	{
 		std::cerr << warning->toString();
 	}
@@ -714,7 +714,7 @@ namespace Utopia
 					else
 					{
 						auto warning = std::make_unique<Warning>(std::move(std::string("Reassignment of constant variable '").append(var_name).append(1, '\'')), token->getLeftmostSourceLocation());
-						p.warn_func(&p, p.warn_func_arg, warning.get());
+						p.warn_func(warning.get(), p.warn_func_arg);
 
 						var_map_entry->second = r_val.index; // not very elegant because the old value, including any opcodes needed to populate it, still exist.
 					}

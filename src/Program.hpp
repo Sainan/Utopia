@@ -10,14 +10,14 @@
 
 namespace Utopia
 {
-	using echo_func_t = void(*)(Program* p, void* arg, const char* str);
-	using warn_func_t = void(*)(Program* p, void* arg, const Warning* warning);
+	using echo_func_t = void(*)(const char* str, void* arg);
+	using warn_func_t = void(*)(const Warning* warning, void* arg);
 
 	class Program : public Scope
 	{
 	public:
-		static void echo_impl_stdout(Program* p, void* arg, const char* str);
-		static void warn_impl_stderr(Program* p, void* arg, const Warning* warning);
+		static void echo_impl_stdout(const char* str, void* arg);
+		static void warn_impl_stderr(const Warning* warning, void* arg);
 
 		std::vector<std::unique_ptr<Data>> variables;
 

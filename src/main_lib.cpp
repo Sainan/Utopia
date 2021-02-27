@@ -43,13 +43,13 @@ EXPORT void* Utopia_Program_fromString(const char* name, const char* code)
 	return p;
 }
 
-EXPORT void Utopia_Program_redirectOutput(void* p, void echo_func(void* p, void* arg, const char* str), void* arg)
+EXPORT void Utopia_Program_redirectOutput(void* p, void echo_func(const char* str, void* arg), void* arg)
 {
 	((Program*)p)->echo_func = (echo_func_t)echo_func;
 	((Program*)p)->echo_func_arg = arg;
 }
 
-static void impl_redirectOutputToString(void* p, void* arg, const char* str)
+static void impl_redirectOutputToString(const char* str, void* arg)
 {
 	((std::string*)arg)->append(str);
 }
@@ -59,13 +59,13 @@ EXPORT void Utopia_Program_redirectOutputToString(void* p, void* str)
 	return Utopia_Program_redirectOutput(p, &impl_redirectOutputToString, str);
 }
 
-EXPORT void Utopia_Program_redirectWarnings(void* p, void warn_func(void* p, void* arg, const void* warning), void* arg)
+EXPORT void Utopia_Program_redirectWarnings(void* p, void warn_func(const void* warning, void* arg), void* arg)
 {
 	((Program*)p)->warn_func = (warn_func_t)warn_func;
 	((Program*)p)->warn_func_arg = arg;
 }
 
-static void impl_redirectWarningsToString(void* p, void* arg, const void* warning)
+static void impl_redirectWarningsToString(const void* warning, void* arg)
 {
 	((std::string*)arg)->append(((const Warning*)warning)->toString()).append(1, '\n');
 }
