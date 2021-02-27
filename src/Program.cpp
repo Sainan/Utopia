@@ -42,7 +42,7 @@ namespace Utopia
 
 	void Program::warn_impl_stderr(const Warning* warning, void* arg)
 	{
-		std::cerr << warning->toString() << std::endl;
+		std::cerr << "Warning: " << warning->toString() << std::endl;
 	}
 
 	void Program::printVariables()

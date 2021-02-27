@@ -24,7 +24,7 @@ int main(int num_args, const char** args)
 	}
 	catch (const Error& e)
 	{
-		std::cerr << e.what() << std::endl;
+		std::cerr << "Error: " << e.what() << std::endl;
 		return 1;
 	}
 
