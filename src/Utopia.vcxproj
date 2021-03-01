@@ -168,6 +168,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="arithmetic.hpp" />
+    <ClInclude Include="BigInt.hpp" />
     <ClInclude Include="Data.hpp" />
     <ClInclude Include="DataEmpty.hpp" />
     <ClInclude Include="DataFunction.hpp" />
@@ -214,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="arithmetic.cpp" />
+    <ClCompile Include="BigInt.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataEmpty.cpp" />
     <ClCompile Include="DataFunction.cpp" />

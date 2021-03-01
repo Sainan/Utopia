@@ -130,6 +130,9 @@
     <ClInclude Include="Warning.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="BigInt.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="int_from_byte_stream.hpp">
       <Filter>src\util</Filter>
     </ClInclude>
@@ -250,6 +253,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="Warning.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="BigInt.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="int_from_byte_stream.cpp">
