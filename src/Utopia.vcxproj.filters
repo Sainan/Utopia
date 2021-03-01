@@ -130,6 +130,9 @@
     <ClInclude Include="Warning.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="int_from_byte_stream.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -248,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="Warning.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="int_from_byte_stream.cpp">
+      <Filter>src\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

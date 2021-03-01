@@ -4,6 +4,8 @@
 
 #if DEBUG_VM
 #include <iostream>
+
+#include "int_from_byte_stream.hpp"
 #endif
 
 #include "VmError.hpp"
@@ -46,7 +48,7 @@ namespace Utopia
 				std::cout << std::to_string(opcode) << "(";
 				for (auto num_ops = opcodes[opcode].num_args;; )
 				{
-					std::cout << std::to_string(*i++);
+					std::cout << std::to_string(int_from_byte_stream(i));
 					if (--num_ops == 0)
 					{
 						break;
@@ -54,7 +56,7 @@ namespace Utopia
 					std::cout << ", ";
 				}
 				std::cout << ")" << std::endl;
-				i -= opcodes[opcode].num_args;
+				i -= (opcodes[opcode].num_args * 4);
 #endif
 				opcodes[opcode].execute(p, i);
 			}

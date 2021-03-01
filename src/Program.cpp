@@ -168,8 +168,21 @@ namespace Utopia
 
 	static void emplaceOp(Scope& scope, const size_t op, const SourceLocation& loc)
 	{
-		// TODO: Properly deal with size_t
-		return emplaceOp(scope, uint8_t(op), loc);
+		if constexpr (sizeof(size_t) > 4)
+		{
+			if (op > 0xFFFFFFFF)
+			{
+				loc.throwHere<ParseError>("Too many variables");
+			}
+		}
+		else
+		{
+			static_assert(sizeof(sizeof(size_t) <= 4));
+		}
+		emplaceOp(scope, uint8_t(op << (8 * 3)), loc);
+		emplaceOp(scope, uint8_t(op << (8 * 2)), loc);
+		emplaceOp(scope, uint8_t(op << (8 * 1)), loc);
+		emplaceOp(scope, uint8_t(op << (8 * 0)), loc);
 	}
 
 	template <typename T>

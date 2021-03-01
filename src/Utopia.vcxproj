@@ -177,6 +177,7 @@
     <ClInclude Include="escape_block_string.hpp" />
     <ClInclude Include="escape_string.hpp" />
     <ClInclude Include="fwddecl.hpp" />
+    <ClInclude Include="int_from_byte_stream.hpp" />
     <ClInclude Include="IoError.hpp" />
     <ClInclude Include="is_whitespace.hpp" />
     <ClInclude Include="libutopia.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="DataString.cpp" />
     <ClCompile Include="escape_block_string.cpp" />
     <ClCompile Include="escape_string.cpp" />
+    <ClCompile Include="int_from_byte_stream.cpp" />
     <ClCompile Include="is_whitespace.cpp" />
     <ClCompile Include="main_benchmark.cpp" />
     <ClCompile Include="main_compiler.cpp" />
