@@ -19,7 +19,7 @@ namespace Utopia
 	}
 	
 	BigInt::BigInt(long long value)
-		: BigInt((unsigned long long)(abs(value)), value < 0)
+		: BigInt((unsigned long long)(std::abs(value)), value < 0)
 	{
 	}
 
@@ -35,7 +35,7 @@ namespace Utopia
 
 	BigInt& BigInt::operator =(long long value)
 	{
-		segments = { (unsigned long long)(abs(value)) };
+		segments = { (unsigned long long)(std::abs(value)) };
 		negative = value < 0;
 		return *this;
 	}
