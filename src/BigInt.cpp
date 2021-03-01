@@ -19,7 +19,7 @@ namespace Utopia
 	}
 	
 	BigInt::BigInt(long long value)
-		: BigInt(unsigned long long(abs(value)), value < 0)
+		: BigInt((unsigned long long)(abs(value)), value < 0)
 	{
 	}
 
@@ -35,7 +35,7 @@ namespace Utopia
 
 	BigInt& BigInt::operator =(long long value)
 	{
-		segments = { unsigned long long(abs(value)) };
+		segments = { (unsigned long long)(abs(value)) };
 		negative = value < 0;
 		return *this;
 	}
@@ -187,13 +187,13 @@ namespace Utopia
 		{
 			while (segment >= segments.size())
 			{
-				segments.emplace_back(unsigned long long(0));
+				segments.emplace_back((unsigned long long)(0));
 			}
-			segments.at(segment) |= (unsigned long long(1) << (i - (segment * bits_per_segment)));
+			segments.at(segment) |= ((unsigned long long)(1) << (i - (segment * bits_per_segment)));
 		}
 		else if (segment < segments.size())
 		{
-			segments.at(segment) &= ~(unsigned long long(1) << (i - (segment * bits_per_segment)));
+			segments.at(segment) &= ~((unsigned long long)(1) << (i - (segment * bits_per_segment)));
 			if (segment == segments.size() - 1)
 			{
 				auto i = segments.begin() + segment;
@@ -379,9 +379,9 @@ namespace Utopia
 	{
 		if (divisor.negative)
 		{
-			BigInt divisor(divisor);
-			divisor.negative = false;
-			auto res = divide(divisor);
+			BigInt divisor_cpy(divisor);
+			divisor_cpy.negative = false;
+			auto res = divide(divisor_cpy);
 			res.first.negative ^= 1;
 			return res;
 		}
@@ -449,7 +449,7 @@ namespace Utopia
 			return 0;
 			
 		case 1:
-			auto val = long long(segments.at(0));
+			auto val = (long long)(segments.at(0));
 			if (val >= 0)
 			{
 				if (negative)
