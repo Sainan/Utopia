@@ -61,6 +61,35 @@ namespace Utopia
 		return *this;
 	}
 
+	constexpr unsigned long long BigInt::getBytesPerSegment()
+	{
+		return sizeof(long long);
+	}
+
+	constexpr unsigned long long BigInt::getBitsPerSegment()
+	{
+		return getBytesPerSegment() * 8;
+	}
+
+	unsigned long long BigInt::getHighestAllocatedBitIndex() const
+	{
+		return segments.size() * getBitsPerSegment();
+	}
+
+	unsigned long long BigInt::getHighestUsedBitIndex() const
+	{
+		auto i = getHighestAllocatedBitIndex();
+		while (i != 0)
+		{
+			--i;
+			if (getBit(i))
+			{
+				break;
+			}
+		}
+		return i;
+	}
+
 	bool BigInt::operator ==(const BigInt& b) const
 	{
 		return negative == b.negative && segments == b.segments;
@@ -84,7 +113,7 @@ namespace Utopia
 
 	static unsigned long long bitlimit(const BigInt& a, const BigInt& b)
 	{
-		return max(a.segments.size(), b.segments.size()) * sizeof(long long) * 8;
+		return max(a.segments.size(), b.segments.size()) * BigInt::getBitsPerSegment();
 	}
 
 	bool BigInt::isGreaterThan(const BigInt& b, bool ret_if_eq) const
@@ -132,35 +161,6 @@ namespace Utopia
 	bool BigInt::operator <=(const BigInt& b) const
 	{
 		return b >= *this;
-	}
-
-	constexpr unsigned long long BigInt::getBytesPerSegment()
-	{
-		return sizeof(long long);
-	}
-
-	constexpr unsigned long long BigInt::getBitsPerSegment()
-	{
-		return getBytesPerSegment() * 8;
-	}
-
-	unsigned long long BigInt::getHighestAllocatedBitIndex() const
-	{
-		return segments.size() * getBitsPerSegment();
-	}
-
-	unsigned long long BigInt::getHighestUsedBitIndex() const
-	{
-		auto i = getHighestAllocatedBitIndex();
-		while (i != 0)
-		{
-			--i;
-			if (getBit(i))
-			{
-				break;
-			}
-		}
-		return i;
 	}
 
 	uint8_t BigInt::getBit(unsigned long long i) const

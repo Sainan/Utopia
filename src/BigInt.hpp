@@ -21,6 +21,11 @@ namespace Utopia
 		BigInt& operator=(BigInt&& b);
 		BigInt& reset();
 
+		[[nodiscard]] static constexpr unsigned long long getBytesPerSegment();
+		[[nodiscard]] static constexpr unsigned long long getBitsPerSegment();
+		[[nodiscard]] unsigned long long getHighestAllocatedBitIndex() const;
+		[[nodiscard]] unsigned long long getHighestUsedBitIndex() const;
+
 		[[nodiscard]] bool operator ==(const BigInt& b) const;
 		[[nodiscard]] bool operator !=(const BigInt& b) const;
 		[[nodiscard]] bool isZero() const;
@@ -30,11 +35,6 @@ namespace Utopia
 		[[nodiscard]] bool operator <(const BigInt& b) const;
 		[[nodiscard]] bool operator >=(const BigInt& b) const;
 		[[nodiscard]] bool operator <=(const BigInt& b) const;
-
-		[[nodiscard]] static constexpr unsigned long long getBytesPerSegment();
-		[[nodiscard]] static constexpr unsigned long long getBitsPerSegment();
-		[[nodiscard]] unsigned long long getHighestAllocatedBitIndex() const;
-		[[nodiscard]] unsigned long long getHighestUsedBitIndex() const;
 
 		[[nodiscard]] uint8_t getBit(unsigned long long i) const;
 		[[nodiscard]] uint8_t operator [](unsigned long long i) const;
