@@ -91,17 +91,17 @@ EXPORT void* Utopia_SourceLocation_toString(const void* loc)
 	return new std::string(((const SourceLocation*)loc)->toString());
 }
 
-const char* Utopia_SourceLocation_file(const void* loc)
+EXPORT const char* Utopia_SourceLocation_file(const void* loc)
 {
 	return ((const SourceLocation*)loc)->name.operator std::string().c_str();
 }
 
-size_t Utopia_SourceLocation_line(const void* loc)
+EXPORT size_t Utopia_SourceLocation_line(const void* loc)
 {
 	return ((const SourceLocation*)loc)->line;
 }
 
-size_t Utopia_SourceLocation_character(const void* loc)
+EXPORT size_t Utopia_SourceLocation_character(const void* loc)
 {
 	return ((const SourceLocation*)loc)->character;
 }
