@@ -1,7 +1,5 @@
 <?php
-// Syntax: php compile-utopia.php [interpreter|compiler|lib|test|benchmark]
-
-$clang = "clang -std=c++17 -fdeclspec -flto -Ofast -fvisibility=hidden";
+// Syntax: php compile-utopia.php [interpreter|compiler|lib|wasmlib|test|benchmark]
 
 if(empty($argv))
 {
@@ -12,10 +10,22 @@ $mode = $argv[1] ?? "interpreter";
 $out = $argv[2] ?? "utopia-{$mode}";
 $main_only = isset($argv[2]);
 
+$wasm = false;
+if($mode == "wasmlib")
+{
+	$wasm = true;
+	$mode = "lib";
+}
+
 if(!is_file("src/main_{$mode}.cpp"))
 {
 	die("Invalid mode: {$mode}".PHP_EOL);
 }
+
+$clang = $wasm
+	? "em++ -O3 -s WASM=1 -s DISABLE_EXCEPTION_CATCHING=0 -s EXTRA_EXPORTED_RUNTIME_METHODS=[\"cwrap\"]"
+	: "clang -Ofast";
+$clang .= " -std=c++17 -fdeclspec -fvisibility=hidden -flto";
 
 if($mode == "test" && defined("PHP_WINDOWS_VERSION_MAJOR"))
 {
@@ -32,7 +42,11 @@ if(!is_dir("obj"))
 }
 $objects = [];
 
-if($mode == "lib")
+if($wasm)
+{
+	$out = "libutopia.js";
+}
+else if($mode == "lib")
 {
 	if(defined("PHP_WINDOWS_VERSION_MAJOR")) 
 	{
@@ -105,7 +119,7 @@ else
 	}
 	$link .= "ld -lstdc++";
 }
-if($mode == "lib")
+if($mode == "lib" && !$wasm)
 {
 	$link .= " -shared";
 }
@@ -113,12 +127,15 @@ passthru("$link -o $out ".join(" ", $objects));
 
 echo "Got binary in ".(microtime(true) - $start)." seconds.".PHP_EOL;
 
-echo "Stripping...".PHP_EOL;
-if(defined("PHP_WINDOWS_VERSION_MAJOR"))
+if(!$wasm)
 {
-	passthru("llvm-strip -s $out");
-}
-else
-{
-	passthru("strip -s $out");
+	echo "Stripping...".PHP_EOL;
+	if(defined("PHP_WINDOWS_VERSION_MAJOR"))
+	{
+		passthru("llvm-strip -s $out");
+	}
+	else
+	{
+		passthru("strip -s $out");
+	}
 }
