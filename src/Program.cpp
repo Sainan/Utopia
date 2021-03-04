@@ -537,7 +537,7 @@ namespace Utopia
 #endif
 
 		{
-			profilingStartSection("Squash Function");
+			profilingStartSection("Squash Functions 1");
 #if DEBUG_TOKENS
 			auto pre_squash_size = tokens.size();
 #endif
@@ -553,23 +553,27 @@ namespace Utopia
 					i--;
 					Token* const prev_token = i->get();
 					prev_token->expectType(TOKEN_LITERAL);
-					if (((TokenLiteral*)prev_token)->literal != "fn")
+					if (((TokenLiteral*)prev_token)->literal == "fn")
 					{
-						prev_token->throwUnexpected();
+						auto func = std::make_unique<TokenFunction>(prev_token->loc, token->loc, std::move(((TokenBlock*)token)->contents));
+						func->contents_start_loc.character += 1;
+						i = tokens.erase(i);
+						*i = std::move(func);
 					}
-					auto func = std::make_unique<TokenFunction>(prev_token->loc, token->loc, std::move(((TokenBlock*)token)->contents));
-					func->contents_start_loc.character += 1;
-					i = tokens.erase(i);
-					*i = std::move(func);
+					else
+					{
+						// Delaying creation of function variables until "Squash Functions 2" so outside variables are known
+						i++;
+					}
 				}
 			}
 #if DEBUG_TOKENS
 			if (tokens.size() != pre_squash_size)
 			{
-				printTokens("Squash Function", tokens);
+				printTokens("Squash Functions 1", tokens);
 			}
 #endif
-			profilingEndSection("Squash Function");
+			profilingEndSection("Squash Functions 1");
 		}
 		{
 			profilingStartSection("Squash Multiplication/Division");
@@ -710,9 +714,7 @@ namespace Utopia
 		for (const auto& i : tokens)
 		{
 			Token* const token = i.get();
-			switch (token->type)
-			{
-			case TOKEN_ASSIGNMENT:
+			if (token->type == TOKEN_ASSIGNMENT)
 			{
 				((TokenAssignment*)token)->left->expectType(TOKEN_LITERAL);
 				std::string& var_name = ((TokenLiteral*)((TokenAssignment*)token)->left.get())->literal;
@@ -751,10 +753,60 @@ namespace Utopia
 					emplaceOp(scope, r_val);
 				}
 			}
-			break;
-			}
 		}
 		profilingEndSection("Assemble Variables");
+
+		{
+			profilingStartSection("Squash Functions 2");
+#if DEBUG_TOKENS
+			auto pre_squash_size = tokens.size();
+#endif
+			for (auto i = tokens.begin(); i != tokens.end(); i++)
+			{
+				Token* const token = i->get();
+				if (token->type == TOKEN_BLOCK)
+				{
+					i--;
+					Token* const prev_token = i->get();
+					i--;
+					Token* const prev_prev_token = i->get();
+					prev_prev_token->expectType(TOKEN_LITERAL);
+					if (((TokenLiteral*)prev_prev_token)->literal != "fn")
+					{
+						prev_prev_token->throwUnexpected();
+					}
+					Scope s{};
+					scopeFromString(p, s, prev_prev_token->loc, ((TokenBlock*)token)->contents, var_map);
+					auto func_index = p.variables.size();
+					p.variables.emplace_back(std::make_unique<DataFunction>(std::move(s)));
+					auto var_map_entry = var_map.find(((TokenLiteral*)prev_token)->literal);
+					if (var_map_entry == var_map.end())
+					{
+						var_map.emplace(std::move(((TokenLiteral*)prev_token)->literal), func_index);
+					}
+					else
+					{
+						{
+							auto warning = std::make_unique<Warning>(std::move(std::string("Reassignment of function '").append(((TokenLiteral*)prev_token)->literal).append(1, '\'')), token->getLeftmostSourceLocation());
+							p.warn_func(warning.get(), p.warn_func_arg);
+						}
+						p.variables.at(var_map_entry->second) = std::move(p.variables.at(func_index));
+						p.variables.erase(p.variables.cbegin() + func_index);
+					}
+					auto func = std::make_unique<TokenFunction>(prev_prev_token->loc, token->loc, std::move(((TokenBlock*)token)->contents));
+					func->contents_start_loc.character += 1;
+					i = tokens.erase(i, i + 2);
+					*i = std::move(func);
+				}
+			}
+#if DEBUG_TOKENS
+			if (tokens.size() != pre_squash_size)
+			{
+				printTokens("Squash Functions 2", tokens);
+			}
+#endif
+			profilingEndSection("Squash Functions 2");
+		}
 
 		profilingStartSection("Assemble Calls");
 		{

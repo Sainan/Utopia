@@ -95,8 +95,14 @@ echo hello)", "Hello, world!");
 echo hello)", "Hello, world!");
 	assertOutput("Multi-Line Comment", R"(echo /* print the message */ "Hello, world!")", "Hello, world!");
 
-	assertOutput("Function", R"(i = 0
+	assertOutput("Function Assignment", R"(i = 0
 inc = fn {
+	i = i + 1
+}
+inc
+echo i)", "1");
+	assertOutput("Shorthand Function Assignment", R"(i = 0
+fn inc {
 	i = i + 1
 }
 inc

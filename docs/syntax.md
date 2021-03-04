@@ -94,7 +94,4 @@ Future considerations:
 Currently supported:
 
 - `<name> = fn { ... }`
-
-Future considerations:
-
 - `fn <name> { ... }`
