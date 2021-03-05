@@ -2,8 +2,21 @@
 
 ## Legend
 
+How brackets are used:
+
 - `<required>`
 - `[optional]`
+
+Types:
+
+- `string`
+- `int` (is string-castable)
+
+Terms:
+
+- `<type>-rval`: The value is non-variable
+- `value`: Variable name or rval of any type
+- `<type>-castable`: Of the type itself or of a type that can be converted into it
 
 ---
 
@@ -40,45 +53,45 @@ CR|Hello,
 
 Currently supported:
 
-- `echo|print <value|variable>`
+- `echo|print <value>`
 
 Future considerations:
 
-- `echo("{}", <value|variable>)`
+- `echo("{}", <value>)`
 
 ## Variable declaration
 
 Currently supported:
 
-- `<name> = <value|variable>`
+- `<name> = <value>`
 
 Future considerations:
 
 - Declaration prefices (let, var, auto, string, int, etc.)
 - C++ style: `[prefix] <name> { <value> }`
-- Disallow changes: `const <name> = "..."`
-- Disallow type changes: `strong <name> = "..."`
+- Disallow changes: `const <name> = <value>`
+- Disallow type changes: `strong <name> = <value>`
 
 ## String concatenation
 
 Currently supported:
 
-- `<string> <string>`
-- `<string-var> + <string-var>`
+- `<string> <string-rval>`
+- `<string> + <string-castable>` or `<string-castable> + <string>`
 
 Future considerations:
 
-- `<string-var> <string-var>`
-- `<string-var> . <string-var>`
+- `<string> <string>`
+- `<string-castable> . <string-castable>`
 
 ## Arithmetics
 
 Currently supported:
 
-- `<int-var> + <int-var>`
-- `<int-var> - <int-var>`
-- `<int-var> * <int-var>`
-- `<int-var> / <int-var>`
+- `<int> + <int>`
+- `<int> - <int>`
+- `<int> * <int>`
+- `<int> / <int>`
 
 Future considerations:
 
@@ -93,5 +106,5 @@ Future considerations:
 
 Currently supported:
 
-- `<name> = fn { ... }`
-- `fn <name> { ... }`
+- `<name> = fn { [code] }`
+- `fn <name> { [code] }`
