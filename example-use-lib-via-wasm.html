@@ -1,17 +1,6 @@
 <script src="libutopia.js"></script> <!-- php compile-utopia.php wasmlib -->
 <script>
-	Module.onRuntimeInitialized = async _ => {
-		const Utopia = {
-			string_alloc: Module.cwrap("Utopia_string_alloc", "number", []),
-			string_read: Module.cwrap("Utopia_string_read", "string", ["number"]),
-			string_free: Module.cwrap("Utopia_string_free", "void", ["number"]),
-			Program_redirectOutputToString: Module.cwrap("Utopia_Program_redirectOutputToString", "void", ["number", "number"]),
-			Program_alloc: Module.cwrap("Utopia_Program_alloc", "number", []),
-			Program_fromString: Module.cwrap("Utopia_Program_fromString", "void", ["number", "string", "string"]),
-			Program_execute: Module.cwrap("Utopia_Program_execute", "void", ["number"]),
-			Program_free: Module.cwrap("Utopia_Program_free", "void", ["number"]),
-		};
-
+	libutopia().then(Utopia=>{
 		let str = Utopia.string_alloc(),
 		p = Utopia.Program_alloc();
 		Utopia.Program_redirectOutputToString(p, str);
@@ -20,5 +9,5 @@
 		Utopia.Program_free(p);
 		console.log(Utopia.string_read(str));
 		Utopia.string_free(str);
-	};
+	});
 </script>

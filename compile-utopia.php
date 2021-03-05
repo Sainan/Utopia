@@ -23,7 +23,7 @@ if(!is_file("src/main_{$mode}.cpp"))
 }
 
 $clang = $wasm
-	? "em++ -O3 -s WASM=1 -s DISABLE_EXCEPTION_CATCHING=0 -s EXTRA_EXPORTED_RUNTIME_METHODS=[\"cwrap\"]"
+	? "em++ -O3 -s DISABLE_EXCEPTION_CATCHING=0 -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME=libutopia -s EXTRA_EXPORTED_RUNTIME_METHODS=[\"cwrap\"] --post-js src/libutopia-postjs.js"
 	: "clang -Ofast";
 $clang .= " -std=c++17 -fdeclspec -fvisibility=hidden -flto";
 

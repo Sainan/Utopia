@@ -42,4 +42,17 @@ Additionally, clang will need you to have the Windows SDK and build tools so it 
 
 ### Usage
 
-Include `utopia.h` (for C) or `utopia.hpp` (for C++).
+Include `src/utopia.h` (for C & FFI) or `src/utopia.hpp` (for C++).
+
+## Javascript Library (via WASM)
+
+### Compiling
+
+This will use [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) instead of Clang. Note that they have a _special_ way of setting environment variables.
+
+> `php-compile-utopia.php wasmlib`
+
+
+### Usage
+
+Include `libutopia.js`.
