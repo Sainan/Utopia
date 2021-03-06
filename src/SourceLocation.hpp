@@ -23,7 +23,7 @@ namespace Utopia
 		[[nodiscard]] std::string getSuffix() const;
 
 		template <class E>
-		__declspec(noreturn) void throwHere(std::string&& error) const
+		[[noreturn]] void throwHere(std::string&& error) const
 		{
 			if constexpr (std::is_base_of_v<TracableError, E>)
 			{

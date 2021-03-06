@@ -17,7 +17,7 @@
 namespace Utopia
 {
 	template <class E>
-	__declspec(noreturn) static void vm_catch(const Scope* scope, Program* p, std::vector<uint8_t>::const_iterator& i, const E& e)
+	[[noreturn]] static void vm_catch(const Scope* scope, Program* p, std::vector<uint8_t>::const_iterator& i, const E& e)
 	{
 		if (scope->op_locs.empty())
 		{

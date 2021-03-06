@@ -75,7 +75,7 @@ namespace Utopia
 		return loc;
 	}
 
-	__declspec(noreturn) void Token::throwUnexpected() const
+	[[noreturn]] void Token::throwUnexpected() const
 	{
 		getLeftmostSourceLocation().throwHere<ParseError>(std::move(std::string("Unexpected ").append(getName())));
 	}

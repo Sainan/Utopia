@@ -13,7 +13,7 @@ namespace Utopia
 
 	protected:
 		template <class E>
-		__declspec(noreturn) void impl_rethrow(const SourceLocation& loc) const
+		[[noreturn]] void impl_rethrow(const SourceLocation& loc) const
 		{
 			std::string reason(what());
 			if (got_loc)
@@ -25,6 +25,6 @@ namespace Utopia
 		}
 
 	public:
-		__declspec(noreturn) virtual void rethrow(const SourceLocation& loc) const;
+		[[noreturn]] virtual void rethrow(const SourceLocation& loc) const;
 	};
 }

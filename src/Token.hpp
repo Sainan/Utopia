@@ -49,7 +49,7 @@ namespace Utopia
 
 		[[nodiscard]] virtual const SourceLocation& getLeftmostSourceLocation() const;
 
-		__declspec(noreturn) void throwUnexpected() const;
+		[[noreturn]] void throwUnexpected() const;
 		void expectType(TokenType expected_type) const;
 	};
 }
