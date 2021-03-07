@@ -12,7 +12,7 @@ if("cwrap" in libutopia)
 	cwrap("Utopia_Program_redirectOutput", "void", ["number", "function", "number"]);
 	cwrap("Utopia_Program_redirectOutputToString", "void", ["number", "number"]);
 	cwrap("Utopia_Program_redirectWarnings", "void", ["number", "function", "number"]);
-	cwrap("Utopia_Program_redirectWarningsToString", "void", ["number", "function", "number"]);
+	cwrap("Utopia_Program_redirectWarningsToString", "void", ["number", "number"]);
 	cwrap("Utopia_Program_execute", "void", ["number"]);
 	cwrap("Utopia_Program_free", "void", ["number"]);
 
