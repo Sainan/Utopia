@@ -1,28 +1,30 @@
 #pragma once
 
-namespace Utopia
+#include <cstdint>
+
+namespace Utopia 
 {
 	template <typename T>
 	struct Shared
 	{
-		struct InternalShared
+		struct Data
 		{
-			size_t refs = 1;
 			T data;
+			size_t refs = 0;
 
-			explicit InternalShared(T&& data)
+			explicit Data(T&& data)
 				: data(std::move(data))
 			{
 			}
 		};
 
-		InternalShared* const data;
+		Data* const data;
 
 		explicit Shared(T&& data)
-			: data(new Shared<T>::InternalShared(std::move(data)))
+			: data(new Data(std::move(data)))
 		{
 		}
-		
+
 		explicit Shared(const Shared& b)
 			: data(b.data)
 		{
@@ -31,13 +33,17 @@ namespace Utopia
 
 		~Shared()
 		{
-			if (--data->refs == 0)
+			if (data->refs == 0)
 			{
 				delete data;
 			}
+			else
+			{
+				data->refs--;
+			}
 		}
 
-		operator T () const
+		operator T& () const
 		{
 			return data->data;
 		}
