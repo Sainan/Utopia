@@ -2,16 +2,16 @@
 
 #include "fwddecl.hpp"
 
+#include <memory>
 #include <string>
 
-#include "Shared.hpp"
 #include "TracableError.hpp"
 
 namespace Utopia
 {
 	struct SourceLocation
 	{
-		Shared<std::string> name;
+		const std::shared_ptr<std::string> name;
 		size_t line = 1;
 		size_t character = 1;
 		

@@ -191,7 +191,6 @@
     <ClInclude Include="read_file.hpp" />
     <ClInclude Include="replace_all.hpp" />
     <ClInclude Include="Scope.hpp" />
-    <ClInclude Include="Shared.hpp" />
     <ClInclude Include="SourceLocation.hpp" />
     <ClInclude Include="Token.hpp" />
     <ClInclude Include="TokenArithmetic.hpp" />

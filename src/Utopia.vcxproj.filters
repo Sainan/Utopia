@@ -10,9 +10,6 @@
     <ClInclude Include="SourceLocation.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="Shared.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="Data.hpp">
       <Filter>src\data</Filter>
     </ClInclude>
