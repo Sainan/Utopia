@@ -264,9 +264,11 @@
     <ClCompile Include="int_from_byte_stream.cpp">
       <Filter>src\util</Filter>
     </ClCompile>
-    <ClCompile Include="TokenEquals.cpp" />
     <ClCompile Include="DataBool.cpp">
       <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenEquals.cpp">
+      <Filter>src\tokens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
