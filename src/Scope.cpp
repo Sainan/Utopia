@@ -26,6 +26,19 @@ namespace Utopia
 		static_cast<VmError>(e).rethrow(scope->op_locs.at(i - 1 - scope->ops.cbegin()));
 	}
 
+	bool Scope::operator==(const Scope& b) const
+	{
+		if (ops != b.ops)
+		{
+			return false;
+		}
+		if (!op_locs.empty() && !b.op_locs.empty())
+		{
+			return op_locs == b.op_locs;
+		}
+		return true;
+	}
+
 	void Scope::execute(Program* p) const
 	{
 #if DEBUG_VM

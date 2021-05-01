@@ -1,5 +1,6 @@
 #include "opcodes.hpp"
 
+#include "DataBool.hpp"
 #include "DataFunction.hpp"
 #include "DataInt.hpp"
 #include "DataString.hpp"
@@ -39,6 +40,11 @@ namespace Utopia
 		return (T*)elm->get();
 	}
 
+	[[nodiscard]] static bool* getBool(Program* p, std::vector<uint8_t>::const_iterator& i)
+	{
+		return &getT<DataBool>(p, i, DATA_BOOL)->value;
+	}
+	
 	[[nodiscard]] static long long* getInt(Program* p, std::vector<uint8_t>::const_iterator& i)
 	{
 		return &getT<DataInt>(p, i, DATA_INT)->value;
@@ -146,6 +152,17 @@ namespace Utopia
 				Data* func = (*getVariable(p, i)).get();
 				func->expectType(DATA_FUNC);
 				((DataFunction*)func)->scope.execute(p);
+			}
+		},
+		// OP_EQUALS
+		{
+			3,
+			[](Program* p, std::vector<uint8_t>::const_iterator& i)
+			{
+				auto* out = getBool(p, i);
+				std::unique_ptr<Data>* left = getVariable(p, i);
+				std::unique_ptr<Data>* right = getVariable(p, i);
+				*out = (*left)->equals(**right);
 			}
 		}
 	};

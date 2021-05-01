@@ -21,4 +21,9 @@ namespace Utopia
 	{
 		return std::make_unique<DataInt>(value);
 	}
+
+	bool DataInt::equals(const Data& b) const
+	{
+		return Data::equals(b) && reinterpret_cast<const DataInt&>(b).value == value;
+	}
 }

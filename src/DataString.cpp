@@ -28,4 +28,9 @@ namespace Utopia
 	{
 		return std::make_unique<DataString>(value);
 	}
+
+	bool DataString::equals(const Data& b) const
+	{
+		return Data::equals(b) && reinterpret_cast<const DataString&>(b).value == value;
+	}
 }

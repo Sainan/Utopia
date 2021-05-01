@@ -29,6 +29,9 @@ namespace Utopia
 
 		case DATA_FUNC:
 			return "function";
+
+		case DATA_BOOL:
+			return "boolean";
 		}
 		return nullptr;
 	}
@@ -52,5 +55,10 @@ namespace Utopia
 		{
 			loc.throwHere<TypeError>(getTypeErrorMessage(expected_type));
 		}
+	}
+
+	bool Data::equals(const Data& b) const
+	{
+		return type == b.type;
 	}
 }

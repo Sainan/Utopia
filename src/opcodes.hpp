@@ -18,6 +18,7 @@ namespace Utopia
 		OP_ASSIGNMENT,
 		OP_CONCAT,
 		OP_CALL,
+		OP_EQUALS,
 
 		_OP_SIZE
 	};

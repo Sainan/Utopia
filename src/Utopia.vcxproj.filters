@@ -133,6 +133,12 @@
     <ClInclude Include="int_from_byte_stream.hpp">
       <Filter>src\util</Filter>
     </ClInclude>
+    <ClInclude Include="TokenEquals.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="DataBool.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -258,6 +264,10 @@
     <ClCompile Include="int_from_byte_stream.cpp">
       <Filter>src\util</Filter>
     </ClCompile>
+    <ClCompile Include="TokenEquals.cpp" />
+    <ClCompile Include="DataBool.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -290,6 +300,9 @@
       <Filter>examples</Filter>
     </None>
     <None Include="..\examples\func.uto">
+      <Filter>examples</Filter>
+    </None>
+    <None Include="..\examples\equality.uto">
       <Filter>examples</Filter>
     </None>
   </ItemGroup>

@@ -2,16 +2,14 @@
 
 #include "Data.hpp"
 
-#include "Scope.hpp"
-
 namespace Utopia
 {
-	class DataFunction : public Data
+	class DataBool : public Data
 	{
 	public:
-		Scope scope;
+		bool value;
 
-		explicit DataFunction(Scope&& scope);
+		explicit DataBool(bool value = false);
 
 		[[nodiscard]] std::string toString() const final;
 		[[nodiscard]] std::string toCPP() const final;

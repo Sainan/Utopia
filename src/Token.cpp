@@ -59,6 +59,9 @@ namespace Utopia
 
 		case TOKEN_CONCAT:
 			return "concatenation";
+			
+		case TOKEN_EQUALS:
+			return "is_equal";
 
 		case _TOKEN_CONTAINER_END:; // makes clang happy
 		}

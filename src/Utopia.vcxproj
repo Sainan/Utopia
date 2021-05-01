@@ -170,6 +170,7 @@
     <ClInclude Include="arithmetic.hpp" />
     <ClInclude Include="BigInt.hpp" />
     <ClInclude Include="Data.hpp" />
+    <ClInclude Include="DataBool.hpp" />
     <ClInclude Include="DataEmpty.hpp" />
     <ClInclude Include="DataFunction.hpp" />
     <ClInclude Include="DataInt.hpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="TokenContainer.hpp" />
     <ClInclude Include="TokenAssignment.hpp" />
     <ClInclude Include="TokenDivide.hpp" />
+    <ClInclude Include="TokenEquals.hpp" />
     <ClInclude Include="TokenFunction.hpp" />
     <ClInclude Include="TokenInt.hpp" />
     <ClInclude Include="TokenLiteral.hpp" />
@@ -216,6 +218,7 @@
     <ClCompile Include="arithmetic.cpp" />
     <ClCompile Include="BigInt.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="DataBool.cpp" />
     <ClCompile Include="DataEmpty.cpp" />
     <ClCompile Include="DataFunction.cpp" />
     <ClCompile Include="DataInt.cpp" />
@@ -243,6 +246,7 @@
     <ClCompile Include="TokenConcat.cpp" />
     <ClCompile Include="TokenContainer.cpp" />
     <ClCompile Include="TokenDivide.cpp" />
+    <ClCompile Include="TokenEquals.cpp" />
     <ClCompile Include="TokenFunction.cpp" />
     <ClCompile Include="TokenInt.cpp" />
     <ClCompile Include="TokenLiteral.cpp" />
@@ -257,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\examples\calc.uto" />
+    <None Include="..\examples\equality.uto" />
     <None Include="..\examples\func.uto" />
     <None Include="..\examples\hello.uto" />
   </ItemGroup>

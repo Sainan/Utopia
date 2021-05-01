@@ -16,6 +16,7 @@
 #include "TokenBlock.hpp"
 #include "TokenConcat.hpp"
 #include "TokenDivide.hpp"
+#include "TokenEquals.hpp"
 #include "TokenFunction.hpp"
 #include "TokenInt.hpp"
 #include "TokenLiteral.hpp"
@@ -91,18 +92,25 @@ namespace Utopia
 		{
 			return;
 		}
-		try
+		if (literal_buffer.value().data == "=")
 		{
-			long long value = std::stoll(literal_buffer.value().data);
-			tokens.emplace_back(std::make_unique<TokenInt>(literal_buffer.value().loc, value));
+			tokens.emplace_back(std::make_unique<TokenAssignment>(literal_buffer.value().loc));
 		}
-		catch (const std::exception&)
+		else if (literal_buffer.value().data == "_end_parsing")
 		{
-			if (literal_buffer.value().data == "_end_parsing")
+			throw InternalExceptionEndParsing();
+		}
+		else
+		{
+			try
 			{
-				throw InternalExceptionEndParsing();
+				long long value = std::stoll(literal_buffer.value().data);
+				tokens.emplace_back(std::make_unique<TokenInt>(literal_buffer.value().loc, value));
 			}
-			tokens.emplace_back(std::make_unique<TokenLiteral>(literal_buffer.value().loc, std::move(literal_buffer.value().data)));
+			catch (const std::exception&)
+			{
+				tokens.emplace_back(std::make_unique<TokenLiteral>(literal_buffer.value().loc, std::move(literal_buffer.value().data)));
+			}
 		}
 		literal_buffer.reset();
 	}
@@ -279,6 +287,9 @@ namespace Utopia
 
 		case TOKEN_CONCAT:
 			return emplaceContainer(p, scope, var_map, token, OP_CONCAT);
+
+		case TOKEN_EQUALS:
+			return emplaceContainer(p, scope, var_map, token, OP_EQUALS);
 		}
 		token->throwUnexpected();
 	}
@@ -302,6 +313,15 @@ namespace Utopia
 						loc.character++;
 						break;
 
+					case '=':
+						if (literal_buffer.has_value() && literal_buffer.value().data == "=")
+						{
+							literal_buffer.reset();
+							tokens.emplace_back(std::make_unique<TokenEquals>(loc));
+							loc.character++;
+							break;
+						}
+						[[fallthrough]];
 					default:
 						if (literal_buffer.has_value())
 						{
@@ -410,12 +430,6 @@ namespace Utopia
 							tokens.emplace_back(std::make_unique<TokenDivide>(loc));
 							loc.character++;
 						}
-						break;
-
-					case '=':
-						finishLiteralToken(tokens, literal_buffer);
-						tokens.emplace_back(std::make_unique<TokenAssignment>(loc));
-						loc.character++;
 						break;
 
 					case '#':
@@ -708,6 +722,34 @@ namespace Utopia
 			}
 #endif
 			profilingEndSection("Squash Assignment");
+		}
+		{
+			profilingStartSection("Squash Equals");
+#if DEBUG_TOKENS
+			auto pre_squash_size = tokens.size();
+#endif
+			auto i = tokens.begin();
+			while (i != tokens.end())
+			{
+				Token* const token = i->get();
+				switch (token->type)
+				{
+				default:
+					i++;
+					break;
+
+				case TOKEN_EQUALS:
+					squashIntoContainer(tokens, i);
+					break;
+				}
+			}
+#if DEBUG_TOKENS
+			if (tokens.size() != pre_squash_size)
+			{
+				printTokens("Squash Equals", tokens);
+			}
+#endif
+			profilingEndSection("Squash Equals");
 		}
 
 		profilingStartSection("Assemble Variables");

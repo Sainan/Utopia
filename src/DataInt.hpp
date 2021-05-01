@@ -15,5 +15,7 @@ namespace Utopia
 		[[nodiscard]] std::string toCPP() const final;
 
 		[[nodiscard]] std::unique_ptr<Data> copy() const final;
+
+		[[nodiscard]] bool equals(const Data& b) const final;
 	};
 }

@@ -32,4 +32,9 @@ namespace Utopia
 	{
 		return std::make_unique<DataFunction>(Scope{ scope });
 	}
+
+	bool DataFunction::equals(const Data& b) const
+	{
+		return Data::equals(b) && reinterpret_cast<const DataFunction&>(b).scope == scope;
+	}
 }

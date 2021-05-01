@@ -17,6 +17,8 @@ namespace Utopia
 		
 		explicit SourceLocation(std::string&& name);
 
+		bool operator==(const SourceLocation& b) const;
+
 		void newline();
 
 		[[nodiscard]] std::string toString() const;

@@ -7,6 +7,11 @@ namespace Utopia
 	{
 	}
 
+	bool SourceLocation::operator==(const SourceLocation& b) const
+	{
+		return *name == *b.name && line == b.line && character == b.character;
+	}
+
 	void SourceLocation::newline()
 	{
 		line++;

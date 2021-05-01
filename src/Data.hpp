@@ -13,6 +13,7 @@ namespace Utopia
 		DATA_STRING,
 		DATA_INT,
 		DATA_FUNC,
+		DATA_BOOL,
 	};
 
 	class Data
@@ -37,5 +38,7 @@ namespace Utopia
 		[[nodiscard]] virtual std::string toCPP() const = 0;
 
 		[[nodiscard]] virtual std::unique_ptr<Data> copy() const = 0;
+
+		[[nodiscard]] virtual bool equals(const Data& b) const;
 	};
 }

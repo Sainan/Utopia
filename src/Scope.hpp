@@ -14,6 +14,8 @@ namespace Utopia
 		std::vector<uint8_t> ops = {};
 		std::vector<SourceLocation> op_locs = {}; // "debug information"
 
+		bool operator==(const Scope& b) const;
+
 		void execute(Program* p) const;
 	};
 }
