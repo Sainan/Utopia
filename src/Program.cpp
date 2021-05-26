@@ -107,7 +107,7 @@ namespace Utopia
 				long long value = std::stoll(literal_buffer.value().data);
 				tokens.emplace_back(std::make_unique<TokenInt>(literal_buffer.value().loc, value));
 			}
-			catch (const std::exception&)
+			catch (const std::invalid_argument&)
 			{
 				tokens.emplace_back(std::make_unique<TokenLiteral>(literal_buffer.value().loc, std::move(literal_buffer.value().data)));
 			}
