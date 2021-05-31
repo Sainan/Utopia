@@ -17,6 +17,8 @@ namespace Utopia
 	protected:
 		using Token::Token;
 
+		explicit TokenContainer(TokenType type, TokenContainer&& b);
+
 	public:
 		[[nodiscard]] const SourceLocation& getLeftmostSourceLocation() const final;
 	};

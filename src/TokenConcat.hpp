@@ -8,6 +8,7 @@ namespace Utopia
 	{
 	public:
 		explicit TokenConcat(const SourceLocation& loc);
+		explicit TokenConcat(TokenContainer&& b);
 
 		[[nodiscard]] DataType getReturnType() const final;
 	};

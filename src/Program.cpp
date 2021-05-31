@@ -637,6 +637,13 @@ namespace Utopia
 					break;
 
 				case TOKEN_PLUS:
+					squashIntoContainer(tokens, i);
+					if (((TokenContainer*)token)->left->getReturnType() == DATA_STRING || ((TokenContainer*)token)->right->getReturnType() == DATA_STRING)
+					{
+						*(i - 1) = std::make_unique<TokenConcat>(std::move(*(TokenContainer*)token));
+					}
+					break;
+
 				case TOKEN_MINUS:
 					squashIntoContainer(tokens, i);
 					break;

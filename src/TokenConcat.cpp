@@ -7,6 +7,11 @@ namespace Utopia
 	{
 	}
 
+	TokenConcat::TokenConcat(TokenContainer&& b)
+		: TokenContainer(TOKEN_CONCAT, std::move(b))
+	{
+	}
+
 	DataType TokenConcat::getReturnType() const
 	{
 		return DATA_STRING;

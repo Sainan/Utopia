@@ -86,7 +86,7 @@ int main()
 )", "Hello,\rworld!");
 
 	assertOutput("Order of Operations", R"(echo 65 + 2 * 2)", "69");
-	//assertOutput("By-Value", R"(two = 2; res = 65 + two * 2; echo res + " " + two)", "69 2");
+	assertOutput("By-Value", R"(two = 2; res = 65 + two * 2; echo res + " " + two)", "69 2");
 	assertOutput("Variable Override", R"(res = 40; res = res + 2; echo res)", "42");
 
 	assertOutput("Int Equality", R"(echo 1 == 1)", "true");
