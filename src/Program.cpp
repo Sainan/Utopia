@@ -312,10 +312,6 @@ namespace Utopia
 					char c = *i++;
 					switch (c)
 					{
-					case '\r':
-						loc.character++;
-						break;
-
 					case '=':
 						if (literal_buffer.has_value() && literal_buffer.value().data == "=")
 						{
@@ -334,6 +330,8 @@ namespace Utopia
 						{
 							literal_buffer.emplace(loc, c);
 						}
+						[[fallthrough]];
+					case '\r':
 						loc.character++;
 						break;
 
