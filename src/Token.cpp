@@ -13,11 +13,6 @@ namespace Utopia
 	{
 	}
 
-	bool Token::isRValue() const
-	{
-		return type < _TOKEN_RVALUE_END;
-	}
-
 	bool Token::isContainer() const
 	{
 		return type >= _TOKEN_CONTAINER_BEGIN && type < _TOKEN_CONTAINER_END;
@@ -71,6 +66,11 @@ namespace Utopia
 	std::string Token::getName() const
 	{
 		return getTypeName(type);
+	}
+
+	DataType Token::getReturnType() const
+	{
+		return DATA_EMPTY;
 	}
 
 	const SourceLocation& Token::getLeftmostSourceLocation() const

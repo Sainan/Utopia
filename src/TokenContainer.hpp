@@ -19,7 +19,5 @@ namespace Utopia
 
 	public:
 		[[nodiscard]] const SourceLocation& getLeftmostSourceLocation() const final;
-
-		[[nodiscard]] virtual std::unique_ptr<Data> attemptToEvaluate() const;
 	};
 }

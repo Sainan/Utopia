@@ -11,4 +11,9 @@ namespace Utopia
 	{
 		return std::string("integer '").append(std::to_string(value)).append(1, '\'');
 	}
+
+	DataType TokenInt::getReturnType() const
+	{
+		return DATA_INT;
+	}
 }

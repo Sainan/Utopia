@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 
+#include "DataType.hpp"
 #include "SourceLocation.hpp"
 
 namespace Utopia
@@ -41,12 +42,12 @@ namespace Utopia
 	public:
 		virtual ~Token();
 
-		[[nodiscard]] virtual bool isRValue() const;
-
 		[[nodiscard]] bool isContainer() const;
 
 		[[nodiscard]] static const char* getTypeName(const TokenType type);
 		[[nodiscard]] virtual std::string getName() const;
+
+		[[nodiscard]] virtual DataType getReturnType() const;
 
 		[[nodiscard]] virtual const SourceLocation& getLeftmostSourceLocation() const;
 

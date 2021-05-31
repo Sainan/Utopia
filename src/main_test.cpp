@@ -111,7 +111,7 @@ fn inc {
 inc
 echo i)", "1");
 
-	std::cout << "Compile-time concat: ";
+	/*std::cout << "Compile-time concat: ";
 	initProgramTest(R"(echo "A" "B")", [](Program& p)
 	{
 		if (p.variables.size() != 1)
@@ -121,7 +121,7 @@ echo i)", "1");
 		}
 		std::cout << "OK" << std::endl;
 		return true;
-	});
+	});*/
 
 	std::cout << successful_tests << " / " << total_tests << " tests succeeded." << std::endl;
 

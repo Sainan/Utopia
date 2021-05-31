@@ -209,20 +209,13 @@ namespace Utopia
 	[[nodiscard]] static VariableData emplaceContainer(Program& p, Scope& scope, const std::unordered_map<std::string, size_t>& var_map, TokenContainer* token, const OpCode opcode)
 	{
 		VariableData var{ p.variables.size(), token->getLeftmostSourceLocation() };
-		if (std::unique_ptr<Data> data = token->attemptToEvaluate())
-		{
-			p.variables.emplace_back(std::move(data));
-		}
-		else
-		{
-			p.variables.emplace_back(std::make_unique<DataEmpty>());
-			auto l_var = expandVariable(p, scope, var_map, ((TokenContainer*)token)->left.get());
-			auto r_var = expandVariable(p, scope, var_map, ((TokenContainer*)token)->right.get());
-			emplaceOp(scope, opcode, token);
-			emplaceOp(scope, var);
-			emplaceOp(scope, l_var);
-			emplaceOp(scope, r_var);
-		}
+		p.variables.emplace_back(std::make_unique<DataEmpty>());
+		auto l_var = expandVariable(p, scope, var_map, ((TokenContainer*)token)->left.get());
+		auto r_var = expandVariable(p, scope, var_map, ((TokenContainer*)token)->right.get());
+		emplaceOp(scope, opcode, token);
+		emplaceOp(scope, var);
+		emplaceOp(scope, l_var);
+		emplaceOp(scope, r_var);
 		return var;
 	}
 
@@ -667,7 +660,7 @@ namespace Utopia
 						}
 						if (i + 1 != tokens.end())
 						{
-							if ((*(i + 1))->isRValue())
+							if ((*(i + 1))->getReturnType() == DATA_STRING)
 							{
 								auto concat = std::make_unique<TokenConcat>(token->loc);
 								concat->left = std::move(*i);
@@ -761,39 +754,19 @@ namespace Utopia
 				((TokenAssignment*)token)->left->expectType(TOKEN_LITERAL);
 				std::string& var_name = ((TokenLiteral*)((TokenAssignment*)token)->left.get())->literal;
 				auto r_val = expandVariable(p, scope, var_map, ((TokenAssignment*)token)->right.get());
-				if (((TokenAssignment*)token)->right->isRValue())
+				emplaceOp(scope, OP_ASSIGNMENT, token);
+				auto var_map_entry = var_map.find(var_name);
+				if (var_map_entry == var_map.end())
 				{
-					auto var_map_entry = var_map.find(var_name);
-					if (var_map_entry == var_map.end())
-					{
-						var_map.emplace(std::move(var_name), r_val.index);
-					}
-					else
-					{
-						{
-							auto warning = std::make_unique<Warning>(std::move(std::string("Reassignment of constant variable '").append(var_name).append(1, '\'')), token->getLeftmostSourceLocation());
-							p.warn_func(warning.get(), p.warn_func_arg);
-						}
-						p.variables.at(var_map_entry->second) = std::move(p.variables.at(r_val.index));
-						p.variables.erase(p.variables.cbegin() + r_val.index);
-					}
+					var_map.emplace(std::move(var_name), p.variables.size());
+					emplaceOp(scope, p.variables.size(), ((TokenAssignment*)token)->left.get());
+					p.variables.emplace_back(std::make_unique<DataEmpty>());
 				}
 				else
 				{
-					emplaceOp(scope, OP_ASSIGNMENT, token);
-					auto var_map_entry = var_map.find(var_name);
-					if (var_map_entry == var_map.end())
-					{
-						var_map.emplace(std::move(var_name), p.variables.size());
-						emplaceOp(scope, p.variables.size(), ((TokenAssignment*)token)->left.get());
-						p.variables.emplace_back(std::make_unique<DataEmpty>());
-					}
-					else
-					{
-						emplaceOp(scope, var_map_entry->second, ((TokenAssignment*)token)->left.get());
-					}
-					emplaceOp(scope, r_val);
+					emplaceOp(scope, var_map_entry->second, ((TokenAssignment*)token)->left.get());
 				}
+				emplaceOp(scope, r_val);
 			}
 		}
 		profilingEndSection("Assemble Variables");

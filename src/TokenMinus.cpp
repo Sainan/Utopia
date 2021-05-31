@@ -3,7 +3,7 @@
 namespace Utopia
 {
 	TokenMinus::TokenMinus(const SourceLocation& loc)
-		: TokenArithmetic(TOKEN_MINUS, loc, &arithmetic_minus)
+		: TokenArithmetic(TOKEN_MINUS, loc)
 	{
 	}
 }

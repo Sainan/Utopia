@@ -9,8 +9,6 @@ namespace Utopia
 	public:
 		explicit TokenConcat(const SourceLocation& loc);
 
-		[[nodiscard]] bool isRValue() const final;
-
-		[[nodiscard]] std::unique_ptr<Data> attemptToEvaluate() const final;
+		[[nodiscard]] DataType getReturnType() const final;
 	};
 }
