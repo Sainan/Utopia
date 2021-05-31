@@ -5,17 +5,10 @@
 #include <memory>
 #include <string>
 
+#include "DataType.hpp"
+
 namespace Utopia
 {
-	enum DataType
-	{
-		DATA_EMPTY,
-		DATA_STRING,
-		DATA_INT,
-		DATA_FUNC,
-		DATA_BOOL,
-	};
-
 	class Data
 	{
 	public:

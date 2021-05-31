@@ -139,6 +139,9 @@
     <ClInclude Include="DataBool.hpp">
       <Filter>src\data</Filter>
     </ClInclude>
+    <ClInclude Include="DataType.hpp">
+      <Filter>src\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">

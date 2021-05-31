@@ -175,6 +175,7 @@
     <ClInclude Include="DataFunction.hpp" />
     <ClInclude Include="DataInt.hpp" />
     <ClInclude Include="DataString.hpp" />
+    <ClInclude Include="DataType.hpp" />
     <ClInclude Include="Error.hpp" />
     <ClInclude Include="escape_block_string.hpp" />
     <ClInclude Include="escape_string.hpp" />
