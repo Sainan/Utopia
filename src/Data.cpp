@@ -34,6 +34,8 @@ namespace Utopia
 
 		case DATA_BOOL:
 			return "boolean";
+
+		case DATA_EMPTY:; // makes clang happy
 		}
 		return nullptr;
 	}
@@ -74,8 +76,9 @@ namespace Utopia
 
 		case DATA_BOOL:
 			return std::make_unique<DataBool>();
-		}
 
+		case DATA_EMPTY:; // makes clang happy
+		}
 		return std::unique_ptr<Data>();
 	}
 
