@@ -11,7 +11,7 @@ namespace Utopia
 	public:
 		Scope scope;
 
-		explicit DataFunction(Scope&& scope);
+		explicit DataFunction(Scope&& scope = {});
 
 		[[nodiscard]] std::string toString() const final;
 		[[nodiscard]] std::string toCPP() const final;

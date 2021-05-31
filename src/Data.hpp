@@ -30,6 +30,8 @@ namespace Utopia
 		[[nodiscard]] virtual std::string toString() const = 0;
 		[[nodiscard]] virtual std::string toCPP() const = 0;
 
+		[[nodiscard]] static std::unique_ptr<Data> instantiateType(DataType type);
+
 		[[nodiscard]] virtual std::unique_ptr<Data> copy() const = 0;
 
 		[[nodiscard]] virtual bool equals(const Data& b) const;

@@ -29,14 +29,7 @@ namespace Utopia
 	[[nodiscard]] static T* getT(Program* p, std::vector<uint8_t>::const_iterator& i, const DataType type)
 	{
 		std::unique_ptr<Data>* elm = getVariable(p, i);
-		if ((*elm)->type == DATA_EMPTY)
-		{
-			*elm = std::make_unique<T>();
-		}
-		else
-		{
-			(*elm)->expectType(type);
-		}
+		(*elm)->expectType(type);
 		return (T*)elm->get();
 	}
 

@@ -55,9 +55,6 @@
     <ClInclude Include="TokenConcat.hpp">
       <Filter>src\tokens</Filter>
     </ClInclude>
-    <ClInclude Include="DataEmpty.hpp">
-      <Filter>src\data</Filter>
-    </ClInclude>
     <ClInclude Include="ParseError.hpp">
       <Filter>src\error</Filter>
     </ClInclude>
@@ -194,9 +191,6 @@
     </ClCompile>
     <ClCompile Include="TokenConcat.cpp">
       <Filter>src\tokens</Filter>
-    </ClCompile>
-    <ClCompile Include="DataEmpty.cpp">
-      <Filter>src\data</Filter>
     </ClCompile>
     <ClCompile Include="TokenContainer.cpp">
       <Filter>src\tokens</Filter>

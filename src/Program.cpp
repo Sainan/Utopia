@@ -7,7 +7,6 @@
 #include <unordered_map>
 #include <string>
 
-#include "DataEmpty.hpp"
 #include "DataFunction.hpp"
 #include "DataInt.hpp"
 #include "DataString.hpp"
@@ -32,6 +31,7 @@
 #endif
 #include "opcodes.hpp"
 #include "read_file.hpp"
+#include "TypeError.hpp"
 #include "Warning.hpp"
 
 namespace Utopia
@@ -206,10 +206,20 @@ namespace Utopia
 
 	[[nodiscard]] static VariableData expandVariable(Program& p, Scope& scope, const std::unordered_map<std::string, size_t>& var_map, Token* token);
 
+	static void createVariable(Program& p, Token* token)
+	{
+		auto data = Data::instantiateType(token->getReturnType());
+		if (!data)
+		{
+			token->loc.throwHere<TypeError>(std::move(std::string("Failed to create data instance for ").append(token->getName())));
+		}
+		p.variables.emplace_back(std::move(data));
+	}
+
 	[[nodiscard]] static VariableData emplaceContainer(Program& p, Scope& scope, const std::unordered_map<std::string, size_t>& var_map, TokenContainer* token, const OpCode opcode)
 	{
 		VariableData var{ p.variables.size(), token->getLeftmostSourceLocation() };
-		p.variables.emplace_back(std::make_unique<DataEmpty>());
+		createVariable(p, token);
 		auto l_var = expandVariable(p, scope, var_map, ((TokenContainer*)token)->left.get());
 		auto r_var = expandVariable(p, scope, var_map, ((TokenContainer*)token)->right.get());
 		emplaceOp(scope, opcode, token);
@@ -760,7 +770,7 @@ namespace Utopia
 				{
 					var_map.emplace(std::move(var_name), p.variables.size());
 					emplaceOp(scope, p.variables.size(), ((TokenAssignment*)token)->left.get());
-					p.variables.emplace_back(std::make_unique<DataEmpty>());
+					createVariable(p, ((TokenAssignment*)token)->right.get());
 				}
 				else
 				{

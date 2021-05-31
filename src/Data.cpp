@@ -1,5 +1,10 @@
 #include "Data.hpp"
 
+#include "DataBool.hpp"
+#include "DataFunction.hpp"
+#include "DataInt.hpp"
+#include "DataString.hpp"
+
 #include "SourceLocation.hpp"
 #include "TypeError.hpp"
 
@@ -18,9 +23,6 @@ namespace Utopia
 	{
 		switch (type)
 		{
-		case DATA_EMPTY:
-			return "empty";
-
 		case DATA_STRING:
 			return "string";
 			
@@ -55,6 +57,26 @@ namespace Utopia
 		{
 			loc.throwHere<TypeError>(getTypeErrorMessage(expected_type));
 		}
+	}
+
+	std::unique_ptr<Data> Data::instantiateType(DataType type)
+	{
+		switch (type)
+		{
+		case DATA_STRING:
+			return std::make_unique<DataString>();
+
+		case DATA_INT:
+			return std::make_unique<DataInt>();
+
+		case DATA_FUNC:
+			return std::make_unique<DataFunction>();
+
+		case DATA_BOOL:
+			return std::make_unique<DataBool>();
+		}
+
+		return std::unique_ptr<Data>();
 	}
 
 	bool Data::equals(const Data& b) const

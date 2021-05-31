@@ -171,7 +171,6 @@
     <ClInclude Include="BigInt.hpp" />
     <ClInclude Include="Data.hpp" />
     <ClInclude Include="DataBool.hpp" />
-    <ClInclude Include="DataEmpty.hpp" />
     <ClInclude Include="DataFunction.hpp" />
     <ClInclude Include="DataInt.hpp" />
     <ClInclude Include="DataString.hpp" />
@@ -220,7 +219,6 @@
     <ClCompile Include="BigInt.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataBool.cpp" />
-    <ClCompile Include="DataEmpty.cpp" />
     <ClCompile Include="DataFunction.cpp" />
     <ClCompile Include="DataInt.cpp" />
     <ClCompile Include="DataString.cpp" />
