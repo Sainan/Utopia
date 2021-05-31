@@ -13,5 +13,7 @@ namespace Utopia
 		explicit TokenFunction(const SourceLocation& loc, const SourceLocation& contents_start_loc, std::string&& contents);
 
 		[[nodiscard]] std::string getName() const final;
+
+		[[nodiscard]] DataType getReturnType() const final;
 	};
 }

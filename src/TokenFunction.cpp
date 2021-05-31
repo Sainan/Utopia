@@ -13,4 +13,9 @@ namespace Utopia
 	{
 		return std::string("function \"").append(escape_block_string(contents)).append(1, '"');
 	}
+
+	DataType TokenFunction::getReturnType() const
+	{
+		return DATA_FUNC;
+	}
 }

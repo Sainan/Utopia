@@ -8,5 +8,7 @@ namespace Utopia
 	{
 	public:
 		explicit TokenEquals(const SourceLocation& loc);
+
+		[[nodiscard]] DataType getReturnType() const final;
 	};
 }

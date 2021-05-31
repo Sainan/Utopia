@@ -6,4 +6,9 @@ namespace Utopia
 		: TokenContainer(TOKEN_EQUALS, loc)
 	{
 	}
+
+	DataType TokenEquals::getReturnType() const
+	{
+		return DATA_BOOL;
+	}
 }
