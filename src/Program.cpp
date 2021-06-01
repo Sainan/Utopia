@@ -7,12 +7,14 @@
 #include <unordered_map>
 #include <string>
 
+#include "DataBool.hpp"
 #include "DataFunction.hpp"
 #include "DataInt.hpp"
 #include "DataString.hpp"
 
 #include "TokenAssignment.hpp"
 #include "TokenBlock.hpp"
+#include "TokenBool.hpp"
 #include "TokenConcat.hpp"
 #include "TokenDivide.hpp"
 #include "TokenEquals.hpp"
@@ -96,6 +98,14 @@ namespace Utopia
 		if (literal_buffer.value().data == "=")
 		{
 			tokens.emplace_back(std::make_unique<TokenAssignment>(literal_buffer.value().loc));
+		}
+		else if (literal_buffer.value().data == "true")
+		{
+			tokens.emplace_back(std::make_unique<TokenBool>(literal_buffer.value().loc, true));
+		}
+		else if (literal_buffer.value().data == "false")
+		{
+			tokens.emplace_back(std::make_unique<TokenBool>(literal_buffer.value().loc, false));
 		}
 		else if (literal_buffer.value().data == "_end_parsing")
 		{
@@ -263,6 +273,14 @@ namespace Utopia
 			scopeFromString(p, s, ((TokenFunction*)token)->contents_start_loc, ((TokenFunction*)token)->contents, var_map);
 			VariableData var{ p.variables.size(), token->loc };
 			p.variables.emplace_back(std::make_unique<DataFunction>(std::move(s)));
+			return var;
+		}
+		break;
+
+		case TOKEN_BOOL:
+		{
+			VariableData var{ p.variables.size(), token->loc };
+			p.variables.emplace_back(std::make_unique<DataBool>(((TokenBool*)token)->value));
 			return var;
 		}
 		break;

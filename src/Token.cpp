@@ -28,14 +28,17 @@ namespace Utopia
 		case TOKEN_INT:
 			return "integer";
 
+		case TOKEN_FUNC:
+			return "function";
+
+		case TOKEN_BOOL:
+			return "boolean";
+
 		case TOKEN_LITERAL:
 			return "literal";
 
 		case TOKEN_BLOCK:
 			return "block";
-
-		case TOKEN_FUNC:
-			return "function";
 
 		case TOKEN_PLUS:
 			return "addition";

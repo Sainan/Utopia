@@ -91,6 +91,7 @@ int main()
 
 	assertOutput("Int Equality", R"(echo 1 == 1; echo 1 != 1)", "truefalse");
 	assertOutput("String Equality", R"(echo "Hi" == "Hi"; echo "Hi" != "Hi")", "truefalse");
+	assertOutput("Bool Equality", R"(echo true != false)", "true");
 
 	assertOutput("Comment", R"(hello = "Hello, world!" // hello = "Oh no"
 echo hello)", "Hello, world!");

@@ -196,6 +196,7 @@
     <ClInclude Include="Token.hpp" />
     <ClInclude Include="TokenArithmetic.hpp" />
     <ClInclude Include="TokenBlock.hpp" />
+    <ClInclude Include="TokenBool.hpp" />
     <ClInclude Include="TokenComparator.hpp" />
     <ClInclude Include="TokenConcat.hpp" />
     <ClInclude Include="TokenContainer.hpp" />
@@ -244,6 +245,7 @@
     <ClCompile Include="TokenArithmetic.cpp" />
     <ClCompile Include="TokenAssignment.cpp" />
     <ClCompile Include="TokenBlock.cpp" />
+    <ClCompile Include="TokenBool.cpp" />
     <ClCompile Include="TokenComparator.cpp" />
     <ClCompile Include="TokenConcat.cpp" />
     <ClCompile Include="TokenContainer.cpp" />

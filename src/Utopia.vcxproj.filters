@@ -145,6 +145,9 @@
     <ClInclude Include="TokenUnequal.hpp">
       <Filter>src\tokens</Filter>
     </ClInclude>
+    <ClInclude Include="TokenBool.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -277,6 +280,9 @@
       <Filter>src\tokens</Filter>
     </ClCompile>
     <ClCompile Include="TokenUnequal.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenBool.cpp">
       <Filter>src\tokens</Filter>
     </ClCompile>
   </ItemGroup>
