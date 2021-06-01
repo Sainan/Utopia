@@ -139,6 +139,12 @@
     <ClInclude Include="DataType.hpp">
       <Filter>src\data</Filter>
     </ClInclude>
+    <ClInclude Include="TokenComparator.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenUnequal.hpp">
+      <Filter>src\tokens</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -265,6 +271,12 @@
       <Filter>src\data</Filter>
     </ClCompile>
     <ClCompile Include="TokenEquals.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenComparator.cpp">
+      <Filter>src\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenUnequal.cpp">
       <Filter>src\tokens</Filter>
     </ClCompile>
   </ItemGroup>

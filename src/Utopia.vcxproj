@@ -196,6 +196,7 @@
     <ClInclude Include="Token.hpp" />
     <ClInclude Include="TokenArithmetic.hpp" />
     <ClInclude Include="TokenBlock.hpp" />
+    <ClInclude Include="TokenComparator.hpp" />
     <ClInclude Include="TokenConcat.hpp" />
     <ClInclude Include="TokenContainer.hpp" />
     <ClInclude Include="TokenAssignment.hpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="TokenMultiply.hpp" />
     <ClInclude Include="TokenPlus.hpp" />
     <ClInclude Include="TokenString.hpp" />
+    <ClInclude Include="TokenUnequal.hpp" />
     <ClInclude Include="TracableError.hpp" />
     <ClInclude Include="trim.hpp" />
     <ClInclude Include="TypeError.hpp" />
@@ -242,6 +244,7 @@
     <ClCompile Include="TokenArithmetic.cpp" />
     <ClCompile Include="TokenAssignment.cpp" />
     <ClCompile Include="TokenBlock.cpp" />
+    <ClCompile Include="TokenComparator.cpp" />
     <ClCompile Include="TokenConcat.cpp" />
     <ClCompile Include="TokenContainer.cpp" />
     <ClCompile Include="TokenDivide.cpp" />
@@ -253,6 +256,7 @@
     <ClCompile Include="TokenMultiply.cpp" />
     <ClCompile Include="TokenPlus.cpp" />
     <ClCompile Include="TokenString.cpp" />
+    <ClCompile Include="TokenUnequal.cpp" />
     <ClCompile Include="TracableError.cpp" />
     <ClCompile Include="trim.cpp" />
     <ClCompile Include="VmError.cpp" />

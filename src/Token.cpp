@@ -58,6 +58,9 @@ namespace Utopia
 		case TOKEN_EQUALS:
 			return "is_equal";
 
+		case TOKEN_UNEQUAL:
+			return "is_not_equal";
+
 		case _TOKEN_CONTAINER_END:; // makes clang happy
 		}
 		return nullptr;

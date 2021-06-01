@@ -157,6 +157,17 @@ namespace Utopia
 				std::unique_ptr<Data>* right = getVariable(p, i);
 				*out = (*left)->equals(**right);
 			}
+		},
+		// OP_UNEQUAL
+		{
+			3,
+			[](Program* p, std::vector<uint8_t>::const_iterator& i)
+			{
+				auto* out = getBool(p, i);
+				std::unique_ptr<Data>* left = getVariable(p, i);
+				std::unique_ptr<Data>* right = getVariable(p, i);
+				*out = !(*left)->equals(**right);
+			}
 		}
 	};
 }

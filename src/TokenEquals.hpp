@@ -1,14 +1,12 @@
 #pragma once
 
-#include "TokenContainer.hpp"
+#include "TokenComparator.hpp"
 
 namespace Utopia
 {
-	class TokenEquals : public TokenContainer
+	class TokenEquals : public TokenComparator
 	{
 	public:
 		explicit TokenEquals(const SourceLocation& loc);
-
-		[[nodiscard]] DataType getReturnType() const final;
 	};
 }

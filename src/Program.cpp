@@ -23,6 +23,7 @@
 #include "TokenMultiply.hpp"
 #include "TokenPlus.hpp"
 #include "TokenString.hpp"
+#include "TokenUnequal.hpp"
 
 #include "is_whitespace.hpp"
 #include "ParseError.hpp"
@@ -293,6 +294,9 @@ namespace Utopia
 
 		case TOKEN_EQUALS:
 			return emplaceContainer(p, scope, var_map, token, OP_EQUALS);
+
+		case TOKEN_UNEQUAL:
+			return emplaceContainer(p, scope, var_map, token, OP_UNEQUAL);
 		}
 		token->throwUnexpected();
 	}
@@ -313,12 +317,22 @@ namespace Utopia
 					switch (c)
 					{
 					case '=':
-						if (literal_buffer.has_value() && literal_buffer.value().data == "=")
+						if (literal_buffer.has_value())
 						{
-							literal_buffer.reset();
-							tokens.emplace_back(std::make_unique<TokenEquals>(loc));
-							loc.character++;
-							break;
+							if (literal_buffer.value().data == "=")
+							{
+								literal_buffer.reset();
+								tokens.emplace_back(std::make_unique<TokenEquals>(loc));
+								loc.character++;
+								break;
+							}
+							if (literal_buffer.value().data == "!")
+							{
+								literal_buffer.reset();
+								tokens.emplace_back(std::make_unique<TokenUnequal>(loc));
+								loc.character++;
+								break;
+							}
 						}
 						[[fallthrough]];
 					default:
@@ -747,6 +761,7 @@ namespace Utopia
 					break;
 
 				case TOKEN_EQUALS:
+				case TOKEN_UNEQUAL:
 					squashIntoContainer(tokens, i);
 					break;
 				}
